@@ -10,7 +10,7 @@
       </div>
       <div class="user_ipt" style="margin-top:30px;">
         <img src="../../static/images/pwd_icon.png" alt="">
-        <input type="text" v-model="password" placeholder="密码">
+        <input type="password" v-model="password" placeholder="密码">
       </div>
       <div class="user_ipt" style="margin-top:30px; display: flex; justify-content: space-between;">
         <input type="text" v-model="captcha" placeholder="请输入验证码">
@@ -23,6 +23,7 @@
 
 <script>
     import { userLogin, getYzmPic } from '../http/api.js'
+    import {getItem, setItem} from '../helpers'
     export default {
         name: 'HelloWorld',
         data () {
@@ -36,7 +37,6 @@
             }
         },
         created() {
-            console.log('----------', this.$data)
             this.getYzm();
         },
         methods: {
@@ -44,7 +44,12 @@
                 const { username, password, captcha, nowUUid } = this
                 userLogin({ username, password, captcha, uuid: nowUUid }).then(res => {
                     if (res.status == 200) {
-                        this.$router.push("/home");
+                        const { header, permissions, user, token } = res.result
+                        setItem('user_token', token)
+                        setItem('user', user)
+                        setItem('header', header)
+                        setItem('permissions', JSON.stringify(permissions))
+                        this.$router.replace("/home");
                     }
                 })
             },

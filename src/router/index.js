@@ -32,12 +32,20 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/login',
+      path: '/',
       name: 'Login',
-      component: Login
+      component: Login,
+      redirect: '/login',
+      children: [
+        {
+          path: '/login',
+          name: 'Login',
+          component: Login
+        },
+      ]
     },
     {
-      path: '/',
+      path: '/home',
       name: 'Home',
       component: Home,
       redirect: '/organization',

@@ -6,7 +6,8 @@ import router from '../router/index'
 axios.defaults.timeout = 20000;
 
 axios.interceptors.request.use(config =>  {
-    config.headers.token = '666666';
+    // config.headers.token = sessionStorage.getItem('user_token');
+    config.headers.token = '666666'
     return config
   }, (err) =>  {
       return Promise.reject(err)
