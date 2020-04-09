@@ -80,8 +80,8 @@ git commit --amend # 用本次提交结果来覆盖上次提交结果
 git remote
 “远程仓库简写”及其对应“url”列表
 git remote -v
-添加远程仓库。仓库简写origin，url为“git@gitee.com:lvchanglong/test.git”
-git remote add origin git@gitee.com:lvchanglong/test.git
+添加远程仓库。仓库简写origin，url为“git@gitee.com:lmy/test.git”
+git remote add origin git@gitee.com:lmy/test.git
 
 分支列表
 git branch
@@ -92,7 +92,7 @@ git pull origin master --allow-unrelated-histories
 
 git push origin master
 
-备注：git clone git@gitee.com:lvchanglong/test.git
+备注：git clone git@gitee.com:lmy/test.git
 
 --------------------------
 
@@ -106,18 +106,18 @@ git push origin --tags
 git branch
 git branch -v
 创建一个新分支
-git branch dev-lvchanglong
+git branch dev-lmy
 切换分支
-git checkout dev-lvchanglong
+git checkout dev-lmy
 删除分支
-git branch -D dev-lvchanglong
+git branch -D dev-lmy
 
 删除远程分支
-git push origin --delete dev-lvchanglong
+git push origin --delete dev-lmy
 
 合并分支
-git pull origin dev-lvchanglong # dev-lvchanglong拉取最新代码（git fetch && git merge）
-git merge origin/dev-lvchanglong
+git pull origin dev-lmy # dev-lmy拉取最新代码（git fetch && git merge）
+git merge origin/dev-lmy
 
 解决冲突，继续合并
 git add y.txt
