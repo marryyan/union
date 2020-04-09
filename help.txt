@@ -1,0 +1,161 @@
+生成ssh key：
+ssh-keygen -t rsa -C ""
+
+点击Enter，使用默认值...
+
+获取你生成的公钥：
+cat ~/.ssh/id_rsa.pub
+
+tag的使用：
+git tag -a 2.0.4 -m 'version 2.0.4'
+git push origin --tags
+
+Windows下，大小写不敏感问题：
+git mv Build.sh build.sh
+
+------------------------
+
+设置“用户名称”和“邮件地址”，写入到你的每一次提交中
+
+查看-全局默认值
+git config --global user.name
+git config --global user.email
+
+查看-手动指定(项目根目录)
+git config user.name shensijun
+git config user.email shensijun@example.com
+
+写入-全局默认值
+git config --global user.name "John Doe"
+git config --global user.email johndoe@example.com
+
+写入-手动指定(项目根目录)
+git config user.name "John Doe"
+git config user.email johndoe@example.com
+
+项目初始化
+git init
+
+新建两个文件y.txt，n.txt，输入些许内容y0, n0，git status查看状态（都是未跟踪）
+
+git add y.txt => y.txt已跟踪 => y.txt 将会被提交（加入到下次提交中）
+
+修改两个文件y.txt和n.txt，加入y1, n1，查看状态
+
+y.txt已修改，n.txt未跟踪
+
+新建 xxx.docx，加入内容“我爱北京天安门”
+
+提交时想忽略xxx.docx，怎么办？
+
+建立.gitignore 指定文件忽略策略。那么，如何建立？“.gitignore.”
+添加内容*.docx，保存后查看状态
+
+# no .a files
+*.a
+# but do track lib.a, even though you're ignoring .a files above
+!lib.a
+# only ignore the TODO file in the current directory, not subdir/TODO
+/TODO
+# ignore all files in the build/ directory
+build/
+# ignore doc/notes.txt, but not doc/server/arch.txt
+doc/*.txt
+# ignore all .pdf files in the doc/ directory
+doc/**/*.pdf
+
+git rm y.txt # 取消文件的提交
+
+git commit -m '初次提交'
+
+git add y.txt
+git commit -m '再次提交'
+
+git add z.txt
+git commit --amend # 用本次提交结果来覆盖上次提交结果
+
+----------------------------
+
+“远程仓库简写”列表
+git remote
+“远程仓库简写”及其对应“url”列表
+git remote -v
+添加远程仓库。仓库简写origin，url为“git@gitee.com:lvchanglong/test.git”
+git remote add origin git@gitee.com:lvchanglong/test.git
+
+分支列表
+git branch
+
+origin 默认远程仓库名，无特殊含义。master也是同样的道理
+
+git pull origin master --allow-unrelated-histories
+
+git push origin master
+
+备注：git clone git@gitee.com:lvchanglong/test.git
+
+--------------------------
+
+创建“标签”（附注）
+git tag -a 1.1 -m '版本 => 1.1'
+显式推送标签
+git push origin --tags
+
+-----------------------------
+分支列表
+git branch
+git branch -v
+创建一个新分支
+git branch dev-lvchanglong
+切换分支
+git checkout dev-lvchanglong
+删除分支
+git branch -D dev-lvchanglong
+
+删除远程分支
+git push origin --delete dev-lvchanglong
+
+合并分支
+git pull origin dev-lvchanglong # dev-lvchanglong拉取最新代码（git fetch && git merge）
+git merge origin/dev-lvchanglong
+
+解决冲突，继续合并
+git add y.txt
+git merge --continue
+
+放弃合并 git revert HEAD~
+
+强制更新
+git push -f origin home
+--------------------
+
+存储“已修改”数据，生成存储记录
+git stash
+
+查看存储记录
+git stash list
+
+取回“已修改”数据
+git stash apply stash@{0} # 存储记录，不会丢失 => git stash apply
+
+git stash pop # 存储记录，会消失
+
+------------------------
+
+生成密钥，ssh-kengen
+
+查看引用日志，git reflog
+
+-----------------------
+
+git branch hotfix
+git checkcout hotfix
+
+创建并切换分支
+git checkout -b hotfix
+
+删除分支
+git branch -d hotfix
+
+分支重命名
+git branch -m hotfix bugfix
