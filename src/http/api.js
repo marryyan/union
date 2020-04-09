@@ -44,7 +44,7 @@ export function postBaseBaseunioninfoDelete (data){
 }
 
 // 基础档案---税所机构库 税所左树
-export function getBasebasetaxtreetree (){
+export function getBasebasetaxtreetree (data){
   const url = `/union/base/basetaxtree/tree`;
   return getApi(url, data)
 }

@@ -79,7 +79,7 @@
 </template>
 <script>
 import DialogCommon from '@/components/dialogCommon';
-import { postStoreStoretaxtempImportexcel, postStoreStoretaxtempList, postStoreStoretaxtempHasfulllist } from '@/http/api'
+import { postStoreStoretaxtempImportexcel, postStoreStoretaxtempList, postStoreStoretaxtempHasfulllist, postStoreStoretaxtempDelete } from '@/http/api'
 export default {
   components: {
     DialogCommon
@@ -102,7 +102,8 @@ export default {
         totalPage: 100, // 总页数
       },
       centerText: '是否确定删除该税务入库信息？',
-      centerDialogVisible: false
+      centerDialogVisible: false,
+      deleteId: ''
     }
   },
   mounted(){
@@ -162,9 +163,20 @@ export default {
     },
     handleDelete(index, row) {
       this.centerDialogVisible = true
+      this.deleteId = row.id
     },
     sureDelDialog(){
       this.centerDialogVisible = false
+      postStoreStoretaxtempDelete({
+        ids: this.deleteId
+      }).then(res => {
+        if (res.status == 200) {
+          this.$message.success('删除成功！');
+          this.page.currPage = 1
+          this.tableData = []
+          this.postStoreStoretaxtempList()
+        }
+      })
     },
     cancleDelDialog(){
       this.centerDialogVisible = false

@@ -268,6 +268,14 @@ import { postBaseBasecompanyinfoPagehas, postBaseBasecompanyinfoPageno } from '@
       handleTabClick(tab) {
         this.page.currPage = 1
         this.tableData = []
+        this.formInline.unionBelongsto = ''
+        this.formInline.taxBelongsComp = ''
+        this.formInline.areaName = ''
+        this.formInline.compCode = ''
+        this.formInline.compName = ''
+        this.formInline.startDate = ''
+        this.formInline.endDate = ''
+        this.daterange = []
         this.tabName = tab.label
         if(this.tabName == '已建会'){
           this.postBaseBasecompanyinfoPagehas()
