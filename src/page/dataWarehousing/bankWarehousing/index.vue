@@ -44,13 +44,9 @@
                   :headers="{ token: '666666' }"
                   :on-success="handleSuccess"
                   :limit="1"
-                  :show-file-list="false"
                   :file-list="form.fileList">
                   <el-button style="margin-left: 20px" size="mini" type="warning">xls导入</el-button>
                 </el-upload>
-                <el-table :data="form.fileList">
-                  <el-table-column property="name" label="导入文件列表"></el-table-column>
-                </el-table>
               </el-form-item>
               <el-form-item label="数据版本号" required>
                 <el-select v-model="form.versionNo" placeholder="请选择数据版本号">
@@ -105,7 +101,7 @@
 </template>
 <script>
     import DialogCommon from '@/components/dialogCommon';
-    import { postStoreStorebanktempList, postStoreStorebanktempImportexcel, postStoreStoreversionListNotInStorage } from '@/http/dataStorageApi'
+    import { dataStorageApis } from '@/http/api'
     export default {
         components: {
             DialogCommon
@@ -148,7 +144,7 @@
                     "summary": this.formInline.summary, // 摘要
                     "user": this.formInline.user
                 }
-                postStoreStorebanktempList(data).then(res=> {
+                dataStorageApis.postStoreStorebanktempList(data).then(res=> {
                     this.tableData = res.result.list
                     this.page.totalPage = res.result.totalCount
                 })
@@ -176,7 +172,6 @@
                 // this.tableData = []
                 this.page.currPage = val
                 this.postStoreStorebanktempList()
-                console.log(`当前页: ${val}`);
             },
             handleSuccess(response, file, fileList) {
                 this.form.fileList = fileList
@@ -201,7 +196,7 @@
                     .catch(_ => {});
             },
             openDrawer() {
-                postStoreStoreversionListNotInStorage().then(res => {
+                dataStorageApis.postStoreStoreversionListNotInStorage().then(res => {
                     const { status, result } = res
                     if (status === 200) {
                         this.drawer = true
@@ -220,7 +215,7 @@
                     return
                 }
                 const { response: { result } } = fileList[0]
-                postStoreStorebanktempImportexcel({
+                dataStorageApis.postStoreStorebanktempImportexcel({
                     fileId: result,
                     versionNo
                 }).then(res => {

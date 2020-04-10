@@ -29,11 +29,11 @@
   </div>
 </template>
 <script>
-import { getBasebasetaxinfoInfo, postBasebasetaxinfoSave, postBasebasetaxinfoUpdate } from '@/http/api'
+import basicFileApis from '@/http/api'
   export default {
     data() {
       return {
-        showAdd: false, 
+        showAdd: false,
         formLabelAlign: {
           "taxTreeId":"",//所属税务所id
           "taxName":"",//税务局名称
@@ -67,7 +67,7 @@ import { getBasebasetaxinfoInfo, postBasebasetaxinfoSave, postBasebasetaxinfoUpd
         let data ={
           id: this.$route.query.id
         }
-        getBasebasetaxinfoInfo(data).then(res => {
+          basicFileApis.getBasebasetaxinfoInfo(data).then(res => {
           this.formLabelAlign = res.result
         })
       },
@@ -81,7 +81,7 @@ import { getBasebasetaxinfoInfo, postBasebasetaxinfoSave, postBasebasetaxinfoUpd
           "master":this.formLabelAlign.master,//负责人
           "phone":this.formLabelAlign.phone,//联系方式
         }
-        postBasebasetaxinfoSave(data).then(res => {
+          basicFileApis.postBasebasetaxinfoSave(data).then(res => {
           if (res.status == 200) {
               this.$message.success('新增成功！');
               this.$router.push({
@@ -101,7 +101,7 @@ import { getBasebasetaxinfoInfo, postBasebasetaxinfoSave, postBasebasetaxinfoUpd
           "master":this.formLabelAlign.master,//负责人
           "phone":this.formLabelAlign.phone,//联系方式
         }
-        postBasebasetaxinfoUpdate(data).then(res => {
+          basicFileApis.postBasebasetaxinfoUpdate(data).then(res => {
           if (res.status == 200) {
               this.$message.success('编辑成功！');
               this.$router.push({

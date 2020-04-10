@@ -29,11 +29,11 @@
   </div>
 </template>
 <script>
-import { postBaseBaseunioninfoSave, getBaseBaseunioninfoInfo, postBaseBaseunioninfoUpdate } from '@/http/api'
+import basicFileApis from '@/http/api'
   export default {
     data() {
       return {
-        showAdd: false, 
+        showAdd: false,
         formLabelAlign: {
           "unionTreeId":"",//所属总工会id（必填）
           "unionName":"",//工会名称（必填）
@@ -66,8 +66,8 @@ import { postBaseBaseunioninfoSave, getBaseBaseunioninfoInfo, postBaseBaseunioni
       getBaseBaseunioninfoInfo(){
         let data ={
           id: this.$route.query.id
-        }
-        getBaseBaseunioninfoInfo(data).then(res => {
+        };
+        basicFileApis.getBaseBaseunioninfoInfo(data).then(res => {
           this.formLabelAlign = res.result
         })
       },
@@ -80,8 +80,8 @@ import { postBaseBaseunioninfoSave, getBaseBaseunioninfoInfo, postBaseBaseunioni
           "accountNumber":this.formLabelAlign.accountNumber,//账户号
           "master":this.formLabelAlign.master,//负责人
           "phone":this.formLabelAlign.phone,//联系方式
-        }
-        postBaseBaseunioninfoSave(data).then(res => {
+        };
+        basicFileApis.postBaseBaseunioninfoSave(data).then(res => {
           if (res.status == 200) {
               this.$message.success('新增成功！');
               this.$router.push({
@@ -101,7 +101,7 @@ import { postBaseBaseunioninfoSave, getBaseBaseunioninfoInfo, postBaseBaseunioni
           "master":this.formLabelAlign.master,//负责人
           "phone":this.formLabelAlign.phone,//联系方式
         }
-        postBaseBaseunioninfoUpdate(data).then(res => {
+          basicFileApis.postBaseBaseunioninfoUpdate(data).then(res => {
           if (res.status == 200) {
               this.$message.success('编辑成功！');
               this.$router.push({

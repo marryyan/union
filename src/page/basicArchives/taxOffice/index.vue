@@ -46,7 +46,7 @@
       </el-table>
       <el-pagination
       style="margin: 15px 0"
-      @current-change="handleCurrentChange" 
+      @current-change="handleCurrentChange"
       :current-page.sync="page.currPage"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper"
@@ -54,16 +54,16 @@
     </el-pagination>
     </div>
     <!-- 弹窗 -->
-    <DialogCommon 
-    :centerText="centerText" 
-    :centerDialogVisible="centerDialogVisible" 
+    <DialogCommon
+    :centerText="centerText"
+    :centerDialogVisible="centerDialogVisible"
     @delDialog="sureDelDialog"
     @cancleDialog="cancleDelDialog"></DialogCommon>
   </div>
 </template>
 <script>
 import DialogCommon from '@/components/dialogCommon';
-import { getBasebasetaxtreetree, postBasebasetaxinfoPage, getBasebasetaxinfoDelete } from '@/http/api'
+import basicFileApis from '@/http/api'
 export default {
   components: {
     DialogCommon
@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     getBasebasetaxtreetree(){
-      getBasebasetaxtreetree().then(res => {
+        basicFileApis.getBasebasetaxtreetree().then(res => {
         this.data.push(res.result)
       })
     },
@@ -109,7 +109,7 @@ export default {
         "accountName":this.formInline.accountName,//账户名称
         "treeId":this.treeId,//所属税所树id（点击左侧树节点的id）
       }
-      postBasebasetaxinfoPage(data).then(res => {
+        basicFileApis.postBasebasetaxinfoPage(data).then(res => {
         this.tableData = res.result.list
         this.page.totalPage = res.result.totalCount
       })
@@ -145,7 +145,7 @@ export default {
     },
     sureDelDialog(){
       this.centerDialogVisible = false
-      getBasebasetaxinfoDelete({
+        basicFileApis.getBasebasetaxinfoDelete({
         id: this.deleteId
       }).then(res => {
         if (res.status == 200) {

@@ -46,16 +46,16 @@
       </el-table>
       <el-pagination
       style="margin: 15px 0"
-      @current-change="handleCurrentChange" 
+      @current-change="handleCurrentChange"
       :current-page.sync="page.currPage"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper"
       :total="page.totalPage">
     </el-pagination>
     <!-- 弹窗 -->
-    <DialogCommon 
-    :centerText="centerText" 
-    :centerDialogVisible="centerDialogVisible" 
+    <DialogCommon
+    :centerText="centerText"
+    :centerDialogVisible="centerDialogVisible"
     @delDialog="sureDelDialog"
     @cancleDialog="cancleDelDialog"></DialogCommon>
     </div>
@@ -63,7 +63,7 @@
 </template>
 <script>
 import DialogCommon from '@/components/dialogCommon';
-import { getBaseBaseuniontree, postBaseunioninfoPage, postBaseBaseunioninfoDelete } from '@/http/api'
+import basicFileApis from '@/http/api'
 export default {
   components: {
     DialogCommon
@@ -97,7 +97,7 @@ export default {
   },
   methods: {
     getBaseBaseuniontree(){
-      getBaseBaseuniontree().then(res => {
+        basicFileApis.getBaseBaseuniontree().then(res => {
         this.data.push(res.result)
       })
     },
@@ -109,7 +109,7 @@ export default {
         "unionName":this.formInline.unionName,//工会名称
         "master":this.formInline.master,//负责人
       }
-      postBaseunioninfoPage(data).then(res => {
+        basicFileApis.postBaseunioninfoPage(data).then(res => {
         this.tableData = res.result.list
         this.page.totalPage = res.result.totalCount
       })
@@ -139,8 +139,8 @@ export default {
       this.deleteId = row.id
     },
     sureDelDialog(){
-      this.centerDialogVisible = false
-      postBaseBaseunioninfoDelete({
+      this.centerDialogVisible = false;
+      basicFileApis.postBaseBaseunioninfoDelete({
         id: this.deleteId
       }).then(res => {
         if (res.status == 200) {

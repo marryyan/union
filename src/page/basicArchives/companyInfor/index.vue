@@ -101,7 +101,7 @@
       </el-tabs>
       <el-pagination
       style="margin: 15px 0"
-      @current-change="handleCurrentChange" 
+      @current-change="handleCurrentChange"
       :current-page.sync="page.currPage"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper"
@@ -135,7 +135,7 @@
   </div>
 </template>
 <script>
-import { postBaseBasecompanyinfoPagehas, postBaseBasecompanyinfoPageno } from '@/http/api'
+import basicFileApis from '@/http/api'
   export default {
     data() {
       return {
@@ -226,7 +226,7 @@ import { postBaseBasecompanyinfoPagehas, postBaseBasecompanyinfoPageno } from '@
           "startDate":this.formInline.startDate,//建会时间开始
           "endDate":this.formInline.endDate,//建会时间结束
         }
-        postBaseBasecompanyinfoPagehas(data).then(res=> {
+          basicFileApis.postBaseBasecompanyinfoPagehas(data).then(res=> {
           this.tableData = res.result.list
           this.page.totalPage = res.result.totalCount
         })
@@ -244,7 +244,7 @@ import { postBaseBasecompanyinfoPagehas, postBaseBasecompanyinfoPageno } from '@
           "startDate":this.formInline.startDate,//建会时间开始
           "endDate":this.formInline.endDate,//建会时间结束
         }
-        postBaseBasecompanyinfoPageno(data).then(res=> {
+          basicFileApis.postBaseBasecompanyinfoPageno(data).then(res=> {
           this.tableData = res.result.list
           this.page.totalPage = res.result.totalCount
         })
