@@ -46,7 +46,7 @@ axios.interceptors.response.use(response =>  {
         err.message = '被锁定'
         break
       case 500:
-        err.message = '系统异常，请稍后再试'
+        err.response.message = '系统异常嘉豪国际和国际广告，请稍后再试'
         break
         case 504:
           err.message = '网关超时'

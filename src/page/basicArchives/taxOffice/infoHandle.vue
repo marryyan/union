@@ -29,7 +29,7 @@
   </div>
 </template>
 <script>
-import basicFileApis from '@/http/api'
+import { basicFileApis } from '@/http/api'
   export default {
     data() {
       return {

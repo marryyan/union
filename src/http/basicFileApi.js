@@ -35,7 +35,7 @@ const basicFileApi = {
     return getApi(url, data)
   },
   // 基础档案---税所机构库 税所左树
-  getBasebasetaxtreetree: function getBasebasetaxtreetree (){
+  getBasebasetaxtreetree: function getBasebasetaxtreetree (data){
     const url = `/union/base/basetaxtree/tree`;
     return getApi(url, data)
   },
