@@ -63,7 +63,7 @@
 </template>
 <script>
 import DialogCommon from '@/components/dialogCommon';
-import basicFileApis from '@/http/api'
+import {basicFileApis} from '@/http/api'
 export default {
   components: {
     DialogCommon

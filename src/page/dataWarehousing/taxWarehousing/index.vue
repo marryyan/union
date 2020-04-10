@@ -62,16 +62,16 @@
       </el-table>
       <el-pagination
       style="margin: 15px 0"
-      @current-change="handleCurrentChange"
+      @current-change="handleCurrentChange" 
       :current-page.sync="page.currPage"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper"
       :total="page.totalPage">
     </el-pagination>
     <!-- 弹窗 -->
-    <DialogCommon
-    :centerText="centerText"
-    :centerDialogVisible="centerDialogVisible"
+    <DialogCommon 
+    :centerText="centerText" 
+    :centerDialogVisible="centerDialogVisible" 
     @delDialog="sureDelDialog"
     @cancleDialog="cancleDelDialog"></DialogCommon>
     </div>
@@ -79,7 +79,7 @@
 </template>
 <script>
 import DialogCommon from '@/components/dialogCommon';
-import dataStorageApis from '@/http/api'
+import {dataStorageApis} from '@/http/api'
 export default {
   components: {
     DialogCommon
@@ -102,7 +102,8 @@ export default {
         totalPage: 100, // 总页数
       },
       centerText: '是否确定删除该税务入库信息？',
-      centerDialogVisible: false
+      centerDialogVisible: false,
+      deleteId: ''
     }
   },
   mounted(){
@@ -122,7 +123,7 @@ export default {
         "currPage":this.page.currPage,
         "pageSize":this.page.pageSize,
       }
-        dataStorageApis.postStoreStoretaxtempList(data).then( res=> {
+      dataStorageApis.postStoreStoretaxtempList(data).then( res=> {
         this.tableData = res.result.list
         this.page.totalPage = res.result.totalCount
       })
@@ -140,7 +141,7 @@ export default {
         "currPage":this.page.currPage,
         "pageSize":this.page.pageSize,
       }
-        dataStorageApis.postStoreStoretaxtempHasfulllist(data).then( res=> {
+      dataStorageApis.postStoreStoretaxtempHasfulllist(data).then( res=> {
         this.tableData = res.result.list
         this.page.totalPage = res.result.totalCount
       })
@@ -162,9 +163,20 @@ export default {
     },
     handleDelete(index, row) {
       this.centerDialogVisible = true
+      this.deleteId = row.id
     },
     sureDelDialog(){
       this.centerDialogVisible = false
+      dataStorageApis.postStoreStoretaxtempDelete({
+        ids: this.deleteId
+      }).then(res => {
+        if (res.status == 200) {
+          this.$message.success('删除成功！');
+          this.page.currPage = 1
+          this.tableData = []
+          this.postStoreStoretaxtempList()
+        }
+      })
     },
     cancleDelDialog(){
       this.centerDialogVisible = false

@@ -101,7 +101,7 @@
       </el-tabs>
       <el-pagination
       style="margin: 15px 0"
-      @current-change="handleCurrentChange"
+      @current-change="handleCurrentChange" 
       :current-page.sync="page.currPage"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper"
@@ -135,7 +135,7 @@
   </div>
 </template>
 <script>
-import basicFileApis from '@/http/api'
+import {basicFileApis} from '@/http/api'
   export default {
     data() {
       return {
@@ -226,7 +226,7 @@ import basicFileApis from '@/http/api'
           "startDate":this.formInline.startDate,//建会时间开始
           "endDate":this.formInline.endDate,//建会时间结束
         }
-          basicFileApis.postBaseBasecompanyinfoPagehas(data).then(res=> {
+        basicFileApis.postBaseBasecompanyinfoPagehas(data).then(res=> {
           this.tableData = res.result.list
           this.page.totalPage = res.result.totalCount
         })
@@ -244,7 +244,7 @@ import basicFileApis from '@/http/api'
           "startDate":this.formInline.startDate,//建会时间开始
           "endDate":this.formInline.endDate,//建会时间结束
         }
-          basicFileApis.postBaseBasecompanyinfoPageno(data).then(res=> {
+        basicFileApis.postBaseBasecompanyinfoPageno(data).then(res=> {
           this.tableData = res.result.list
           this.page.totalPage = res.result.totalCount
         })
@@ -268,6 +268,14 @@ import basicFileApis from '@/http/api'
       handleTabClick(tab) {
         this.page.currPage = 1
         this.tableData = []
+        this.formInline.unionBelongsto = ''
+        this.formInline.taxBelongsComp = ''
+        this.formInline.areaName = ''
+        this.formInline.compCode = ''
+        this.formInline.compName = ''
+        this.formInline.startDate = ''
+        this.formInline.endDate = ''
+        this.daterange = []
         this.tabName = tab.label
         if(this.tabName == '已建会'){
           this.postBaseBasecompanyinfoPagehas()
