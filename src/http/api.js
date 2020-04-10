@@ -143,3 +143,8 @@ export function postStoreStoreversionList (data){
   const url = `/union/store/storeversion/list`;
   return postApi(url, data)
 }
+// 数据入库--对账 未入库数据编号的全部数据
+export function postStoreStoreversionListNotInStorage (data){
+  const url = `/union/store/storeversion/listNotInStorage`;
+  return postApi(url, data)
+}
