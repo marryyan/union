@@ -13,15 +13,17 @@ export const queryStatsApis = { ...queryStatsApi }
 export const returnManagementApis = { ...returnManagementApi }
 export const systemManagementApis = { ...systemManagementApi }
 
-export const loginApi = {
+export const loginApis = {
+  // 登录
   userLogin: function userLogin(data) {
     const url = '/msbase/sys/login';
     return postApi(url, data)
-  }, // 登录
+  },
+  // 获取验证码
   getYzmPic: function getYzmPic(data) {
     const url = '/msbase/captcha.jpg?uuid=' + data.uuid;
     return getApi(url, data)
-  }, // 获取验证码
+  },
 }
 
 

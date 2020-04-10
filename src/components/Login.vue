@@ -22,8 +22,8 @@
 </template>
 
 <script>
-    import { userLogin, getYzmPic } from '../http/api.js'
-    import {getItem, setItem} from '../helpers'
+    import { loginApis } from '../http/api.js'
+    import { setItem } from '../helpers'
     export default {
         name: 'HelloWorld',
         data () {
@@ -42,7 +42,7 @@
         methods: {
             loginSubmit() {
                 const { username, password, captcha, nowUUid } = this
-                userLogin({ username, password, captcha, uuid: nowUUid }).then(res => {
+                loginApis.userLogin({ username, password, captcha, uuid: nowUUid }).then(res => {
                     if (res.status == 200) {
                         const { header, permissions, user, token } = res.result
                         setItem('user_token', token)
@@ -55,7 +55,7 @@
             },
             getYzm() {
                 this.nowUUid = new Date().getTime();
-                getYzmPic({
+                loginApis.getYzmPic({
                     uuid: this.nowUUid
                 }).then(res => {
                     this.imgSrc = 'data:image/png;base64,' + res;
