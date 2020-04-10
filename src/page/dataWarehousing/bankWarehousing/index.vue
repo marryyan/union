@@ -105,7 +105,7 @@
 </template>
 <script>
     import DialogCommon from '@/components/dialogCommon';
-    import { postStoreStorebanktempList, postStoreStorebanktempImportexcel, postStoreStoreversionListNotInStorage } from '@/http/api'
+    import { postStoreStorebanktempList, postStoreStorebanktempImportexcel, postStoreStoreversionListNotInStorage } from '@/http/dataStorageApi'
     export default {
         components: {
             DialogCommon
