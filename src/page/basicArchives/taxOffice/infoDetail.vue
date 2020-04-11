@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import { getBasebasetaxinfoInfo } from '@/http/api'
+import { basicFileApis } from '@/http/api'
 export default {
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
       let data ={
         id: this.$route.query.id
       }
-      getBasebasetaxinfoInfo(data).then(res => {
+      basicFileApis.getBasebasetaxinfoInfo(data).then(res => {
         this.detailContent = res.result
       })
     }

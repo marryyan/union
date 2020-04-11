@@ -26,7 +26,7 @@
   </div>
 </template>
 <script>
-import { getBaseBaseunioninfoInfo } from '@/http/api'
+import { basicFileApis } from '@/http/api'
 export default {
   data() {
     return {
@@ -41,7 +41,7 @@ export default {
       let data ={
         id: this.$route.query.id
       }
-      getBaseBaseunioninfoInfo(data).then(res => {
+      basicFileApis.getBaseBaseunioninfoInfo(data).then(res => {
         this.detailContent = res.result
       })
     }

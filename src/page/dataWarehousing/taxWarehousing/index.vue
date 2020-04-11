@@ -5,23 +5,45 @@
         <el-form-item label="所属税期：">
           <el-input size="mini" v-model="formInline.taxPeriod" placeholder="请输入"></el-input>
         </el-form-item>
-        <el-form-item label="征收品目：">
-          <el-input size="mini" v-model="formInline.collectionItems" placeholder="请输入"></el-input>
-        </el-form-item>
         <el-form-item label="所属区：">
-          <el-input size="mini" v-model="formInline.belongsArea" placeholder="请输入"></el-input>
+          <el-select v-model="formInline.taxPeriod" placeholder="请选择" size="mini">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="税款所属 税务机关:">
+          <el-select v-model="formInline.taxPeriod" placeholder="请选择" size="mini">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="收款国库：">
-          <el-input size="mini" v-model="formInline.receiveTreasury" placeholder="请输入"></el-input>
+          <el-select v-model="formInline.taxPeriod" placeholder="请选择" size="mini">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="社会信用代码：">
-          <el-input size="mini" v-model="formInline.compCode" placeholder="请输入"></el-input>
-        </el-form-item>
-        <el-form-item label="纳税人名称：">
-          <el-input size="mini" v-model="formInline.taxPayer" placeholder="请输入"></el-input>
-        </el-form-item>
-        <el-form-item label="税款所属 税务机关：">
-          <el-input size="mini" v-model="formInline.taxCollectionAuthority" placeholder="请输入"></el-input>
+        <el-form-item label="征收品目：">
+          <el-select v-model="formInline.taxPeriod" placeholder="请选择" size="mini">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
@@ -29,7 +51,7 @@
       </el-form>
       <div class="operation_btns">
         <el-button size="mini" type="warning">xls导入</el-button>
-        <el-button size="mini" type="warning" @click="clickAnalysis">分析（足额）</el-button>
+        <!-- <el-button size="mini" type="warning" @click="clickAnalysis">分析（足额）</el-button> -->
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxPeriod" label="所属税期"></el-table-column>
@@ -54,7 +76,7 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
-              @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+              @click="handleEdit(scope.$index, scope.row)">确认提交</el-button>
             <el-button size="mini" type="warning"
               @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
@@ -95,6 +117,23 @@ export default {
         "taxPayer": "", // 那随人名称
         "taxCollectionAuthority":""// 征收税务机关
       },
+      options: [{
+        value: '选项1',
+        label: '黄金糕'
+      }, {
+        value: '选项2',
+        label: '双皮奶'
+      }, {
+        value: '选项3',
+        label: '蚵仔煎'
+      }, {
+        value: '选项4',
+        label: '龙须面'
+      }, {
+        value: '选项5',
+        label: '北京烤鸭'
+      }],
+      value: '',
       tableData: [],
       page:{
         currPage:1, // 当前页

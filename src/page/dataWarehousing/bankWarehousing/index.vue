@@ -5,7 +5,7 @@
         <el-form-item label="对方户名：">
           <el-input size="mini" v-model="formInline.accountName" placeholder="请输入"></el-input>
         </el-form-item>
-        <el-form-item label="日期：">
+        <el-form-item label="征收税期：">
           <el-date-picker
             size="mini"
             v-model="formInline.proDate"
@@ -14,14 +14,18 @@
             placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
-<!--        <el-form-item label="税款所属 税务机关：">-->
-<!--          <el-input size="mini" v-model="formInline.user" placeholder="请输入"></el-input>-->
-<!--        </el-form-item>-->
+        <el-form-item label="税款所属 税务机关：">
+          <el-select v-model="value" placeholder="请选择"  size="mini">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="对方账号：">
           <el-input size="mini" v-model="formInline.accountNumber" placeholder="请输入"></el-input>
-        </el-form-item>
-        <el-form-item label="摘要：">
-          <el-input size="mini" v-model="formInline.summary" placeholder="请输入"></el-input>
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
@@ -62,25 +66,25 @@
         </el-drawer>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="taxPeriod" label="征收税期" width="80"></el-table-column>
-        <el-table-column prop="proDate" label="日期" width="180"></el-table-column>
-        <el-table-column prop="transactionType" label="交易类型" width="180"></el-table-column>
-        <el-table-column prop="certificateCategory" label="凭证种类" width="180"></el-table-column>
-        <el-table-column prop="certificateCode" label="凭证代码" width="180"></el-table-column>
-        <el-table-column prop="accountName" label="对方户名" width="180"></el-table-column>
-        <el-table-column prop="accountNumber" label="对方账号" width="180"></el-table-column>
-        <el-table-column prop="summary" label="摘要" width="180"></el-table-column>
+        <el-table-column prop="taxPeriod" label="征收税期"></el-table-column>
+        <el-table-column prop="proDate" label="日期"></el-table-column>
+        <el-table-column prop="transactionType" label="交易类型"></el-table-column>
+        <el-table-column prop="certificateCategory" label="凭证种类"></el-table-column>
+        <el-table-column prop="certificateCode" label="凭证代码"></el-table-column>
+        <el-table-column prop="accountName" label="对方名称"></el-table-column>
+        <el-table-column prop="accountNumber" label="对方账号"></el-table-column>
+        <el-table-column prop="summary" label="摘要"></el-table-column>
         <el-table-column prop="borrowMoney" label="借方发生额" width="180"></el-table-column>
         <el-table-column prop="loanMoney" label="贷方发生额" width="180"></el-table-column>
-        <el-table-column prop="balance" label="余额" width="180"></el-table-column>
-<!--        <el-table-column label="操作" width="200">-->
-<!--          <template slot-scope="scope">-->
-<!--            <el-button size="mini" type="warning"-->
-<!--                       @click="handleEdit(scope.$index, scope.row)">修改</el-button>-->
-<!--            <el-button size="mini" type="warning"-->
-<!--                       @click="handleDelete(scope.$index, scope.row)">删除</el-button>-->
-<!--          </template>-->
-<!--        </el-table-column>-->
+        <el-table-column prop="balance" label="余额"></el-table-column>
+        <el-table-column label="操作" width="200">
+         <template slot-scope="scope">
+           <el-button size="mini" type="warning"
+                      @click="handleEdit(scope.$index, scope.row)">确认提交</el-button>
+           <el-button size="mini" type="warning"
+                      @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+         </template>
+       </el-table-column>
       </el-table>
       <el-pagination
         style="margin: 15px 0"
@@ -108,6 +112,23 @@
         },
         data() {
             return {
+              options: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
+        value: '',
                 formInline: {
                     "accountName": "", //对方账户名
                     "proDate": "", //日期

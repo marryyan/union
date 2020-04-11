@@ -34,7 +34,7 @@
         <el-table-column prop="accountName" label="归集账户名称"></el-table-column>
         <el-table-column prop="accountNumber" label="归集账户号"></el-table-column>
         <el-table-column prop="master" label="联系人"></el-table-column>
-        <el-table-column prop="date" label="联系电话"></el-table-column>
+        <el-table-column prop="phone" label="联系电话"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"

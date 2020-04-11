@@ -24,9 +24,6 @@
           <el-form-item label="建会人数">
             <el-input size="small" style="width:200px" v-model="formLabelAlign.type"></el-input>
           </el-form-item>
-          <el-form-item label="工会开户行">
-            <el-input size="small" style="width:200px" v-model="formLabelAlign.type"></el-input>
-          </el-form-item>
           <el-form-item label="工会银行账号">
             <el-input size="small" style="width:200px" v-model="formLabelAlign.type"></el-input>
           </el-form-item>
@@ -85,6 +82,12 @@
                 :value="item.value">
               </el-option>
             </el-select>
+          </el-form-item>
+          <el-form-item label="企业认定">
+            <el-input size="small" style="width:200px" v-model="formLabelAlign.type"></el-input>
+          </el-form-item>
+          <el-form-item label="企业规模">
+            <el-input size="small" style="width:200px" v-model="formLabelAlign.type"></el-input>
           </el-form-item>
           <el-form-item label="法人代表">
             <el-input size="small" style="width:200px" v-model="formLabelAlign.type"></el-input>
@@ -159,7 +162,17 @@
             </el-select>
           </el-form-item>
         </el-form>
+        <div class="table-title">费用缴纳情况</div>
+        <el-table :data="tableData" border stripe style="width: 100%; margin-bottom: 20px">
+          <el-table-column prop="compCode" label="税款所属期"></el-table-column>
+          <el-table-column prop="compCode" label="征收品目"></el-table-column>
+          <el-table-column prop="compCode" label="计税依据"></el-table-column>
+          <el-table-column prop="compCode" label="税率"></el-table-column>
+          <el-table-column prop="compCode" label="实缴金额"></el-table-column>
+          <el-table-column prop="compCode" label="个税人数"></el-table-column>
+        </el-table>
       </el-tab-pane>
+      <el-button style="width:80px; margin-left:100px" size="small" type="primary">确定</el-button>
     </el-tabs>
   </div>
 </template>
@@ -167,6 +180,7 @@
   export default {
     data() {
       return {
+        tableData:[],
         showAdd: false, 
         formLabelAlign: {
           name: '',
@@ -207,5 +221,10 @@
   border-radius: 4px;
   padding: 10px 15px;
   box-sizing: border-box;
+}
+.table-title{
+  font-size: 18px;
+  text-align: center;
+  margin: 20px auto;
 }
 </style>

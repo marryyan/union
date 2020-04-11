@@ -6,10 +6,14 @@
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="name" label="序号"></el-table-column>
+        <el-table-column prop="name" label="拨付规则编码"></el-table-column>
+        <el-table-column prop="name" label="企业认定"></el-table-column>
+        <el-table-column prop="name" label="工会类别"></el-table-column>
         <el-table-column prop="date" label="缴费类型"></el-table-column>
-        <el-table-column prop="date" label="省"></el-table-column>
-        <el-table-column prop="date" label="市"></el-table-column>
-        <el-table-column prop="date" label="区县"></el-table-column>
+        <el-table-column prop="date" label="省总"></el-table-column>
+        <el-table-column prop="date" label="市总"></el-table-column>
+        <el-table-column prop="date" label="手续费率"></el-table-column>
+        <el-table-column prop="date" label="区/产总"></el-table-column>
         <el-table-column prop="date" label="企业"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">

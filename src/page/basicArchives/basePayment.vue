@@ -6,8 +6,11 @@
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="name" label="序号"></el-table-column>
+        <el-table-column prop="name" label="缴费基数编码" width="180"></el-table-column>
         <el-table-column prop="date" label="基数类型"></el-table-column>
         <el-table-column prop="date" label="缴费比例"></el-table-column>
+        <el-table-column prop="date" label="基数（元）" width="180"></el-table-column>
+        <el-table-column prop="date" label="最小值（历次最小值）" width="180"></el-table-column>
         <el-table-column prop="date" label="是否正常"></el-table-column>
         <el-table-column prop="date" label="备注"></el-table-column>
         <el-table-column label="操作" width="200">
