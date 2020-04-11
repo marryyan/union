@@ -14,7 +14,7 @@
       </div>
       <div class="user_ipt" style="margin-top:30px; display: flex; justify-content: space-between;">
         <input type="text" v-model="captcha" placeholder="请输入验证码">
-        <img :src="imgSrc" style="width: 100px">
+        <img :src="imgSrc" @click="getYzm" style="width: 100px">
       </div>
       <button class="login_btn" @click="loginSubmit">登录</button>
     </div>
@@ -50,6 +50,8 @@
                         setItem('header', header)
                         setItem('permissions', JSON.stringify(permissions))
                         this.$router.replace("/home");
+                    } else {
+                        this.$message.error(res.message)
                     }
                 })
             },

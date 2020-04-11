@@ -33,7 +33,8 @@
               <span>分配管理</span>
             </template>
             <el-menu-item index="/tradeUnion">工会经费分配</el-menu-item>
-            <el-menu-item index="/preparatoryFund">筹备经费分配</el-menu-item>
+            <el-menu-item index="/preparatoryFund">筹备金分配</el-menu-item>
+            <el-menu-item index="/microEnterprise">小微企业经费分配</el-menu-item>
           </el-submenu>
           <el-submenu index="4">
             <template slot="title">
