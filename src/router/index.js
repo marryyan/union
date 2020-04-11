@@ -20,6 +20,7 @@ import RoleManage from '@/page/systemManage/roleManage/index'
 import LogManage from '@/page/systemManage/logManage/index'
 import TradeUnion from '@/page/assignManage/tradeUnion'
 import PreparatoryFund from '@/page/assignManage/preparatoryFund'
+import MicroEnterprise from '@/page/assignManage/microEnterprise'
 // 查询统计
 import FullCallback from '@/page/queryStatistics/fullCallback'
 import ScaleNotOk from '@/page/queryStatistics/scaleNotOk'
@@ -200,8 +201,13 @@ export default new Router({
         },
         {
           path: '/preparatoryFund',
-          name: '筹备经费分配',
+          name: '筹备金分配',
           component: PreparatoryFund
+        },
+        {
+          path: '/microEnterprise',
+          name: '小微企业经费分配',
+          component: MicroEnterprise
         },
         // 查询统计
         {

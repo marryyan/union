@@ -47,7 +47,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="缴费类型：">
+        <el-form-item label="企业认定：">
           <el-select size="mini" v-model="searchForm.user" placeholder="请输入">
             <el-option
               v-for="item in options"

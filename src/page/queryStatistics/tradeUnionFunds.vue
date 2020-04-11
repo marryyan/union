@@ -35,7 +35,7 @@
       </el-table>
       <el-pagination
       style="margin: 15px 0"
-      @current-change="handleCurrentChange" 
+      @current-change="handleCurrentChange"
       :current-page.sync="page.currPage"
       :page-size="page.pageSize"
       layout="prev, pager, next, jumper"
