@@ -58,15 +58,38 @@
             <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
             <el-table-column prop="unionBelongsto" label="所属系统工会" width="180"></el-table-column>
             <el-table-column prop="compPerson" label="职工人数"></el-table-column>
-            <el-table-column prop="compPerson" label="资产总额"></el-table-column>
-            <el-table-column prop="compPerson" label="营业收入"></el-table-column>
-            <el-table-column prop="compPerson" label="企业状态"></el-table-column>
-            <el-table-column prop="compPerson" label="工会状态"></el-table-column>
-            <el-table-column prop="compPerson" label="企业认定"></el-table-column>
-            <el-table-column prop="compPerson" label="工会类别"></el-table-column>
+            <el-table-column prop="totalAssets" label="资产总额"></el-table-column>
+            <el-table-column prop="operatingReceipt" label="营业收入"></el-table-column>
+            <el-table-column prop="compStatus" label="企业状态">
+              <template slot-scope="scope">
+                <div v-if="scope.row.compStatus == '0'">正常</div>
+                <div v-if="scope.row.compStatus == '1'">注销</div>
+                <div v-if="scope.row.compStatus == '2'">空壳</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="hasUnion" label="工会状态">
+              <template slot-scope="scope">
+                <div v-if="scope.row.hasUnion == '0'">未建会</div>
+                <div v-if="scope.row.hasUnion == '1'">已建会</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="compFirmlyType" label="企业认定">
+              <template slot-scope="scope">
+                <div v-if="scope.row.compFirmlyType == '0'">正常缴费企业</div>
+                <div v-if="scope.row.compFirmlyType == '1'">试点企业</div>
+                <div v-if="scope.row.compFirmlyType == '2'">微型企业</div>
+                <div v-if="scope.row.compFirmlyType == '2'">小型企业</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="unionType" label="工会类别">
+              <template slot-scope="scope">
+                <div v-if="scope.row.unionType == '1'">区县工会</div>
+                <div v-if="scope.row.unionType == '1'">产业工会</div>
+              </template>
+            </el-table-column>
             <el-table-column prop="unionParentName" label="上级工会"></el-table-column>
             <el-table-column prop="unionCreateDate" label="工会建会时间" width="180"></el-table-column>
-            <el-table-column prop="unionCreateDate" label="联系人"></el-table-column>
+            <el-table-column prop="unionHandleBy" label="联系人"></el-table-column>
             <el-table-column prop="unionTel" label="电话" ></el-table-column>
             <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
           </el-table>
@@ -83,15 +106,38 @@
             <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
             <el-table-column prop="unionBelongsto" label="所属系统工会" width="180"></el-table-column>
             <el-table-column prop="compPerson" label="职工人数"></el-table-column>
-            <el-table-column prop="compPerson" label="资产总额"></el-table-column>
-            <el-table-column prop="compPerson" label="营业收入"></el-table-column>
-            <el-table-column prop="compPerson" label="企业状态"></el-table-column>
-            <el-table-column prop="compPerson" label="工会状态"></el-table-column>
-            <el-table-column prop="compPerson" label="企业认定"></el-table-column>
-            <el-table-column prop="compPerson" label="工会类别"></el-table-column>
+            <el-table-column prop="totalAssets" label="资产总额"></el-table-column>
+            <el-table-column prop="operatingReceipt" label="营业收入"></el-table-column>
+            <el-table-column prop="compStatus" label="企业状态">
+              <template slot-scope="scope">
+                <div v-if="scope.row.compStatus == '0'">正常</div>
+                <div v-if="scope.row.compStatus == '1'">注销</div>
+                <div v-if="scope.row.compStatus == '2'">空壳</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="hasUnion" label="工会状态">
+              <template slot-scope="scope">
+                <div v-if="scope.row.hasUnion == '0'">未建会</div>
+                <div v-if="scope.row.hasUnion == '1'">已建会</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="compFirmlyType" label="企业认定">
+              <template slot-scope="scope">
+                <div v-if="scope.row.compFirmlyType == '0'">正常缴费企业</div>
+                <div v-if="scope.row.compFirmlyType == '1'">试点企业</div>
+                <div v-if="scope.row.compFirmlyType == '2'">微型企业</div>
+                <div v-if="scope.row.compFirmlyType == '2'">小型企业</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="unionType" label="工会类别">
+              <template slot-scope="scope">
+                <div v-if="scope.row.unionType == '1'">区县工会</div>
+                <div v-if="scope.row.unionType == '1'">产业工会</div>
+              </template>
+            </el-table-column>
             <el-table-column prop="unionParentName" label="上级工会"></el-table-column>
             <el-table-column prop="unionCreateDate" label="工会建会时间" width="180"></el-table-column>
-            <el-table-column prop="unionCreateDate" label="联系人"></el-table-column>
+            <el-table-column prop="unionHandleBy" label="联系人"></el-table-column>
             <el-table-column prop="unionTel" label="电话" ></el-table-column>
             <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
           </el-table>
@@ -108,18 +154,41 @@
             <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
             <el-table-column prop="unionBelongsto" label="所属系统工会" width="180"></el-table-column>
             <el-table-column prop="compPerson" label="职工人数"></el-table-column>
-            <el-table-column prop="compPerson" label="资产总额"></el-table-column>
-            <el-table-column prop="compPerson" label="营业收入"></el-table-column>
-            <el-table-column prop="compPerson" label="企业状态"></el-table-column>
-            <el-table-column prop="compPerson" label="工会状态"></el-table-column>
-            <el-table-column prop="compPerson" label="企业认定"></el-table-column>
-            <el-table-column prop="compPerson" label="工会类别"></el-table-column>
+            <el-table-column prop="totalAssets" label="资产总额"></el-table-column>
+            <el-table-column prop="operatingReceipt" label="营业收入"></el-table-column>
+            <el-table-column prop="compStatus" label="企业状态">
+              <template slot-scope="scope">
+                <div v-if="scope.row.compStatus == '0'">正常</div>
+                <div v-if="scope.row.compStatus == '1'">注销</div>
+                <div v-if="scope.row.compStatus == '2'">空壳</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="hasUnion" label="工会状态">
+              <template slot-scope="scope">
+                <div v-if="scope.row.hasUnion == '0'">未建会</div>
+                <div v-if="scope.row.hasUnion == '1'">已建会</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="compFirmlyType" label="企业认定">
+              <template slot-scope="scope">
+                <div v-if="scope.row.compFirmlyType == '0'">正常缴费企业</div>
+                <div v-if="scope.row.compFirmlyType == '1'">试点企业</div>
+                <div v-if="scope.row.compFirmlyType == '2'">微型企业</div>
+                <div v-if="scope.row.compFirmlyType == '2'">小型企业</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="unionType" label="工会类别">
+              <template slot-scope="scope">
+                <div v-if="scope.row.unionType == '1'">区县工会</div>
+                <div v-if="scope.row.unionType == '1'">产业工会</div>
+              </template>
+            </el-table-column>
             <el-table-column prop="unionParentName" label="上级工会"></el-table-column>
             <el-table-column prop="unionCreateDate" label="工会建会时间" width="180"></el-table-column>
-            <el-table-column prop="unionCreateDate" label="联系人"></el-table-column>
+            <el-table-column prop="unionHandleBy" label="联系人"></el-table-column>
             <el-table-column prop="unionTel" label="电话" ></el-table-column>
             <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
-            <el-table-column label="操作" >
+            <el-table-column label="操作" width="180">
               <template slot-scope="scope">
                 <el-button size="mini" type="warning"
                   @click="handleEdit(scope.$index, scope.row)">上传建会涵</el-button>
@@ -171,52 +240,19 @@ import {basicFileApis} from '@/http/api'
         formInline: {
           "unionBelongsto":"",//所属公会
           "taxBelongsComp":"",//所属地税局
-          "areaName":"",//所属区县
+          "areaName":"",//所属区县 ？？ 后台没数据
           "compCode":"",//统一社会信用代码
           "compName":"",//企业名称
           "startDate":"",//建会时间开始
           "endDate":"",//建会时间结束
         },
         daterange:[],
-        data: [{
-          label: '一级 1',
-          children: [{
-            label: '二级 1-1',
-            children: [{
-              label: '三级 1-1-1'
-            }]
-          }]
-        }, {
-          label: '一级 2',
-          children: [{
-            label: '二级 2-1',
-            children: [{
-              label: '三级 2-1-1'
-            }]
-          }, {
-            label: '二级 2-2',
-            children: [{
-              label: '三级 2-2-1'
-            }]
-          }]
-        }, {
-          label: '一级 3',
-          children: [{
-            label: '二级 3-1',
-            children: [{
-              label: '三级 3-1-1'
-            }]
-          }, {
-            label: '二级 3-2',
-            children: [{
-              label: '三级 3-2-1'
-            }]
-          }]
-        }],
+        data: [],
         defaultProps: {
           children: 'children',
-          label: 'label'
+          label: 'title'
         },
+        treeId:"",//总工会id（点击左侧树节点的id）
         tableData: [],
         page:{
           currPage:1, // 当前页
@@ -239,21 +275,29 @@ import {basicFileApis} from '@/http/api'
       }
     },
     mounted(){
-      this.postBaseBasecompanyinfoPagehas()
+      this.postPagesmallmicrobusinesses()
     },
     methods: {
+      // 小微企业
+      postPagesmallmicrobusinesses(){
+        let data = {
+          "currPage":this.page.currPage,//当前页
+          "pageSize":this.page.pageSize,//每页显示条数
+          ...this.formInline,
+          "belongsUnionTreeId":this.treeId // 左侧树形结构的id
+        }
+        basicFileApis.postPagesmallmicrobusinesses(data).then(res=> {
+          this.tableData = res.result.list
+          this.page.totalPage = res.result.totalCount
+        })
+      },
       // 已建会
       postBaseBasecompanyinfoPagehas(){
         let data = {
           "currPage":this.page.currPage,//当前页
           "pageSize":this.page.pageSize,//每页显示条数
-          "unionBelongsto":this.formInline.unionBelongsto,//所属公会
-          "taxBelongsComp":this.formInline.taxBelongsComp,//所属地税局
-          "areaName":this.formInline.areaName,//所属区县
-          "compCode":this.formInline.compCode,//统一社会信用代码
-          "compName":this.formInline.compName,//企业名称
-          "startDate":this.formInline.startDate,//建会时间开始
-          "endDate":this.formInline.endDate,//建会时间结束
+          ...this.formInline,
+          "belongsUnionTreeId":this.treeId // 左侧树形结构的id
         }
         basicFileApis.postBaseBasecompanyinfoPagehas(data).then(res=> {
           this.tableData = res.result.list
@@ -265,13 +309,8 @@ import {basicFileApis} from '@/http/api'
         let data = {
           "currPage":this.page.currPage,//当前页
           "pageSize":this.page.pageSize,//每页显示条数
-          "unionBelongsto":this.formInline.unionBelongsto,//所属公会
-          "taxBelongsComp":this.formInline.taxBelongsComp,//所属地税局
-          "areaName":this.formInline.areaName,//所属区县
-          "compCode":this.formInline.compCode,//统一社会信用代码
-          "compName":this.formInline.compName,//企业名称
-          "startDate":this.formInline.startDate,//建会时间开始
-          "endDate":this.formInline.endDate,//建会时间结束
+          ...this.formInline,
+          "belongsUnionTreeId":this.treeId // 左侧树形结构的id
         }
         basicFileApis.postBaseBasecompanyinfoPageno(data).then(res=> {
           this.tableData = res.result.list
@@ -287,12 +326,22 @@ import {basicFileApis} from '@/http/api'
         this.tableData = []
         if(this.tabName == '已建会'){
           this.postBaseBasecompanyinfoPagehas()
-        }else{
+        }else if(this.tabName == '未建会'){
           this.postBaseBasecompanyinfoPageno()
+        }else if(this.tabName == '小微企业'){
+          
         }
       },
       handleNodeClick(data) {
-        console.log(data);
+        this.tableData = []
+        this.treeId = data.id
+        if(this.tabName == '已建会'){
+          this.postBaseBasecompanyinfoPagehas()
+        }else if(this.tabName == '未建会'){
+          this.postBaseBasecompanyinfoPageno()
+        }else if(this.tabName == '小微企业'){
+          
+        }
       },
       handleTabClick(tab) {
         this.page.currPage = 1
@@ -308,8 +357,10 @@ import {basicFileApis} from '@/http/api'
         this.tabName = tab.label
         if(this.tabName == '已建会'){
           this.postBaseBasecompanyinfoPagehas()
-        }else{
+        }else if(this.tabName == '未建会'){
           this.postBaseBasecompanyinfoPageno()
+        }else if(this.tabName == '小微企业'){
+          
         }
       },
       addInfo(){

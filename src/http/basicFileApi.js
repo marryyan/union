@@ -74,6 +74,16 @@ const basicFileApi = {
     const url = `/union/base/basecompanyinfo/pageno`;
     return postApi(url, data)
   },
+  // 基础档案---企业信息库 小微企业列表
+  postPagesmallmicrobusinesses: function postPagesmallmicrobusinesses (data){
+    const url = `/union/base/basecompanyinfo/pagesmallmicrobusinesses`;
+    return postApi(url, data)
+  },
+  // 基础档案---企业信息库 添加修改工会信息
+  postBasecompanyinfoUnion: function postBasecompanyinfoUnion (data){
+    const url = `/union/base/basecompanyinfo/union`;
+    return postApi(url, data)
+  },
 }
 
 export default basicFileApi

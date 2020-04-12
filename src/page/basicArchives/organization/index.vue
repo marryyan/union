@@ -106,8 +106,7 @@ export default {
         "treeId":this.treeId,//总工会id（点击左侧树节点的id）
         "currPage":this.page.currPage,//当前页
         "pageSize":this.page.pageSize,//每页条数
-        "unionName":this.formInline.unionName,//工会名称
-        "master":this.formInline.master,//负责人
+        ...this.formInline
       }
         basicFileApis.postBaseunioninfoPage(data).then(res => {
         this.tableData = res.result.list

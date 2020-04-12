@@ -74,12 +74,7 @@ import { basicFileApis } from '@/http/api'
       // 新增
       postBasebasetaxinfoSave(){
         let data = {
-          "taxTreeId":this.formLabelAlign.taxTreeId,//所属税务所id
-          "taxName":this.formLabelAlign.taxName,//税务局名称
-          "accountName":this.formLabelAlign.accountName,//账户名
-          "accountNumber":this.formLabelAlign.accountNumber,//账户号
-          "master":this.formLabelAlign.master,//负责人
-          "phone":this.formLabelAlign.phone,//联系方式
+          ...this.formLabelAlign
         }
           basicFileApis.postBasebasetaxinfoSave(data).then(res => {
           if (res.status == 200) {
@@ -94,12 +89,7 @@ import { basicFileApis } from '@/http/api'
       postBasebasetaxinfoUpdate(){
         let data = {
           "id":this.$route.query.id,//id
-          "taxTreeId":this.formLabelAlign.taxTreeId,//所属税务所id
-          "taxName":this.formLabelAlign.taxName,//税务局名称
-          "accountName":this.formLabelAlign.accountName,//账户名
-          "accountNumber":this.formLabelAlign.accountNumber,//账户号
-          "master":this.formLabelAlign.master,//负责人
-          "phone":this.formLabelAlign.phone,//联系方式
+          ...this.formLabelAlign
         }
           basicFileApis.postBasebasetaxinfoUpdate(data).then(res => {
           if (res.status == 200) {

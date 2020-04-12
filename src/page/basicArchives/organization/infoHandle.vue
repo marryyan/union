@@ -74,12 +74,7 @@ import { basicFileApis } from '@/http/api'
       // 新增
       postBaseBaseunioninfoSave(){
         let data = {
-          "unionTreeId":this.formLabelAlign.unionTreeId,//所属总工会id（必填）
-          "unionName":this.formLabelAlign.unionName,//工会名称（必填）
-          "accountName":this.formLabelAlign.accountName,//账户名
-          "accountNumber":this.formLabelAlign.accountNumber,//账户号
-          "master":this.formLabelAlign.master,//负责人
-          "phone":this.formLabelAlign.phone,//联系方式
+          ...this.formLabelAlign
         };
         basicFileApis.postBaseBaseunioninfoSave(data).then(res => {
           if (res.status == 200) {
@@ -94,12 +89,7 @@ import { basicFileApis } from '@/http/api'
       postBaseBaseunioninfoUpdate(){
         let data = {
           "id":this.$route.query.id,//id
-          "unionTreeId":this.formLabelAlign.unionTreeId,//所属总工会id（必填）
-          "unionName":this.formLabelAlign.unionName,//工会名称（必填）
-          "accountName":this.formLabelAlign.accountName,//账户名
-          "accountNumber":this.formLabelAlign.accountNumber,//账户号
-          "master":this.formLabelAlign.master,//负责人
-          "phone":this.formLabelAlign.phone,//联系方式
+          ...this.formLabelAlign
         }
           basicFileApis.postBaseBaseunioninfoUpdate(data).then(res => {
           if (res.status == 200) {

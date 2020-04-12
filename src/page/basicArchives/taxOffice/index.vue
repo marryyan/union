@@ -105,8 +105,7 @@ export default {
       let data = {
         "currPage":this.page.currPage,//当前页
         "pageSize":this.page.pageSize,//每页条数
-        "taxName":this.formInline.taxName,//税所名称
-        "accountName":this.formInline.accountName,//账户名称
+        ...this.formInline,
         "treeId":this.treeId,//所属税所树id（点击左侧树节点的id）
       }
         basicFileApis.postBasebasetaxinfoPage(data).then(res => {
