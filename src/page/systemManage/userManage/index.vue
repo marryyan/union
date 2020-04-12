@@ -6,7 +6,14 @@
           <el-input size="mini" v-model="formInline.name" placeholder="请输入"></el-input>
         </el-form-item>
         <el-form-item label="状态：">
-          <el-input size="mini" v-model="formInline.user" placeholder="请输入"></el-input>
+          <el-select size="mini" v-model="formInline.user" placeholder="请输入">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item>
           <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
@@ -16,14 +23,14 @@
         <el-button size="mini" type="warning" @click="addInfo">新增用户</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="name" label="账号" width="80"></el-table-column>
-        <el-table-column prop="date" label="姓名" width="180"></el-table-column>
-        <el-table-column prop="date" label="电话" width="180"></el-table-column>
-        <el-table-column prop="date" label="所属工会" width="180"></el-table-column>
-        <el-table-column prop="date" label="所属部门" width="180"></el-table-column>
-        <el-table-column prop="date" label="职位" width="180"></el-table-column>
-        <el-table-column prop="date" label="角色" width="180"></el-table-column>
-        <el-table-column prop="date" label="状态" width="180"></el-table-column>
+        <el-table-column prop="name" label="账号"></el-table-column>
+        <el-table-column prop="date" label="姓名"></el-table-column>
+        <el-table-column prop="date" label="电话"></el-table-column>
+        <el-table-column prop="date" label="所属工会"></el-table-column>
+        <el-table-column prop="date" label="所属部门"></el-table-column>
+        <el-table-column prop="date" label="职位"></el-table-column>
+        <el-table-column prop="date" label="角色"></el-table-column>
+        <el-table-column prop="date" label="状态"></el-table-column>
         <el-table-column label="操作" width="400">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
@@ -80,6 +87,22 @@ export default {
         user: '',
         name: ''
       },
+      options: [{
+          value: '选项1',
+          label: '黄金糕'
+        }, {
+          value: '选项2',
+          label: '双皮奶'
+        }, {
+          value: '选项3',
+          label: '蚵仔煎'
+        }, {
+          value: '选项4',
+          label: '龙须面'
+        }, {
+          value: '选项5',
+          label: '北京烤鸭'
+        }],
       tableData: [{
         date: '2016-05-02',
         name: '王小虎',

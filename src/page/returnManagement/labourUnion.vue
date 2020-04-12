@@ -1,7 +1,6 @@
 <template>
   <div class="wrapper">
     <div class="flex-right">
-      <!-- 此处检索条件是否是select框不明确 -->
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="所属区：">
           <el-select size="mini" v-model="formInline.belongsArea" placeholder="请输入">
@@ -17,7 +16,13 @@
           <el-input size="mini" v-model="formInline.unionFundCode" placeholder="请输入"></el-input>
         </el-form-item>
         <el-form-item label="所属税期：">
-          <el-input size="mini" v-model="formInline.taxPeriod" placeholder="请输入"></el-input>
+          <el-date-picker
+            size="mini"
+            v-model="formInline.unionFundCode"
+            type="date"
+            value-format="yyyy-MM-dd"
+            placeholder="选择日期">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="统一社会信用代码：">
           <el-input size="mini" v-model="formInline.compCode" placeholder="请输入"></el-input>
@@ -40,20 +45,19 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="taxPeriod" label="所属税期" width="80"></el-table-column>
-        <el-table-column prop="belongsArea" label="所属区" width="180"></el-table-column>
+        <el-table-column prop="taxPeriod" label="所属税期"></el-table-column>
+        <el-table-column prop="belongsArea" label="所属区"></el-table-column>
         <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" width="250"></el-table-column>
         <el-table-column prop="taxPayer" label="纳税人名称" width="180"></el-table-column>
-        <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
         <el-table-column prop="unionBank" label="工会开户行" width="180"></el-table-column>
         <el-table-column prop="unionBankAccount" label="工会银行账号" width="180"></el-table-column>
         <el-table-column prop="unionAccount" label="工会开户名称" width="180"></el-table-column>
-        <el-table-column prop="taxBasis" label="计税依据" width="180"></el-table-column>
-        <el-table-column prop="taxRate" label="税率" width="180"></el-table-column>
-        <el-table-column prop="paidAmount" label="实缴金额" width="180"></el-table-column>
-        <el-table-column prop="receiveTreasury" label="收款国库" width="180"></el-table-column>
-        <el-table-column prop="processResult" label="处理结果" width="180"></el-table-column>
-        <el-table-column prop="processStatus" label="处理状态" width="180">
+        <el-table-column prop="taxBasis" label="计税依据"></el-table-column>
+        <el-table-column prop="taxRate" label="税率"></el-table-column>
+        <el-table-column prop="paidAmount" label="实缴金额"></el-table-column>
+        <el-table-column prop="receiveTreasury" label="收款国库"></el-table-column>
+        <el-table-column prop="processResult" label="处理结果"></el-table-column>
+        <el-table-column prop="processStatus" label="处理状态">
           <template slot-scope="scope">
             <span v-if="scope.row.processStatus == '0'">未处理</span>
             <span v-if="scope.row.processStatus == '1'">已直拨</span>
@@ -61,10 +65,9 @@
             <span v-if="scope.row.processStatus == '3'">已拨区县工会集中户</span>
           </template>
         </el-table-column>
-        <el-table-column prop="backDate" label="返还日期" width="180"></el-table-column>
-        <el-table-column prop="backMoney" label="返还金额" width="180"></el-table-column>
+        <el-table-column prop="backDate" label="返还日期"></el-table-column>
+        <el-table-column prop="backMoney" label="返还金额"></el-table-column>
         <el-table-column label="操作" width="200">
-          <!-- 当状态为几的时候显示处理回拨按钮 -->
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
               @click="handleEdit(scope.$index, scope.row)">处理回拨</el-button>

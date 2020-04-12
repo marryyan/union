@@ -14,6 +14,7 @@ import BankWarehousing from '@/page/dataWarehousing/bankWarehousing/index'
 import AccountingRecord from '@/page/dataWarehousing/accountingRecord'
 import LabourUnion from '@/page/returnManagement/labourUnion'
 import Preparation from '@/page/returnManagement/preparation'
+import Peanuts from '@/page/returnManagement/peanuts'
 // 系统管理
 import UserManage from '@/page/systemManage/userManage/index'
 import RoleManage from '@/page/systemManage/roleManage/index'
@@ -26,7 +27,6 @@ import FullCallback from '@/page/queryStatistics/fullCallback'
 import ScaleNotOk from '@/page/queryStatistics/scaleNotOk'
 import TradeUnionFunds from '@/page/queryStatistics/tradeUnionFunds'
 import QueryPreparatoryFund from '@/page/queryStatistics/preparatoryFund'
-import CollectingFunds from '@/page/queryStatistics/collectingFunds'
 
 Vue.use(Router)
 
@@ -154,8 +154,13 @@ export default new Router({
         },
         {
           path: '/preparation',
-          name: '筹备经费返还',
+          name: '筹备金返还',
           component: Preparation
+        },
+        {
+          path: '/peanuts',
+          name: '小微企业经费返还',
+          component: Peanuts
         },
         // 系统管理
         {
@@ -211,29 +216,24 @@ export default new Router({
         },
         // 查询统计
         {
-          path: '/fullCallback',
-          name: '全额回拨汇总表',
-          component: FullCallback
-        },
-        {
-          path: '/scaleNotOk',
-          name: '比例不正常汇总表',
-          component: ScaleNotOk
-        },
-        {
           path: '/tradeUnionFunds',
-          name: '工会经费统计',
+          name: '工会经费缴款统计',
           component: TradeUnionFunds
         },
         {
           path: '/queryPreparatoryFund',
-          name: '筹备经费统计',
+          name: '筹备金缴款统计',
           component: QueryPreparatoryFund
         },
         {
-          path: '/collectingFunds',
-          name: '代收经费统计表',
-          component: CollectingFunds
+          path: '/fullCallback',
+          name: '小微企业缴款统计',
+          component: FullCallback
+        },
+        {
+          path: '/scaleNotOk',
+          name: '缴费异常企业统计',
+          component: ScaleNotOk
         },
       ]
     }

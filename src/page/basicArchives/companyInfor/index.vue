@@ -47,7 +47,29 @@
       </div>
       <el-tabs type="border-card" @tab-click="handleTabClick">
         <el-tab-pane label="小微企业">
-          
+          <el-table :data="tableData" stripe style="width: 100%">
+            <el-table-column label="单位名称"  >
+              <template slot-scope="scope">
+                <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.compName}}</div>
+              </template>
+            </el-table-column>
+            <el-table-column prop="compCode" label="统一社会信用代码" width="180"></el-table-column>
+            <el-table-column prop="unionManagerCode" label="管理代码"></el-table-column>
+            <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
+            <el-table-column prop="unionBelongsto" label="所属系统工会" width="180"></el-table-column>
+            <el-table-column prop="compPerson" label="职工人数"></el-table-column>
+            <el-table-column prop="compPerson" label="资产总额"></el-table-column>
+            <el-table-column prop="compPerson" label="营业收入"></el-table-column>
+            <el-table-column prop="compPerson" label="企业状态"></el-table-column>
+            <el-table-column prop="compPerson" label="工会状态"></el-table-column>
+            <el-table-column prop="compPerson" label="企业认定"></el-table-column>
+            <el-table-column prop="compPerson" label="工会类别"></el-table-column>
+            <el-table-column prop="unionParentName" label="上级工会"></el-table-column>
+            <el-table-column prop="unionCreateDate" label="工会建会时间" width="180"></el-table-column>
+            <el-table-column prop="unionCreateDate" label="联系人"></el-table-column>
+            <el-table-column prop="unionTel" label="电话" ></el-table-column>
+            <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
+          </el-table>
         </el-tab-pane>
         <el-tab-pane label="已建会">
           <el-table :data="tableData" stripe style="width: 100%">
@@ -72,20 +94,6 @@
             <el-table-column prop="unionCreateDate" label="联系人"></el-table-column>
             <el-table-column prop="unionTel" label="电话" ></el-table-column>
             <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
-            <!-- <el-table-column label="缴费比例" width="200">
-              <template slot-scope="scope">
-                <el-button size="mini" type="warning"
-                  @click="handleDeploy(scope.$index, scope.row)">配置缴费比例</el-button>
-              </template>
-            </el-table-column> -->
-            <el-table-column label="操作"  >
-              <template slot-scope="scope">
-                <el-button size="mini" type="warning"
-                  @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-                <el-button size="mini" type="warning"
-                  @click="handleEdit(scope.$index, scope.row)">删除</el-button>
-              </template>
-            </el-table-column>
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="未建会">
@@ -96,12 +104,22 @@
               </template>
             </el-table-column>
             <el-table-column prop="compCode" label="统一社会信用代码" width="180"></el-table-column>
+            <el-table-column prop="unionManagerCode" label="管理代码"></el-table-column>
+            <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
+            <el-table-column prop="unionBelongsto" label="所属系统工会" width="180"></el-table-column>
             <el-table-column prop="compPerson" label="职工人数"></el-table-column>
-            <el-table-column prop="compTel" label="电话"></el-table-column>
-            <el-table-column prop="compLegal" label="企业法人"></el-table-column>
+            <el-table-column prop="compPerson" label="资产总额"></el-table-column>
+            <el-table-column prop="compPerson" label="营业收入"></el-table-column>
+            <el-table-column prop="compPerson" label="企业状态"></el-table-column>
+            <el-table-column prop="compPerson" label="工会状态"></el-table-column>
+            <el-table-column prop="compPerson" label="企业认定"></el-table-column>
+            <el-table-column prop="compPerson" label="工会类别"></el-table-column>
+            <el-table-column prop="unionParentName" label="上级工会"></el-table-column>
+            <el-table-column prop="unionCreateDate" label="工会建会时间" width="180"></el-table-column>
+            <el-table-column prop="unionCreateDate" label="联系人"></el-table-column>
+            <el-table-column prop="unionTel" label="电话" ></el-table-column>
             <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
-            <el-table-column prop="areaName" label="试点区县"></el-table-column>
-            <el-table-column label="操作" width="200">
+            <el-table-column label="操作" >
               <template slot-scope="scope">
                 <el-button size="mini" type="warning"
                   @click="handleEdit(scope.$index, scope.row)">上传建会涵</el-button>

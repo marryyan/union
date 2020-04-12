@@ -42,18 +42,18 @@
               <span>返还管理</span>
             </template>
             <el-menu-item index="/labourUnion">工会经费返还</el-menu-item>
-            <el-menu-item index="/preparation">筹备经费返还</el-menu-item>
+            <el-menu-item index="/preparation">筹备金返还</el-menu-item>
+            <el-menu-item index="/peanuts">小微企业经费返还</el-menu-item>
           </el-submenu>
           <el-submenu index="5">
             <template slot="title">
               <i class="el-icon-menu"></i>
               <span>查询统计</span>
             </template>
-            <el-menu-item index="/fullCallback">全额回拨汇总表</el-menu-item>
-            <el-menu-item index="/scaleNotOk">比例不正常汇总表</el-menu-item>
-            <el-menu-item index="/tradeUnionFunds">工会经费统计</el-menu-item>
-            <el-menu-item index="/queryPreparatoryFund">筹备经费统计</el-menu-item>
-            <el-menu-item index="/collectingFunds">代收经费统计表</el-menu-item>
+            <el-menu-item index="/tradeUnionFunds">工会经费缴款统计</el-menu-item>
+            <el-menu-item index="/queryPreparatoryFund">筹备金缴款统计</el-menu-item>
+            <el-menu-item index="/fullCallback">小微企业缴款统计</el-menu-item>
+            <el-menu-item index="/scaleNotOk">缴费异常企业统计</el-menu-item>
           </el-submenu>
           <el-submenu index="6">
             <template slot="title">
