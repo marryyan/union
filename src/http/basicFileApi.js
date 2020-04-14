@@ -84,6 +84,31 @@ const basicFileApi = {
     const url = `/union/base/basecompanyinfo/union`;
     return postApi(url, data)
   },
+  // 基础档案---企业信息库 企业信息详情
+  getBasecompanyinfoInfo: function getBasecompanyinfoInfo (data){
+    const url = `/union/base/basecompanyinfo/info/${data.id}`;
+    return getApi(url, data)
+  },
+  // 基础档案---拨付比例设置 拨付比例设置分页
+  getBaseratiocallbackList: function getBaseratiocallbackList (data){
+    const url = `/union/base/baseratiocallback/list`;
+    return postApi(url, data)
+  },
+  // 基础档案---拨付比例设置 拨付比例添加
+  postBaseratiocallbackSave: function postBaseratiocallbackSave (data){
+    const url = `/union/base/baseratiocallback/save`;
+    return postApi(url, data)
+  },
+  // 基础档案---拨付比例设置 拨付比例详情
+  postBaseratiocallbackInfo: function postBaseratiocallbackInfo (data){
+    const url = `/union/base/baseratiocallback/info/${data.id}`;
+    return postApi(url, data)
+  },
+  // 基础档案---拨付比例设置 拨付比例修改
+  postBaseratiocallbackUpdate: function postBaseratiocallbackUpdate (data){
+    const url = `/union/base/baseratiocallback/update`;
+    return postApi(url, data)
+  },
 }
 
 export default basicFileApi

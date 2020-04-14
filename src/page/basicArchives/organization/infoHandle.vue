@@ -7,6 +7,12 @@
       <el-form-item label="工会名称" prop="unionName">
         <el-input size="small" style="width:200px" v-model="formLabelAlign.unionName"></el-input>
       </el-form-item>
+      <el-form-item label="工会级次" prop="unionName">
+        <el-input size="small" style="width:200px" v-model="formLabelAlign.unionName"></el-input>
+      </el-form-item>
+      <el-form-item label="工会地址" prop="unionName">
+        <el-input size="small" style="width:200px" v-model="formLabelAlign.unionName"></el-input>
+      </el-form-item>
       <el-form-item label="工会账户名">
         <el-input size="small" style="width:200px" v-model="formLabelAlign.accountName"></el-input>
       </el-form-item>
