@@ -14,6 +14,16 @@ const returnManagementApi = {
     const url = `/union/store/storetaxcallback/update`;
     return postApi(url, data)
   },
+  // 返还管理---工会经费返还 拨付详情
+  postStoreStoretaxcallbackInfo: function postStoretaxcallbackInfo (data){
+    const url = `/union/store/storetaxcallback/info/${data.id}`;
+    return postApi(url, data)
+  },
+  // 返还管理---工会经费返还 拨付详情
+  postStoretaxcallbackCbjfList: function postStoretaxcallbackCbjfList (data){
+    const url = `/union/store/storetaxcallback/cbjf/list`;
+    return postApi(url, data)
+  },
 }
 
 export default returnManagementApi
