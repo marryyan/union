@@ -5,12 +5,11 @@
         <el-button size="mini" type="warning" @click="addInfo">新增</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="code" label="序号"></el-table-column>
-        <!-- 没有拨付规则编码 -->
-        <el-table-column prop="name" label="拨付规则编码" width="180"></el-table-column>
+        <el-table-column label="序号" prop="sequenceNumber"></el-table-column>
+        <el-table-column prop="code" label="拨付规则编码" width="180"></el-table-column>
         <el-table-column prop="compFirmlyType" label="企业认定"></el-table-column>
         <el-table-column prop="unionType" label="工会类别"></el-table-column>
-        <el-table-column prop="collectionItemsCode" label="缴费类型"></el-table-column>
+        <el-table-column prop="collectionItemsCode" label="缴费类型" width="180"></el-table-column>
         <el-table-column prop="provincePercent" label="省总"></el-table-column>
         <el-table-column prop="cityPercent" label="市总"></el-table-column>
         <el-table-column prop="serviceChargePercent" label="手续费率"></el-table-column>
@@ -176,7 +175,13 @@ export default {
       }
       basicFileApis.getBaseratiocallbackList(data).then(res => {
         if(res.status == '200'){
-          this.tableData = res.result.list
+          this.tableData = res.result.list.map((item, index) => {
+              return {
+                ...item,
+                sequenceNumber: index + 1 + ((res.result.currPage - 1) * res.result.pageSize)
+              }
+          })
+          this.page.totalPage = res.result.totalCount
         }else{
           this.$message.error(res.message);
         }
@@ -250,7 +255,7 @@ export default {
     handleCurrentChange(val) {
       this.tableData = []
       this.page.currPage = val
-      console.log(`当前页: ${val}`);
+      this.getBaseratiocallbackList()
     }
   }
 }

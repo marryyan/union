@@ -1,11 +1,11 @@
 <template>
   <div class="wrapper">
     <el-form label-position="left" label-width="120px" :rules="rules" ref="formLabelAlign" :model="formLabelAlign" class="demo-form-inline">
-      <el-form-item label="所属税务所id" prop="taxTreeId">
-        <el-input size="small" style="width:200px" v-model="formLabelAlign.taxTreeId"></el-input>
-      </el-form-item>
       <el-form-item label="税务局名称" prop="taxName">
         <el-input size="small" style="width:200px" v-model="formLabelAlign.taxName"></el-input>
+      </el-form-item>
+      <el-form-item label="征收税务机关">
+        <el-input size="small" style="width:200px" v-model="formLabelAlign.collTaxComp"></el-input>
       </el-form-item>
       <el-form-item label="归集账户名称">
         <el-input size="small" style="width:200px" v-model="formLabelAlign.accountName"></el-input>
@@ -35,17 +35,14 @@ import { basicFileApis } from '@/http/api'
       return {
         showAdd: false,
         formLabelAlign: {
-          "taxTreeId":"",//所属税务所id
           "taxName":"",//税务局名称
           "accountName":"",//账户名
           "accountNumber":"",//账户号
           "master":"",//负责人
           "phone":"",//联系方式
+          "collTaxComp": '', //征收税务机关
         },
         rules: {
-          taxTreeId: [
-            { required: true, message: '请填写所属税务所id', trigger: 'blur' }
-          ],
           taxName: [
             { required: true, message: '请填写税务局名称', trigger: 'blur' }
           ],
@@ -67,21 +64,28 @@ import { basicFileApis } from '@/http/api'
         let data ={
           id: this.$route.query.id
         }
-          basicFileApis.getBasebasetaxinfoInfo(data).then(res => {
-          this.formLabelAlign = res.result
+        basicFileApis.getBasebasetaxinfoInfo(data).then(res => {
+          if(res.status == '200'){
+            this.formLabelAlign = res.result
+          }else{
+            this.$message.error(res.message);
+          }
         })
       },
       // 新增
       postBasebasetaxinfoSave(){
         let data = {
+          taxTreeId: this.$route.query.treeId,
           ...this.formLabelAlign
         }
-          basicFileApis.postBasebasetaxinfoSave(data).then(res => {
+        basicFileApis.postBasebasetaxinfoSave(data).then(res => {
           if (res.status == 200) {
               this.$message.success('新增成功！');
               this.$router.push({
                   path: '/taxOffice'
               })
+          }else{
+            this.$message.error(res.message);
           }
         })
       },
@@ -89,14 +93,17 @@ import { basicFileApis } from '@/http/api'
       postBasebasetaxinfoUpdate(){
         let data = {
           "id":this.$route.query.id,//id
+          taxTreeId: this.$route.query.treeId,
           ...this.formLabelAlign
         }
-          basicFileApis.postBasebasetaxinfoUpdate(data).then(res => {
+        basicFileApis.postBasebasetaxinfoUpdate(data).then(res => {
           if (res.status == 200) {
-              this.$message.success('编辑成功！');
-              this.$router.push({
-                  path: '/taxOffice'
-              })
+            this.$message.success('编辑成功！');
+            this.$router.push({
+                path: '/taxOffice'
+            })
+          }else{
+            this.$message.error(res.message);
           }
         })
       },

@@ -26,15 +26,16 @@
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxTreeId" label="序号"></el-table-column>
-        <el-table-column label="税务局名称">
+        <el-table-column label="税务局名称" width="180">
           <template slot-scope="scope">
             <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.taxName}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="accountName" label="归集账户名称"></el-table-column>
-        <el-table-column prop="accountNumber" label="归集账户号"></el-table-column>
+        <el-table-column prop="collTaxComp" label="征收税务机关" width="180"></el-table-column>
+        <el-table-column prop="accountName" label="归集账户名称" width="180"></el-table-column>
+        <el-table-column prop="accountNumber" label="归集账户号" width="180"></el-table-column>
         <el-table-column prop="master" label="联系人"></el-table-column>
-        <el-table-column prop="phone" label="联系电话"></el-table-column>
+        <el-table-column prop="phone" label="联系电话" width="180"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
@@ -96,11 +97,17 @@ export default {
     this.postBasebasetaxinfoPage()
   },
   methods: {
+    // 左树
     getBasebasetaxtreetree(){
-        basicFileApis.getBasebasetaxtreetree().then(res => {
-        this.data.push(res.result)
+      basicFileApis.getBasebasetaxtreetree().then(res => {
+        if(res.status == '200'){
+          this.data.push(res.result)
+        }else{
+          this.$message.error(res.message);
+        }
       })
     },
+    // 列表
     postBasebasetaxinfoPage(){
       let data = {
         "currPage":this.page.currPage,//当前页
@@ -108,9 +115,13 @@ export default {
         ...this.formInline,
         "treeId":this.treeId,//所属税所树id（点击左侧树节点的id）
       }
-        basicFileApis.postBasebasetaxinfoPage(data).then(res => {
-        this.tableData = res.result.list
-        this.page.totalPage = res.result.totalCount
+      basicFileApis.postBasebasetaxinfoPage(data).then(res => {
+        if(res.status == '200'){
+          this.tableData = res.result.list
+          this.page.totalPage = res.result.totalCount
+        }else{
+          this.$message.error(res.message);
+        }
       })
     },
     onSubmit() {
@@ -124,14 +135,22 @@ export default {
       this.postBasebasetaxinfoPage()
     },
     addInfo(){
-      this.$router.push({
-        path: `/taxOfficeInfoAdd`
-      })
+      if(this.treeId){
+        this.$router.push({
+          path: `/taxOfficeInfoAdd?treeId=${this.treeId}`
+        })
+      }else{
+        this.$message.error('请先选择左侧机构后再进行操作！');
+      }
     },
     handleEdit(index, row) {
-      this.$router.push({
-        path: `/taxOfficeInfoEdit?id=${row.id}`
+      if(this.treeId){
+        this.$router.push({
+        path: `/taxOfficeInfoEdit?treeId=${this.treeId}&id=${row.id}`
       })
+      }else{
+        this.$message.error('请先选择左侧机构后再进行操作！');
+      }
     },
     handleDetail(index, row){
       this.$router.push({
@@ -152,6 +171,8 @@ export default {
           this.page.currPage = 1
           this.tableData = []
           this.postBasebasetaxinfoPage()
+        }else{
+          this.$message.error(res.message);
         }
       })
     },

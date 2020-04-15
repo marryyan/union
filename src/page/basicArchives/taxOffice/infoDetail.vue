@@ -6,6 +6,10 @@
         <div class="detail-li-right">{{detailContent.taxName}}</div>
       </div>
       <div class="info-detail-li">
+        <div class="detail-li-left">征收税务机关</div>
+        <div class="detail-li-right">{{detailContent.collTaxComp}}</div>
+      </div>
+      <div class="info-detail-li">
         <div class="detail-li-left">归集账户名称</div>
         <div class="detail-li-right">{{detailContent.accountName}}</div>
       </div>
@@ -42,7 +46,11 @@ export default {
         id: this.$route.query.id
       }
       basicFileApis.getBasebasetaxinfoInfo(data).then(res => {
-        this.detailContent = res.result
+        if(res.status == '200'){
+          this.detailContent = res.result
+        }else{
+          this.$message.error(res.message);
+        }
       })
     }
   }
