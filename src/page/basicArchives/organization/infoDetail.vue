@@ -7,7 +7,7 @@
       </div>
       <div class="info-detail-li">
         <div class="detail-li-left">工会级次</div>
-        <div class="detail-li-right">{{detailContent.unionRank}}</div>
+        <div class="detail-li-right">{{detailContent.unionRankText}}</div>
       </div>
       <div class="info-detail-li">
         <div class="detail-li-left">工会地址</div>
@@ -66,7 +66,7 @@
                         this.detailContent = {
                             ...this.detailContent,
                             ...res.result,
-                            unionRank: this.unionRankOptions.find(item => item.k === res.result.unionRank).v
+                            unionRankText: res.result.unionRank ? this.unionRankOptions.find(item => item.k === res.result.unionRank).v : ''
                         }
                     } else {
                         this.$message.error(res.message)
