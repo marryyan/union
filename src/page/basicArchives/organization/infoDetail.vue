@@ -6,6 +6,18 @@
         <div class="detail-li-right">{{detailContent.unionName}}</div>
       </div>
       <div class="info-detail-li">
+        <div class="detail-li-left">工会级次</div>
+        <div class="detail-li-right">{{detailContent.unionRank}}</div>
+      </div>
+      <div class="info-detail-li">
+        <div class="detail-li-left">工会地址</div>
+        <div class="detail-li-right">{{detailContent.unionAddress}}</div>
+      </div>
+      <div class="info-detail-li">
+        <div class="detail-li-left">开户银行</div>
+        <div class="detail-li-right">{{detailContent.accountBank}}</div>
+      </div>
+      <div class="info-detail-li">
         <div class="detail-li-left">工会账户名</div>
         <div class="detail-li-right">{{detailContent.accountName}}</div>
       </div>
@@ -26,25 +38,41 @@
   </div>
 </template>
 <script>
-import { basicFileApis } from '@/http/api'
-export default {
-  data() {
-    return {
-      detailContent: {}
+    import { basicFileApis, commonApi } from '@/http/api'
+    export default {
+        data() {
+            return {
+                detailContent: {},
+                unionRankOptions: []
+            }
+        },
+        mounted(){
+            commonApi.getDataDic('unionRank').then(res => {
+                if (res.status === 200) {
+                    this.unionRankOptions = res.result
+                    this.getBaseBaseunioninfoInfo()
+                } else {
+                    this.$message.error(res.message)
+                }
+            })
+        },
+        methods:{
+            getBaseBaseunioninfoInfo(){
+                let data ={
+                    id: this.$route.query.id
+                }
+                basicFileApis.getBaseBaseunioninfoInfo(data).then(res => {
+                    if (res.status === 200) {
+                        this.detailContent = {
+                            ...this.detailContent,
+                            ...res.result,
+                            unionRank: this.unionRankOptions.find(item => item.k === res.result.unionRank).v
+                        }
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+            }
+        }
     }
-  },
-  mounted(){
-    this.getBaseBaseunioninfoInfo()
-  },
-  methods:{
-    getBaseBaseunioninfoInfo(){
-      let data ={
-        id: this.$route.query.id
-      }
-      basicFileApis.getBaseBaseunioninfoInfo(data).then(res => {
-        this.detailContent = res.result
-      })
-    }
-  }
-}
 </script>
