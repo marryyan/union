@@ -249,8 +249,8 @@ import {basicFileApis} from '@/http/api'
         daterange:[],
         data: [],
         defaultProps: {
-          children: 'children',
-          label: 'title'
+            children: 'children',
+            label: 'title'
         },
         treeId:"",//总工会id（点击左侧树节点的id）
         tableData: [],
@@ -275,9 +275,15 @@ import {basicFileApis} from '@/http/api'
       }
     },
     mounted(){
+      this.getBaseBaseuniontree()
       this.postPagesmallmicrobusinesses()
     },
     methods: {
+      getBaseBaseuniontree(){
+          basicFileApis.getBaseBaseuniontree().then(res => {
+              this.data.push(res.result)
+          })
+      },
       // 小微企业
       postPagesmallmicrobusinesses(){
         let data = {
@@ -331,6 +337,11 @@ import {basicFileApis} from '@/http/api'
         }else if(this.tabName == '小微企业'){
           
         }
+      },
+      handleNodeClick(data) {
+        this.tableData = []
+        this.treeId = data.id
+        this.postBaseunioninfo()
       },
       handleNodeClick(data) {
         this.tableData = []
