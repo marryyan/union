@@ -335,13 +335,8 @@ import {basicFileApis} from '@/http/api'
         }else if(this.tabName == '未建会'){
           this.postBaseBasecompanyinfoPageno()
         }else if(this.tabName == '小微企业'){
-          
+          this.postPagesmallmicrobusinesses()
         }
-      },
-      handleNodeClick(data) {
-        this.tableData = []
-        this.treeId = data.id
-        this.postBaseunioninfo()
       },
       handleNodeClick(data) {
         this.tableData = []
@@ -351,7 +346,7 @@ import {basicFileApis} from '@/http/api'
         }else if(this.tabName == '未建会'){
           this.postBaseBasecompanyinfoPageno()
         }else if(this.tabName == '小微企业'){
-          
+          this.postPagesmallmicrobusinesses()
         }
       },
       handleTabClick(tab) {
@@ -371,7 +366,7 @@ import {basicFileApis} from '@/http/api'
         }else if(this.tabName == '未建会'){
           this.postBaseBasecompanyinfoPageno()
         }else if(this.tabName == '小微企业'){
-          
+          this.postPagesmallmicrobusinesses()
         }
       },
       addInfo(){
