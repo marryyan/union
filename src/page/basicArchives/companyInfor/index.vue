@@ -86,7 +86,7 @@
             <el-table-column label="操作" width="180">
               <template slot-scope="scope">
                 <el-button size="mini" type="warning"
-                  @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                           @click="handleEdit(scope.$index, scope.row)">修改</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -117,7 +117,7 @@
             <el-table-column label="操作" width="180">
               <template slot-scope="scope">
                 <el-button size="mini" type="warning"
-                  @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                           @click="handleEdit(scope.$index, scope.row)">修改</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -148,13 +148,9 @@
             <el-table-column label="操作" width="180">
               <template slot-scope="scope">
                 <el-button size="mini" type="warning"
-<<<<<<< HEAD
-                  @click="handleEdit(scope.$index, scope.row)">上传建会涵</el-button>
-                <el-button size="mini" type="warning"
-                  @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-=======
                            @click="handleEdit(scope.$index, scope.row)">上传建会涵</el-button>
->>>>>>> 18061e171ec69ce3fbb497974d1df117dd59e90f
+                <el-button size="mini" type="warning"
+                           @click="handleEdit(scope.$index, scope.row)">修改</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -177,26 +173,26 @@
         data() {
             return {
                 formInline: {
-                    "unionBelongstoId":[],//所属工会id   不能使用公共字典id, <组织机构库>-<右侧工会信息，下拉检索>方法
+                    "unionBelongstoId": [],//所属工会id   不能使用公共字典id, <组织机构库>-<右侧工会信息，下拉检索>方法
                     "hasUnion": "", // 是否建会(0:未建会 1:已建会) 字典key：hasUnion
                     "unionType": "", // 工会类型，1 区县工会、 2 ：产业工会  字典key：unionType
-                    "compName":"",//企业名称
-                    "startDate":"",//建会时间开始
-                    "endDate":"",//建会时间结束
+                    "compName": "",//企业名称
+                    "startDate": "",//建会时间开始
+                    "endDate": "",//建会时间结束
                 },
-                unionTypeOptions:[],
-                hasUnionOptions:[],
+                unionTypeOptions: [],
+                hasUnionOptions: [],
                 selectbynameOption: [],
-                daterange:[], // 日期数组
+                daterange: [], // 日期数组
                 data: [],
                 defaultProps: {
                     children: 'children',
                     label: 'title'
                 },
-                treeId:"",//总工会id（点击左侧树节点的id）
+                treeId: "",//总工会id（点击左侧树节点的id）
                 tableData: [],
-                page:{
-                    currPage:1, // 当前页
+                page: {
+                    currPage: 1, // 当前页
                     pageSize: 10, // 每页条数
                     totalPage: 100, // 总页数
                 },
@@ -215,56 +211,12 @@
                 formLabelWidth: '120px'
             }
         },
-        mounted(){
+        mounted() {
             this.getDataDic() // 字典
             this.getBaseBaseuniontree() //左树
             this.postBaseunioninfoSelectbyname() // 所属工会
             this.postPagesmallmicrobusinesses() // 小微企业
         },
-<<<<<<< HEAD
-        formLabelWidth: '120px'
-      }
-    },
-    mounted(){
-      this.getDataDic() // 字典
-      this.getBaseBaseuniontree() //左树
-      this.postBaseunioninfoSelectbyname() // 所属工会
-      this.postPagesmallmicrobusinesses() // 小微企业
-    },
-    methods: {
-      // 获取字典
-      getDataDic() {
-        // 工会类型
-        commonApi.getDataDic('unionType').then(res => {
-          if (res.status === 200) {
-            this.unionTypeOptions = res.result
-          }
-        })
-        // 是否建会
-        commonApi.getDataDic('hasUnion').then(res => {
-          if (res.status === 200) {
-            this.hasUnionOptions = res.result
-          }
-        })
-      },
-      // 左侧树图
-      getBaseBaseuniontree(){
-          basicFileApis.getBaseBaseuniontree().then(res => {
-              this.data.push(res.result)
-          })
-      },
-      // 所属工会
-      postBaseunioninfoSelectbyname(){
-        let data = {
-          unionName: ''
-        }
-        basicFileApis.postBaseunioninfoSelectbyname(data).then(res => {
-            if(res.status == '200'){
-              res.result.map(item => {
-                this.selectbynameOption.push({
-                  value: item.id,
-                  label: item.unionName
-=======
         methods: {
             // 获取字典
             getDataDic() {
@@ -282,106 +234,105 @@
                 })
             },
             // 左侧树图
-            getBaseBaseuniontree(){
+            getBaseBaseuniontree() {
                 basicFileApis.getBaseBaseuniontree().then(res => {
                     this.data.push(res.result)
                 })
             },
-            handleChange(e){
+            handleChange(e) {
                 console.log('222', e)
             },
-            postBaseunioninfoSelectbyname(){
+            postBaseunioninfoSelectbyname() {
                 let data = {
                     unionName: ''
                 }
                 basicFileApis.postBaseunioninfoSelectbyname(data).then(res => {
-                    if(res.status == '200'){
+                    if (res.status == '200') {
                         this.selectbynameOption = res.result.map(item => {
-                            return { value: item.id, label: item.unionName }
+                            return {value: item.id, label: item.unionName}
                         })
-                    }else{
+                    } else {
                         this.$message.error(res.message);
                     }
                 })
             },
             // 小微企业
-            postPagesmallmicrobusinesses(){
+            postPagesmallmicrobusinesses() {
                 this.formInline.unionBelongstoId = this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 let data = {
-                    "currPage":this.page.currPage,//当前页
-                    "pageSize":this.page.pageSize,//每页显示条数
+                    "currPage": this.page.currPage,//当前页
+                    "pageSize": this.page.pageSize,//每页显示条数
                     ...this.formInline,
-                    "belongsUnionTreeId":this.treeId // 左侧树形结构的id
+                    "belongsUnionTreeId": this.treeId // 左侧树形结构的id
                 }
-                basicFileApis.postPagesmallmicrobusinesses(data).then(res=> {
-                    if(res.status == '200'){
+                basicFileApis.postPagesmallmicrobusinesses(data).then(res => {
+                    if (res.status == '200') {
                         this.tableData = res.result.list
                         this.page.totalPage = res.result.totalCount
-                    }else{
+                    } else {
                         this.$message.error(res.message);
                     }
                 })
             },
             // 已建会
-            postBaseBasecompanyinfoPagehas(){
+            postBaseBasecompanyinfoPagehas() {
                 this.formInline.unionBelongstoId = this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 let data = {
-                    "currPage":this.page.currPage,//当前页
-                    "pageSize":this.page.pageSize,//每页显示条数
+                    "currPage": this.page.currPage,//当前页
+                    "pageSize": this.page.pageSize,//每页显示条数
                     ...this.formInline,
-                    "belongsUnionTreeId":this.treeId // 左侧树形结构的id
+                    "belongsUnionTreeId": this.treeId // 左侧树形结构的id
                 }
-                basicFileApis.postBaseBasecompanyinfoPagehas(data).then(res=> {
-                    if(res.status == '200'){
+                basicFileApis.postBaseBasecompanyinfoPagehas(data).then(res => {
+                    if (res.status == '200') {
                         this.tableData = res.result.list
                         this.page.totalPage = res.result.totalCount
-                    }else{
+                    } else {
                         this.$message.error(res.message);
                     }
                 })
             },
             // 未建会
-            postBaseBasecompanyinfoPageno(){
+            postBaseBasecompanyinfoPageno() {
                 this.formInline.unionBelongstoId = this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 let data = {
-                    "currPage":this.page.currPage,//当前页
-                    "pageSize":this.page.pageSize,//每页显示条数
+                    "currPage": this.page.currPage,//当前页
+                    "pageSize": this.page.pageSize,//每页显示条数
                     ...this.formInline,
-                    "belongsUnionTreeId":this.treeId // 左侧树形结构的id
+                    "belongsUnionTreeId": this.treeId // 左侧树形结构的id
                 }
-                basicFileApis.postBaseBasecompanyinfoPageno(data).then(res=> {
-                    if(res.status == '200'){
+                basicFileApis.postBaseBasecompanyinfoPageno(data).then(res => {
+                    if (res.status == '200') {
                         this.tableData = res.result.list
                         this.page.totalPage = res.result.totalCount
-                    }else{
+                    } else {
                         this.$message.error(res.message);
                     }
->>>>>>> 18061e171ec69ce3fbb497974d1df117dd59e90f
                 })
             },
-            changeDate(e){
+            changeDate(e) {
                 this.formInline.startDate = e[0]
                 this.formInline.endDate = e[1]
             },
             onSubmit() {
                 this.page.currPage = 1
                 this.tableData = []
-                if(this.tabName == '已建会'){
+                if (this.tabName == '已建会') {
                     this.postBaseBasecompanyinfoPagehas()
-                }else if(this.tabName == '未建会'){
+                } else if (this.tabName == '未建会') {
                     this.postBaseBasecompanyinfoPageno()
-                }else if(this.tabName == '小微企业'){
+                } else if (this.tabName == '小微企业') {
                     this.postPagesmallmicrobusinesses()
                 }
             },
             handleNodeClick(data) {
                 this.tableData = []
                 this.treeId = data.id
-                if(this.tabName == '已建会'){
+                if (this.tabName == '已建会') {
                     this.postBaseBasecompanyinfoPagehas()
-                }else if(this.tabName == '未建会'){
+                } else if (this.tabName == '未建会') {
                     this.postBaseBasecompanyinfoPageno()
-                }else if(this.tabName == '小微企业'){
+                } else if (this.tabName == '小微企业') {
                     this.postPagesmallmicrobusinesses()
                 }
             },
@@ -397,28 +348,32 @@
                 this.formInline.endDate = ''
                 this.daterange = []
                 this.tabName = tab.label
-                if(this.tabName == '已建会'){
+                if (this.tabName == '已建会') {
                     this.postBaseBasecompanyinfoPagehas()
-                }else if(this.tabName == '未建会'){
+                } else if (this.tabName == '未建会') {
                     this.postBaseBasecompanyinfoPageno()
-                }else if(this.tabName == '小微企业'){
+                } else if (this.tabName == '小微企业') {
                     this.postPagesmallmicrobusinesses()
                 }
             },
-            addInfo(){
-                this.$router.push({
-                    path: `/companyInforInfoAdd`
-                })
+            addInfo() {
+                if (this.treeId) {
+                    this.$router.push({
+                        path: `/companyInforInfoAdd?treeId=${this.treeId}`
+                    })
+                } else {
+                    this.$message.error('请先选择左侧机构后再进行操作！');
+                }
             },
             handleDeploy(index, row) {
                 this.dialogFormVisible = true
             },
-            handleEdit(index, row){
+            handleEdit(index, row) {
                 this.$router.push({
                     path: `/companyInforInfoEdit?id=${row.id}`
                 })
             },
-            handleDetail(index, row){
+            handleDetail(index, row) {
                 this.$router.push({
                     path: `/companyInforDetail?id=${row.id}`
                 })
@@ -426,155 +381,12 @@
             handleCurrentChange(val) {
                 this.tableData = []
                 this.page.currPage = val
-                if(this.tabName == '已建会'){
+                if (this.tabName == '已建会') {
                     this.postBaseBasecompanyinfoPagehas()
-                }else{
+                } else {
                     this.postBaseBasecompanyinfoPageno()
                 }
             }
-<<<<<<< HEAD
-        })
-      },
-      handleChange(e){
-        console.log('222', e)
-      },
-      // 小微企业
-      postPagesmallmicrobusinesses(){
-        if(this.formInline.unionBelongstoId){
-          this.formInline.unionBelongstoId = this.formInline.unionBelongstoId.join(',')
-        }
-        let data = {
-          "currPage":this.page.currPage,//当前页
-          "pageSize":this.page.pageSize,//每页显示条数
-          ...this.formInline,
-          "belongsUnionTreeId":this.treeId // 左侧树形结构的id
-        }
-        basicFileApis.postPagesmallmicrobusinesses(data).then(res=> {
-          if(res.status == '200'){
-            this.tableData = res.result.list
-            this.page.totalPage = res.result.totalCount
-          }else{
-            this.$message.error(res.message);
-          }
-        })
-      },
-      // 已建会
-      postBaseBasecompanyinfoPagehas(){
-        if(this.formInline.unionBelongstoId){
-          this.formInline.unionBelongstoId = this.formInline.unionBelongstoId.join(',')
-        }
-        let data = {
-          "currPage":this.page.currPage,//当前页
-          "pageSize":this.page.pageSize,//每页显示条数
-          ...this.formInline,
-          "belongsUnionTreeId":this.treeId // 左侧树形结构的id
-        }
-        basicFileApis.postBaseBasecompanyinfoPagehas(data).then(res=> {
-          if(res.status == '200'){
-            this.tableData = res.result.list
-            this.page.totalPage = res.result.totalCount
-          }else{
-            this.$message.error(res.message);
-          }
-        })
-      },
-      // 未建会
-      postBaseBasecompanyinfoPageno(){
-        if(this.formInline.unionBelongstoId){
-          this.formInline.unionBelongstoId = this.formInline.unionBelongstoId.join(',')
-        }
-        let data = {
-          "currPage":this.page.currPage,//当前页
-          "pageSize":this.page.pageSize,//每页显示条数
-          ...this.formInline,
-          "belongsUnionTreeId":this.treeId // 左侧树形结构的id
-        }
-        basicFileApis.postBaseBasecompanyinfoPageno(data).then(res=> {
-          if(res.status == '200'){
-            this.tableData = res.result.list
-            this.page.totalPage = res.result.totalCount
-          }else{
-            this.$message.error(res.message);
-          }
-        })
-      },
-      changeDate(e){
-        this.formInline.startDate = e[0]
-        this.formInline.endDate = e[1]
-      },
-      onSubmit() {
-        this.page.currPage = 1
-        this.tableData = []
-        if(this.tabName == '已建会'){
-          this.postBaseBasecompanyinfoPagehas()
-        }else if(this.tabName == '未建会'){
-          this.postBaseBasecompanyinfoPageno()
-        }else if(this.tabName == '小微企业'){
-          this.postPagesmallmicrobusinesses()
-        }
-      },
-      handleNodeClick(data) {
-        this.tableData = []
-        this.treeId = data.id
-        if(this.tabName == '已建会'){
-          this.postBaseBasecompanyinfoPagehas()
-        }else if(this.tabName == '未建会'){
-          this.postBaseBasecompanyinfoPageno()
-        }else if(this.tabName == '小微企业'){
-          this.postPagesmallmicrobusinesses()
-        }
-      },
-      handleTabClick(tab) {
-        this.page.currPage = 1
-        this.tableData = []
-        this.formInline.unionBelongsto = ''
-        this.formInline.taxBelongsComp = ''
-        this.formInline.areaName = ''
-        this.formInline.compCode = ''
-        this.formInline.compName = ''
-        this.formInline.startDate = ''
-        this.formInline.endDate = ''
-        this.daterange = []
-        this.tabName = tab.label
-        if(this.tabName == '已建会'){
-          this.postBaseBasecompanyinfoPagehas()
-        }else if(this.tabName == '未建会'){
-          this.postBaseBasecompanyinfoPageno()
-        }else if(this.tabName == '小微企业'){
-          this.postPagesmallmicrobusinesses()
-        }
-      },
-      addInfo(){
-        if(this.treeId){
-          this.$router.push({
-            path: `/companyInforInfoAdd?treeId=${this.treeId}`
-          })
-        }else{
-          this.$message.error('请先选择左侧机构后再进行操作！');
-        }
-      },
-      handleDeploy(index, row) {
-        this.dialogFormVisible = true
-      },
-      handleEdit(index, row){
-        this.$router.push({
-          path: `/companyInforInfoEdit?id=${row.id}`
-        })
-      },
-      handleDetail(index, row){
-        this.$router.push({
-          path: `/companyInforDetail?id=${row.id}`
-        })
-      },
-      handleCurrentChange(val) {
-        this.tableData = []
-        this.page.currPage = val
-        if(this.tabName == '已建会'){
-          this.postBaseBasecompanyinfoPagehas()
-        }else{
-          this.postBaseBasecompanyinfoPageno()
-=======
->>>>>>> 18061e171ec69ce3fbb497974d1df117dd59e90f
         }
     }
 </script>
