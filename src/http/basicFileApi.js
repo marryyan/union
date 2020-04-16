@@ -109,6 +109,16 @@ const basicFileApi = {
     const url = `/union/base/baseratiocallback/update`;
     return postApi(url, data)
   },
+  // 基础档案---缴费基数设置 缴费基数设置分页
+  postBaseratiopayList: function postBaseratiopayList (data){
+    const url = `/union/base/baseratiopay/list`;
+    return postApi(url, data)
+  },
+  // 基础档案---缴费基数设置 缴费基数详情
+  postBaseratipayInfo: function postBaseratipayInfo (data){
+    const url = `/union/base/baseratiopay/info/${data.id}`;
+    return postApi(url, data)
+  },
 }
 
 export default basicFileApi
