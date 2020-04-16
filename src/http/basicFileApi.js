@@ -124,6 +124,11 @@ const basicFileApi = {
     const url = `/union/base/baseratiocallback/isuse`;
     return postApi(url, data)
   },
+  // 基础档案---右侧工会信息，下拉检索
+  postBaseunioninfoSelectbyname: function postBaseratiocallbackIsuse (data){
+    const url = `/union/base/baseunioninfo/selectbyname`;
+    return postApi(url, data)
+  },
 }
 
 export default basicFileApi

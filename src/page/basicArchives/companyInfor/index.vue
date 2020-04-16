@@ -11,13 +11,27 @@
     <div class="flex-right">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="所属工会：">
-          <el-input size="mini" v-model="formInline.unionBelongsto" placeholder="请输入"></el-input>
+           <el-cascader size="mini" v-model="formInline.unionBelongstoId" placeholder="请选择" :options="selectbynameOption" filterable></el-cascader>
         </el-form-item>
-        <el-form-item label="所属地税局：">
-          <el-input size="mini" v-model="formInline.taxBelongsComp" placeholder="请输入"></el-input>
+        <el-form-item label="工会类别：">
+          <el-select size="mini" v-model="formInline.unionType" placeholder="请选择">
+              <el-option
+                v-for="item in unionTypeOptions"
+                :key="item.k"
+                :label="item.v"
+                :value="item.k">
+              </el-option>
+            </el-select>
         </el-form-item>
-        <el-form-item label="所属区县：">
-          <el-input size="mini" v-model="formInline.areaName" placeholder="请输入"></el-input>
+        <el-form-item label="工会状态：">
+          <el-select size="mini" v-model="formInline.hasUnion" placeholder="请选择">
+              <el-option
+                v-for="item in hasUnionOptions"
+                :key="item.k"
+                :label="item.v"
+                :value="item.k">
+              </el-option>
+            </el-select>
         </el-form-item>
         <el-form-item label="统一社会信用代码：">
           <el-input size="mini" v-model="formInline.compCode" placeholder="请输入"></el-input>
@@ -48,7 +62,7 @@
       <el-tabs type="border-card" @tab-click="handleTabClick">
         <el-tab-pane label="小微企业">
           <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column label="单位名称"  >
+            <el-table-column label="单位名称" width="180">
               <template slot-scope="scope">
                 <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.compName}}</div>
               </template>
@@ -73,7 +87,7 @@
                 <div v-if="scope.row.hasUnion == '1'">已建会</div>
               </template>
             </el-table-column>
-            <el-table-column prop="compFirmlyType" label="企业认定">
+            <el-table-column prop="compFirmlyType" label="企业认定" width="180">
               <template slot-scope="scope">
                 <div v-if="scope.row.compFirmlyType == '0'">正常缴费企业</div>
                 <div v-if="scope.row.compFirmlyType == '1'">试点企业</div>
@@ -96,7 +110,7 @@
         </el-tab-pane>
         <el-tab-pane label="已建会">
           <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column label="单位名称"  >
+            <el-table-column label="单位名称" width="180">
               <template slot-scope="scope">
                 <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.compName}}</div>
               </template>
@@ -121,7 +135,7 @@
                 <div v-if="scope.row.hasUnion == '1'">已建会</div>
               </template>
             </el-table-column>
-            <el-table-column prop="compFirmlyType" label="企业认定">
+            <el-table-column prop="compFirmlyType" label="企业认定" width="180">
               <template slot-scope="scope">
                 <div v-if="scope.row.compFirmlyType == '0'">正常缴费企业</div>
                 <div v-if="scope.row.compFirmlyType == '1'">试点企业</div>
@@ -144,7 +158,7 @@
         </el-tab-pane>
         <el-tab-pane label="未建会">
           <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column label="单位名称"  >
+            <el-table-column label="单位名称" width="180">
               <template slot-scope="scope">
                 <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.compName}}</div>
               </template>
@@ -169,7 +183,7 @@
                 <div v-if="scope.row.hasUnion == '1'">已建会</div>
               </template>
             </el-table-column>
-            <el-table-column prop="compFirmlyType" label="企业认定">
+            <el-table-column prop="compFirmlyType" label="企业认定" width="180">
               <template slot-scope="scope">
                 <div v-if="scope.row.compFirmlyType == '0'">正常缴费企业</div>
                 <div v-if="scope.row.compFirmlyType == '1'">试点企业</div>
@@ -205,48 +219,26 @@
       layout="prev, pager, next, jumper"
       :total="page.totalPage">
     </el-pagination>
-    <!-- 配置缴费比例 -->
-    <el-dialog title="配置缴费比例" :visible.sync="dialogFormVisible">
-      <el-form :model="form">
-        <el-form-item label="缴费类型">
-          <el-select size="mini" v-model="form.region" placeholder="请选择活动区域" style="width:250px">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="缴费比例">
-          <el-select size="mini" v-model="form.region" placeholder="请选择活动区域" style="width:250px">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="缴费比例">
-          <el-input size="mini" v-model="form.name" autocomplete="off" style="width:250px"></el-input>%
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false"  size="mini">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible = false"  size="mini">确 定</el-button>
-      </div>
-    </el-dialog>
     </div>
   </div>
 </template>
 <script>
-import {basicFileApis} from '@/http/api'
+import {  basicFileApis, commonApi} from '@/http/api'
   export default {
     data() {
       return {
         formInline: {
-          "unionBelongsto":"",//所属公会
-          "taxBelongsComp":"",//所属地税局
-          "areaName":"",//所属区县 ？？ 后台没数据
-          "compCode":"",//统一社会信用代码
+          "unionBelongstoId":"",//所属工会id   不能使用公共字典id, <组织机构库>-<右侧工会信息，下拉检索>方法
+          "hasUnion": "", // 是否建会(0:未建会 1:已建会) 字典key：hasUnion
+          "unionType": "", // 工会类型，1 区县工会、 2 ：产业工会  字典key：unionType
           "compName":"",//企业名称
           "startDate":"",//建会时间开始
           "endDate":"",//建会时间结束
         },
-        daterange:[],
+        unionTypeOptions:[],
+        hasUnionOptions:[],
+        selectbynameOption: [],
+        daterange:[], // 日期数组
         data: [],
         defaultProps: {
             children: 'children',
@@ -259,7 +251,7 @@ import {basicFileApis} from '@/http/api'
           pageSize: 10, // 每页条数
           totalPage: 100, // 总页数
         },
-        tabName: '已建会',
+        tabName: '小微企业',
         dialogFormVisible: false,
         form: {
           name: '',
@@ -275,14 +267,52 @@ import {basicFileApis} from '@/http/api'
       }
     },
     mounted(){
-      this.getBaseBaseuniontree()
-      this.postPagesmallmicrobusinesses()
+      this.getDataDic() // 字典
+      this.getBaseBaseuniontree() //左树
+      this.postBaseunioninfoSelectbyname() // 所属工会
+      this.postPagesmallmicrobusinesses() // 小微企业
     },
     methods: {
+      // 获取字典
+      getDataDic() {
+        // 工会类型
+        commonApi.getDataDic('unionType').then(res => {
+          if (res.status === 200) {
+            this.unionTypeOptions = res.result
+          }
+        })
+        // 是否建会
+        commonApi.getDataDic('hasUnion').then(res => {
+          if (res.status === 200) {
+            this.hasUnionOptions = res.result
+          }
+        })
+      },
+      // 左侧树图
       getBaseBaseuniontree(){
           basicFileApis.getBaseBaseuniontree().then(res => {
               this.data.push(res.result)
           })
+      },
+      handleChange(e){
+        console.log('222', e)
+      },
+      postBaseunioninfoSelectbyname(){
+        let data = {
+          unionName: ''
+        }
+        basicFileApis.postBaseunioninfoSelectbyname(data).then(res => {
+            if(res.status == '200'){
+              res.result.map(item => {
+                this.selectbynameOption.push({
+                  value: item.id,
+                  label: item.unionName
+                })
+              })
+            }else{
+              this.$message.error(res.message);
+            }
+        })
       },
       // 小微企业
       postPagesmallmicrobusinesses(){
@@ -293,12 +323,17 @@ import {basicFileApis} from '@/http/api'
           "belongsUnionTreeId":this.treeId // 左侧树形结构的id
         }
         basicFileApis.postPagesmallmicrobusinesses(data).then(res=> {
-          this.tableData = res.result.list
-          this.page.totalPage = res.result.totalCount
+          if(res.status == '200'){
+            this.tableData = res.result.list
+            this.page.totalPage = res.result.totalCount
+          }else{
+            this.$message.error(res.message);
+          }
         })
       },
       // 已建会
       postBaseBasecompanyinfoPagehas(){
+        this.formInline.unionBelongstoId = this.formInline.unionBelongstoId.join(',')
         let data = {
           "currPage":this.page.currPage,//当前页
           "pageSize":this.page.pageSize,//每页显示条数
@@ -306,12 +341,17 @@ import {basicFileApis} from '@/http/api'
           "belongsUnionTreeId":this.treeId // 左侧树形结构的id
         }
         basicFileApis.postBaseBasecompanyinfoPagehas(data).then(res=> {
-          this.tableData = res.result.list
-          this.page.totalPage = res.result.totalCount
+          if(res.status == '200'){
+            this.tableData = res.result.list
+            this.page.totalPage = res.result.totalCount
+          }else{
+            this.$message.error(res.message);
+          }
         })
       },
       // 未建会
       postBaseBasecompanyinfoPageno(){
+        this.formInline.unionBelongstoId = this.formInline.unionBelongstoId.join(',')
         let data = {
           "currPage":this.page.currPage,//当前页
           "pageSize":this.page.pageSize,//每页显示条数
@@ -319,8 +359,12 @@ import {basicFileApis} from '@/http/api'
           "belongsUnionTreeId":this.treeId // 左侧树形结构的id
         }
         basicFileApis.postBaseBasecompanyinfoPageno(data).then(res=> {
-          this.tableData = res.result.list
-          this.page.totalPage = res.result.totalCount
+          if(res.status == '200'){
+            this.tableData = res.result.list
+            this.page.totalPage = res.result.totalCount
+          }else{
+            this.$message.error(res.message);
+          }
         })
       },
       changeDate(e){
