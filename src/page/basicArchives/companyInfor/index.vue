@@ -369,9 +369,13 @@
                 this.dialogFormVisible = true
             },
             handleEdit(index, row) {
+              if (this.treeId) {
                 this.$router.push({
-                    path: `/companyInforInfoEdit?id=${row.id}`
+                    path: `/companyInforInfoEdit?id=${row.id}&treeId=${this.treeId}`
                 })
+              } else {
+                this.$message.error('请先选择左侧机构后再进行操作！');
+              }
             },
             handleDetail(index, row) {
                 this.$router.push({

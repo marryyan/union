@@ -131,67 +131,34 @@
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="税务信息">
-        <el-form label-position="left" label-width="180px" :model="formLabelAlign" class="demo-form-inline">
-          <el-form-item label="税务登记代码">
-            <el-input size="small" style="width:200px" v-model="formLabelAlign.name"></el-input>
-          </el-form-item>
-          <el-form-item label="收款国库">
-            <el-select size="small" style="width:200px" v-model="formLabelAlign.type">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="税款属性">
-            <el-input size="small" style="width:200px" v-model="formLabelAlign.type"></el-input>
-          </el-form-item>
-          <el-form-item label="税款所属税务机关">
-            <el-select size="small" style="width:200px" v-model="formLabelAlign.type">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="主管税务所（科、分局）">
-            <el-select size="small" style="width:200px" v-model="formLabelAlign.type">
-              <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
-              </el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="征收税务机关">
-            <el-input size="small" style="width:200px" v-model="formLabelAlign.type"></el-input>
+        <el-form label-position="left" label-width="180px" :model="formTaxation" class="demo-form-inline">
+          <el-form-item label="所属税务机关">
+            <el-cascader size="small" style="width:200px" v-model="formTaxation.taxBelongsCompId" placeholder="请选择" :options="basetaxinfoOption" filterable></el-cascader>
           </el-form-item>
         </el-form>
       </el-tab-pane>
       <el-tab-pane label="缴费信息">
-        <!-- <el-form label-position="left" label-width="150px" :model="formLabelAlign" class="demo-form-inline">
+        <el-form label-position="left" label-width="150px" :model="formPay" class="demo-form-inline">
+          <el-form-item label="开户名称">
+            <el-input size="small" style="width:200px" v-model="formPay.name" disabled></el-input>
+          </el-form-item>
           <el-form-item label="银行账号">
-            <el-input size="small" style="width:200px" v-model="formLabelAlign.name"></el-input>
+            <el-input size="small" style="width:200px" v-model="formPay.payAccount"></el-input>
           </el-form-item>
           <el-form-item label="银行营业网点">
-            <el-input size="small" style="width:200px" v-model="formLabelAlign.region"></el-input>
+            <el-input size="small" style="width:200px" v-model="formPay.payNetwork"></el-input>
           </el-form-item>
           <el-form-item label="银行行别">
-            <el-select size="small" style="width:200px" v-model="formLabelAlign.type">
+            <el-select size="small" style="width:200px" v-model="formPay.bankType" placeholder="请选择">
               <el-option
-                v-for="item in options"
-                :key="item.value"
-                :label="item.label"
-                :value="item.value">
+                v-for="item in unionTypeOptions"
+                :key="item.k"
+                :label="item.v"
+                :value="item.k">
               </el-option>
             </el-select>
           </el-form-item>
-        </el-form> -->
+        </el-form>
         <!-- <div class="table-title">费用缴纳情况</div>
         <el-table :data="tableData" border stripe style="width: 100%; margin-bottom: 20px">
           <el-table-column prop="compCode" label="税款所属期"></el-table-column>
@@ -251,18 +218,28 @@ import {  basicFileApis, commonApi} from '@/http/api'
           "compLegal":null, // 法人代表
           "registMoney":null, // 注册资本 单位万元
           "compScope":null, // 经营范围
-        },
+        },// 企业
+        formTaxation:{
+          "id":null,
+          "belongsUnionTreeId": "", //左侧树形结构的id(好像没有选择的地方)
+          "taxBelongsCompId":null // 税款所属税务机关 (id) 需要单独的搜索该信息《税所机构库》-《右侧税务信息，下拉检索》
+        },// 税务
+        formPay:{
+          "id":null,
+          // 账户名称直接使用企业名称不可更改
+          "belongsUnionTreeId": "", //左侧树形结构的id(好像没有选择的地方)
+          "payAccount":null, //银行账号
+          "payNetwork":null, //银行营业网点
+          "bankType":null// 银行类型(农行，工行 ）下拉框 字典key: bankType
+        }, // 缴费
         unionTypeOptions:[],
         compFirmlyTypeOptions:[],
         hasUnionOptions:[],
         compStatusOptions:[],
+        bankTypeOptions:[],
         selectbynameOption: [],
+        basetaxinfoOption:[],
         tableData:[],
-        formLabelAlign: {
-          name: '',
-          region: '',
-          type: ''
-        },
         tabName: '工会信息',
         id: ''
       };
@@ -270,14 +247,19 @@ import {  basicFileApis, commonApi} from '@/http/api'
     mounted(){
       this.formLabour.belongsUnionTreeId = this.$route.query.treeId
       this.formBusiness.belongsUnionTreeId = this.$route.query.treeId
+      this.formTaxation.belongsUnionTreeId = this.$route.query.treeId
+      this.formPay.belongsUnionTreeId = this.$route.query.treeId
       this.getDataDic() // 字典
       this.postBaseunioninfoSelectbyname() // 所属机构id
+      this.postBasetaxinfoSelectbyname() // 所属税务机关
       // 新增
       if(this.$route.path == '/companyInforInfoAdd') {
       }else{
         // 编辑
         this.formLabour.id = this.$route.query.id
         this.formBusiness.id = this.$route.query.id
+        this.formTaxation.id = this.$route.query.id
+        this.formPay.id = this.$route.query.id
       }
     },
     methods:{
@@ -307,6 +289,12 @@ import {  basicFileApis, commonApi} from '@/http/api'
             this.compStatusOptions = res.result
           }
         })
+        // 银行类型
+        commonApi.getDataDic('bankType').then(res => {
+          if (res.status === 200) {
+            this.bankTypeOptions = res.result
+          }
+        })
       },
       // 所属工会
       postBaseunioninfoSelectbyname(){
@@ -319,6 +307,24 @@ import {  basicFileApis, commonApi} from '@/http/api'
                 this.selectbynameOption.push({
                   value: item.id,
                   label: item.unionName
+                })
+              })
+            }else{
+              this.$message.error(res.message);
+            }
+        })
+      },
+      // 所属税务机关
+      postBasetaxinfoSelectbyname(){
+        let data = {
+          taxName: ''
+        }
+        basicFileApis.postBasetaxinfoSelectbyname(data).then(res => {
+            if(res.status == '200'){
+              res.result.map(item => {
+                this.basetaxinfoOption.push({
+                  value: item.id,
+                  label: item.taxName
                 })
               })
             }else{
@@ -358,11 +364,44 @@ import {  basicFileApis, commonApi} from '@/http/api'
           }
         })
       },
+      // 添加编辑税务信息
+      postBasecompanyinfoTax(){
+        if(this.formTaxation.taxBelongsCompId){
+          this.formTaxation.taxBelongsCompId = this.formTaxation.taxBelongsCompId.join(',')
+        }
+        let data = {
+          ...this.formTaxation
+        }
+        basicFileApis.postBasecompanyinfoTax(data).then(res => {
+          if(res.status == '200'){
+            this.$message.success('编辑成功！');
+          }else{
+            this.$message.error(res.message);
+          }
+        })
+      },
+      // 添加修改缴费信息
+      postBasecompanyinfoPay(){
+        let data = {
+          ...this.formPay
+        }
+        basicFileApis.postBasecompanyinfoPay(data).then(res => {
+          if(res.status == '200'){
+            this.$message.success('编辑成功！');
+          }else{
+            this.$message.error(res.message);
+          }
+        })
+      },
       submitAdd(name){
         if(name == '工会信息'){
           this.postBasecompanyinfoUnion()
         }else if(name == '企业基本信息') {
           this.postBasecompanyinfoComp()
+        }else if(name == '税务信息'){
+          this.postBasecompanyinfoTax()
+        }else{
+          this.postBasecompanyinfoPay()
         }
       }
     }

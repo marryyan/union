@@ -159,6 +159,11 @@ const basicFileApi = {
     const url = `/union/base/baseunioninfo/selectbyname`;
     return postApi(url, data)
   },
+  // 基础档案---右侧税务信息，下拉检索
+  postBasetaxinfoSelectbyname: function postBasetaxinfoSelectbyname (data){
+    const url = `/union/base/basetaxinfo/selectbyname`;
+    return postApi(url, data)
+  },
 }
 
 export default basicFileApi
