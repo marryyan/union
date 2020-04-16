@@ -119,6 +119,11 @@ const basicFileApi = {
     const url = `/union/base/baseratiopay/info/${data.id}`;
     return postApi(url, data)
   },
+  // 基础档案---拨付比例设置 拨付比例启用停用
+  postBaseratiocallbackIsuse: function postBaseratiocallbackIsuse (data){
+    const url = `/union/base/baseratiocallback/isuse`;
+    return postApi(url, data)
+  },
 }
 
 export default basicFileApi

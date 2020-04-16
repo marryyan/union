@@ -81,8 +81,8 @@ export default {
 </script>
 <style>
   .el-header, .el-footer {
-    background-color: #e62111;
-    /* background-color: #ffffff; */
+    /* background-color: #e62111; */
+    background-color: #ffffff;
     color: #333;
     text-align: center;
     line-height: 60px;

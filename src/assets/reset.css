@@ -221,8 +221,8 @@ blockquote:after {
   margin-top: 10px;
 }
 .el-menu-item.is-active {
-  background-color: #e62111 !important;
-  /* background-color: #999 !important; */
+  /* background-color: #e62111 !important; */
+  background-color: #999 !important;
 }
 .el-menu-item.is-active {
   color: #ffffff !important;

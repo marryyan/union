@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="flex-right">
       <div class="operation_btns">
-        <el-button size="mini" type="warning" @click="addInfo">新增</el-button>
+        <el-button size="mini" type="warning" @click="changeInfo('add')">新增</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column label="序号" prop="sequenceNumber"></el-table-column>
@@ -15,12 +15,15 @@
         <el-table-column prop="serviceChargePercent" label="手续费率"></el-table-column>
         <el-table-column prop="areaIndustryPercent" label="区/产总"></el-table-column>
         <el-table-column prop="compPercent" label="企业"></el-table-column>
+        <el-table-column prop="isUse" label="是否启用"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
-              @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+              @click="changeInfo('edit', scope.row)">修改</el-button>
             <el-button size="mini" type="warning"
-              @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+              @click="handleUse('use', scope.row)" v-if="scope.row.isUse == '1'">启用</el-button>
+            <el-button size="mini" type="warning"
+              @click="handleUse('unUse', scope.row)" v-if="scope.row.isUse == '0'">禁用</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -38,70 +41,40 @@
       :centerDialogVisible="centerDialogVisible" 
       @delDialog="sureDelDialog"
       @cancleDialog="cancleDelDialog"></DialogCommon>
-      <!-- 新增 -->
-      <el-dialog title="新增拨付比例" :visible.sync="dialogAddVisible">
-        <el-form :model="formAdd" label-position='right' label-width="130px">
+      <!-- 新增，修改 -->
+      <el-dialog :title="dialogTitle" :visible.sync="dialogVisible">
+        <el-form :model="formInfo" label-position='right' label-width="130px">
           <el-form-item label="拨付规则编码：">
-            <el-input disabled size="mini" v-model="formAdd.code" autocomplete="off" style="width:250px"></el-input>
+            <el-input disabled size="mini" v-model="formInfo.code" autocomplete="off" style="width:250px"></el-input>
           </el-form-item>
           <el-form-item label="缴费类型：">
-            <el-select size="mini" v-model="formAdd.collectionItemsCode" placeholder="请选择" style="width:250px">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+            <el-select size="mini" v-model="formInfo.collectionItemsCode" placeholder="请选择" style="width:250px" multiple>
+              <el-option
+                v-for="item in collectionItemsCodeOptions"
+                :key="item.k"
+                :label="item.v"
+                :value="item.k">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="工会类别：">
-            <el-select size="mini" v-model="formAdd.unionType" placeholder="请选择" style="width:250px">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+            <el-select size="mini" v-model="formInfo.unionType" placeholder="请选择" style="width:250px" multiple>
+              <el-option
+                v-for="item in unionTypeOptions"
+                :key="item.k"
+                :label="item.v"
+                :value="item.k">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="企业认定：">
-            <el-select size="mini" v-model="formAdd.compFirmlyType" placeholder="请选择" style="width:250px">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="手续费：">
-            <el-input size="mini" v-model="formAdd.serviceChargePercent" style="width:250px" type="number"></el-input>%
-          </el-form-item>
-          <el-form-item label="省总拨付比例：">
-            <el-input size="mini" v-model="formAdd.provincePercent" style="width:250px" type="number"></el-input>%
-          </el-form-item>
-          <el-form-item label="市总拨付比例：">
-            <el-input size="mini" v-model="formAdd.cityPercent" style="width:250px" type="number"></el-input>%
-          </el-form-item>
-          <el-form-item label="区县拨付比例：">
-            <el-input size="mini" v-model="formAdd.areaIndustryPercent" style="width:250px" type="number"></el-input>%
-          </el-form-item>
-          <el-form-item label="企业拨付比例：">
-            <el-input size="mini" v-model="formAdd.compPercent" style="width:250px" type="number"></el-input>%
-          </el-form-item>
-        </el-form>
-        <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogAddVisible = false"  size="mini">取 消</el-button>
-          <el-button type="primary" @click="clickAddSure" size="mini">确 定</el-button>
-        </div>
-      </el-dialog>
-      <!-- 修改 -->
-      <el-dialog title="拨付比例修改" :visible.sync="dialogEditVisible">
-        <el-form :model="formInfo" label-position='right' label-width="130px">
-          <el-form-item label="缴费类型：">
-            <el-select size="mini" v-model="formInfo.collectionItemsCode" placeholder="请选择" style="width:250px">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="工会类别：">
-            <el-select size="mini" v-model="formInfo.unionType" placeholder="请选择" style="width:250px">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
-            </el-select>
-          </el-form-item>
-          <el-form-item label="企业类型：">
             <el-select size="mini" v-model="formInfo.compFirmlyType" placeholder="请选择" style="width:250px">
-              <el-option label="区域一" value="shanghai"></el-option>
-              <el-option label="区域二" value="beijing"></el-option>
+              <el-option
+                v-for="item in compFirmlyTypeOptions"
+                :key="item.k"
+                :label="item.v"
+                :value="item.k">
+              </el-option>
             </el-select>
           </el-form-item>
           <el-form-item label="手续费：">
@@ -121,8 +94,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogEditVisible = false"  size="mini">取 消</el-button>
-          <el-button type="primary" @click="clickEditSure" size="mini">确 定</el-button>
+          <el-button @click="dialogVisible = false"  size="mini">取 消</el-button>
+          <el-button type="primary" @click="submitInfo" size="mini">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -130,7 +103,7 @@
 </template>
 <script>
 import DialogCommon from '@/components/dialogCommon';
-import { basicFileApis } from '@/http/api'
+import { basicFileApis, commonApi } from '@/http/api'
 export default {
   components: {
     DialogCommon
@@ -143,10 +116,13 @@ export default {
         pageSize: 10, // 每页条数
         totalPage: 100, // 总页数
       },
-      centerText: '是否确定删除该拨付比例设置信息？',
+      centerText: '是否确定启用该拨付比例设置信息？',
       centerDialogVisible: false,
-      dialogAddVisible: false, // 是否打开新增
-      formAdd: {
+      useType: '', // 判断显示启用还是禁用
+      useRow:'', //启用禁用row
+      dialogTitle: '', // 弹窗title
+      dialogVisible: false, // 是否打开弹窗
+      formInfo: {
         "code": "", // 编号
         "compFirmlyType": "", //企业认定 ?? 是否需要转换成文字
         "unionType": "", // 工会类别
@@ -158,15 +134,39 @@ export default {
         "compPercent": null, //企业
         "description": "",
         "isUse": null // 是否启用 0：停止 ，1：启用
-      }, // 新增的form
-      formInfo:{}, // 单条数据详情
-      dialogEditVisible: false, // 是否打开修改
+      }, // 弹窗form
+      type:'', // 判断新增或是修改
+      compFirmlyTypeOptions:[],// 企业认定
+      unionTypeOptions:[],// 工会类型
+      collectionItemsCodeOptions:[],// 缴费类型
     }
   },
   mounted(){
+    this.getDataDic()
     this.getBaseratiocallbackList()
   },
   methods: {
+    // 获取字典
+    getDataDic() {
+      // 企业认定
+      commonApi.getDataDic('compFirmlyType').then(res => {
+        if (res.status === 200) {
+          this.compFirmlyTypeOptions = res.result
+        }
+      })
+      // 工会类型
+      commonApi.getDataDic('unionType').then(res => {
+        if (res.status === 200) {
+          this.unionTypeOptions = res.result
+        }
+      })
+      // 缴费类型
+      commonApi.getDataDic('collectionItemsCode').then(res => {
+        if (res.status === 200) {
+          this.collectionItemsCodeOptions = res.result
+        }
+      })
+    },
     // 获取列表
     getBaseratiocallbackList(){
       let data = {
@@ -187,23 +187,53 @@ export default {
         }
       })
     },
-    // 点击新增
-    addInfo(){
-      this.dialogAddVisible = true
-      this.formAdd = {}
-    },
-    clickAddSure(){
-      let data = {
-        ...this.formAdd
+    // 点击新增 / 修改
+    changeInfo(e, row){
+      if(e == 'add'){
+        // 新增
+        this.type = 'add'
+        this.dialogTitle = '新增拨付比例'
+        this.dialogVisible = true
+      }else{
+        // 修改
+        this.type = 'edit'
+        this.dialogTitle = '拨付比例修改'
+        this.postBaseratiocallbackInfo(row.id)
       }
-      basicFileApis.postBaseratiocallbackSave(data).then(res => {
-        if(res.status == '200'){
-          this.$message.success('新增成功！');
-          this.dialogAddVisible = false
-        }else{
-          this.$message.error(res.message);
+    },
+    // 提交新增 / 修改
+    submitInfo(){
+      this.formInfo.unionType = this.formInfo.unionType.join(',')
+      this.formInfo.collectionItemsCode = this.formInfo.collectionItemsCode.join(',')
+      if(this.type == 'add'){
+        // 新增
+        let data = {
+          ...this.formInfo,
         }
-      })
+        basicFileApis.postBaseratiocallbackSave(data).then(res => {
+          if(res.status == '200'){
+            this.$message.success('新增成功！');
+            this.dialogVisible = false
+            this.formInfo ={}
+          }else{
+            this.$message.error(res.message);
+          }
+        })
+      }else{
+        // 修改
+        let data = {
+          ...this.formInfo
+        }
+        basicFileApis.postBaseratiocallbackUpdate(data).then(res => {
+          if(res.status == '200'){
+            this.$message.success('修改成功！');
+            this.dialogVisible = false
+            this.formInfo ={}
+          }else{
+            this.$message.error(res.message);
+          }
+        })
+      }
     },
     // 获取单条数据的详情
     postBaseratiocallbackInfo(id){
@@ -213,41 +243,41 @@ export default {
       basicFileApis.postBaseratiocallbackInfo(data).then(res => {
         if(res.status == '200'){
           this.formInfo = res.result
-          this.dialogEditVisible = true
+          this.formInfo.unionType = res.result.unionType.split(",")
+          this.formInfo.collectionItemsCode = res.result.collectionItemsCode.split(",")
+          this.dialogVisible = true
         }else{
           this.$message.error(res.message);
         }
       })
     },
-    handleDetail(index, row){
-      this.$router.push({
-        path: `/infoDetail?id=${row.date}`
-      })
-    },
-    // 修改
-    handleEdit(index, row){
-      this.formInfo ={}
-      this.postBaseratiocallbackInfo(row.id)
-    },
-    clickEditSure(){
-      let data = {
-        ...this.formInfo
+    handleUse(e, row) {
+      if(e == 'use'){
+        // 启用
+        this.centerText = '是否确定禁用该拨付比例设置信息？'
+      }else{
+        // 禁用
+        this.centerText = '是否确定启用该拨付比例设置信息？'
       }
-      basicFileApis.postBaseratiocallbackUpdate(data).then(res => {
-        if(res.status == '200'){
-          this.$message.success('修改成功！');
-          this.dialogEditVisible = false
-        }else{
-          this.$message.error(res.message);
-        }
-      })
-    },
-    handleDelete(index, row) {
-      console.log(row)
+      this.useRow = row
       this.centerDialogVisible = true
     },
     sureDelDialog(){
-      this.centerDialogVisible = false
+      let data = {
+        id: this.useRow.id,
+        isUse: this.useRow.isUse,
+      }
+      basicFileApis.postBaseratiocallbackIsuse(data).then(res => {
+        if(res.status == '200'){
+          this.$message.success('修改成功！');
+          this.centerDialogVisible = false
+          this.tableData = []
+          this.page.currPage = 1
+          this.getBaseratiocallbackList()
+        }else{
+          this.$message.error(res.message);
+        }
+      })
     },
     cancleDelDialog(){
       this.centerDialogVisible = false
