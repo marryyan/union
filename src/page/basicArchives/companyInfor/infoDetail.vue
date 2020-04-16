@@ -156,7 +156,7 @@
             <div class="detail-li-right">{{detailInfo.bankType}}</div>
           </div>
         </div>
-        <div class="table-title">费用缴纳情况</div>
+        <!-- <div class="table-title">费用缴纳情况</div>
         <el-table :data="tableData" border stripe style="width: 100%; margin-bottom: 20px">
           <el-table-column prop="compCode" label="税款所属期"></el-table-column>
           <el-table-column prop="compCode" label="征收品目"></el-table-column>
@@ -164,7 +164,7 @@
           <el-table-column prop="compCode" label="税率"></el-table-column>
           <el-table-column prop="compCode" label="实缴金额"></el-table-column>
           <el-table-column prop="compCode" label="个税人数"></el-table-column>
-        </el-table>
+        </el-table> -->
       </el-tab-pane>
       <el-button style="width:80px; margin-left:100px" size="small" type="primary" @click="$router.go(-1)">返回</el-button>
     </el-tabs>
@@ -176,7 +176,9 @@ export default {
   data() {
     return {
       tableData:[],
-      detailInfo: {}
+      detailInfo: {},
+      compStatusOptions: [],// 企业状态
+      hasUnionOptions: [], // 是否建会
     }
   },
   mounted(){

@@ -84,6 +84,21 @@ const basicFileApi = {
     const url = `/union/base/basecompanyinfo/union`;
     return postApi(url, data)
   },
+  // 基础档案---企业信息库 添加修改企业信息
+  postBasecompanyinfoComp: function postBasecompanyinfoComp (data){
+    const url = `/union/base/basecompanyinfo/comp`;
+    return postApi(url, data)
+  },
+  // 基础档案---企业信息库 添加编辑税务信息
+  postBasecompanyinfoTax: function postBasecompanyinfoTax (data){
+    const url = `/union/base/basecompanyinfo/tax`;
+    return postApi(url, data)
+  },
+  // 基础档案---企业信息库 添加修改缴费信息
+  postBasecompanyinfoPay: function postBasecompanyinfoPay (data){
+    const url = `/union/base/basecompanyinfo/pay`;
+    return postApi(url, data)
+  },
   // 基础档案---企业信息库 企业信息详情
   getBasecompanyinfoInfo: function getBasecompanyinfoInfo (data){
     const url = `/union/base/basecompanyinfo/info/${data.id}`;
