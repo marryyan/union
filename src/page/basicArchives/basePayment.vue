@@ -2,15 +2,27 @@
   <div class="wrapper">
     <div class="flex-right">
       <div class="operation_btns">
-        <el-button size="mini" type="warning" @click="addInfo">新增</el-button>
+        <el-button size="mini" type="warning" @click="handleInfo">新增</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="sequenceNumber" label="序号"></el-table-column>
         <el-table-column prop="code" label="缴费基数编码" width="180"></el-table-column>
         <el-table-column prop="payInfo" label="基数类型"></el-table-column>
-        <el-table-column prop="payPercent" label="缴费比例"></el-table-column>
-        <el-table-column prop="payCount" label="基数（元）" width="180"></el-table-column>
-        <el-table-column prop="minPercent" label="最小值（历次最小值）" width="180"></el-table-column>
+        <el-table-column prop="payPercent" label="缴费比例">
+          <template slot-scope="scope">
+            <span>{{`${scope.row.payPercentPre}${scope.row.payPercentCen}${scope.row.payPercentSuf}`}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="payCount" label="基数（元）" width="180">
+          <template slot-scope="scope">
+            <span>{{`${scope.row.payCountPre}${scope.row.payCountCen}${scope.row.payCountSuf}`}}</span>
+          </template>
+        </el-table-column>
+        <el-table-column prop="minPercent" label="最小值（历次最小值）" width="180">
+          <template slot-scope="scope">
+            <span>{{`${scope.row.minPercentPre}${scope.row.minPercentCen}${scope.row.minPercentSuf}`}}</span>
+          </template>
+        </el-table-column>
         <el-table-column prop="isNormal" label="是否正常">
           <template slot-scope="scope">
             <span v-html="scope.row.isNormal === 0 ? '正常' : '不正常'"></span>
@@ -20,9 +32,11 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
-                       @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-            <el-button size="mini" type="warning"
-                       @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                       @click="handleInfo(scope.$index, scope.row)">修改</el-button>
+            <el-button v-if="scope.row.isUse === '1'" size="mini" type="warning"
+                       @click="handleIsuse(scope.$index, scope.row)">停用</el-button>
+            <el-button v-if="scope.row.isUse === '0'" size="mini" type="warning"
+                       @click="handleIsuse(scope.$index, scope.row)">启用</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -41,13 +55,13 @@
         @delDialog="sureDelDialog"
         @cancleDialog="cancleDelDialog"></DialogCommon>
       <!-- 新增 -->
-      <el-dialog title="新增缴费基数" :visible.sync="dialogVisible">
+      <el-dialog :title="dialogTitle" :visible.sync="dialogVisible">
         <el-form :model="formInfo" label-position='right' label-width="130px">
           <el-form-item label="缴费基数编码：">
-            <el-input size="mini" v-model="formInfo.code" style="width:250px" type="number"></el-input>
+            <el-input size="mini" v-model="formInfo.code" style="width:250px"></el-input>
           </el-form-item>
           <el-form-item label="基数类型：">
-            <el-input size="mini" v-model="formInfo.payInfo" style="width:250px" type="number"></el-input>
+            <el-input size="mini" v-model="formInfo.payInfo" style="width:250px"></el-input>
           </el-form-item>
           <el-form-item label="缴费比例：">
             <el-select size="mini" v-model="formInfo.payPercentPre" style="width: 120px" placeholder="请选择">
@@ -58,8 +72,8 @@
                 :value="item.k">
               </el-option>
             </el-select>
-            <el-input size="mini" v-model="formInfo.payPercentCen" style="width:120px" type="number"></el-input>
-            <el-input size="mini" v-model="formInfo.payPercentSuf" style="width:120px" type="number"></el-input>
+            <el-input size="mini" v-model="formInfo.payPercentCen" style="width:120px"></el-input>
+            <el-input size="mini" v-model="formInfo.payPercentSuf" style="width:120px"></el-input>
           </el-form-item>
           <el-form-item label="缴费基数：">
             <el-select size="mini" v-model="formInfo.payCountPre" style="width: 120px" placeholder="请选择">
@@ -70,8 +84,8 @@
                 :value="item.k">
               </el-option>
             </el-select>
-            <el-input size="mini" v-model="formInfo.payCountCen" style="width:120px" type="number"></el-input>
-            <el-input size="mini" v-model="formInfo.payCountSuf" style="width:120px" type="number"></el-input>
+            <el-input size="mini" v-model="formInfo.payCountCen" style="width:120px"></el-input>
+            <el-input size="mini" v-model="formInfo.payCountSuf" style="width:120px"></el-input>
           </el-form-item>
           <el-form-item label="历次最小值比：">
             <el-select size="mini" v-model="formInfo.minPercentPre" style="width: 120px" placeholder="请选择">
@@ -82,8 +96,8 @@
                 :value="item.k">
               </el-option>
             </el-select>
-            <el-input size="mini" v-model="formInfo.minPercentCen" style="width:120px" type="number"></el-input>
-            <el-input size="mini" v-model="formInfo.minPercentSuf" style="width:120px" type="number"></el-input>
+            <el-input size="mini" v-model="formInfo.minPercentCen" style="width:120px"></el-input>
+            <el-input size="mini" v-model="formInfo.minPercentSuf" style="width:120px"></el-input>
           </el-form-item>
           <el-form-item label="是否正常：">
             <template>
@@ -92,12 +106,12 @@
             </template>
           </el-form-item>
           <el-form-item label="备注：">
-            <el-input size="mini" v-model="formInfo.description" style="width:250px" type="number"></el-input>
+            <el-input size="mini" v-model="formInfo.description" style="width:250px"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogEditVisible = false"  size="mini">取 消</el-button>
-          <el-button type="primary" @click="clickEditSure" size="mini">确 定</el-button>
+          <el-button @click="dialogVisible = false"  size="mini">取 消</el-button>
+          <el-button type="primary" @click="onSubmit" size="mini">确 定</el-button>
         </div>
       </el-dialog>
     </div>
@@ -119,11 +133,14 @@
                     pageSize: 10, // 每页条数
                     totalCount: 100, // 总页数
                 },
-                centerText: '是否确定删除该缴费基数设置信息？',
+                centerText: '',
+                dialogTitle: '新增缴费基数',
                 centerDialogVisible: false,
                 dialogVisible: false,
                 computeSignOptions: [],
+                handleData: {},
                 formInfo: {
+                    id: '',
                     code: '',
                     payInfo: '',
                     payPercentPre: '',
@@ -173,28 +190,67 @@
                     }
                 })
             },
+            handleInfo(index, row){
+                if (row && row.id) {
+                    this.dialogTitle = '修改缴费基数'
+                    basicFileApis.postBaseratipayInfo({...row}).then(res => {
+                        if (res.status === 200) {
+                            this.formInfo = {
+                                ...this.formInfo,
+                                ...res.result,
+                            }
+                            this.dialogVisible = true
+                        } else {
+                            this.$message.error(res.message)
+                        }
+                    })
+                } else {
+                    this.dialogTitle = '新增缴费基数'
+                    this.dialogVisible = true
+                }
+            },
             onSubmit() {
-                console.log('submit!');
+                const { id } = this.formInfo
+                this.dialogVisible = false
+                if (id) {
+                    basicFileApis.postBaseratiopayUpdate(this.formInfo).then(res => {
+                        if (res.status === 200) {
+                            this.$message.success('修改成功')
+                            this.postBaseratiopayList()
+                        } else {
+                            this.$message.error(res.message)
+                        }
+                    })
+                } else {
+                    basicFileApis.postBaseratiopaySave(this.formInfo).then(res => {
+                        if (res.status === 200) {
+                            this.$message.success('添加成功')
+                            this.postBaseratiopayList()
+                        } else {
+                            this.$message.error(res.message)
+                        }
+                    })
+                }
             },
-            addInfo(){
-                this.dialogVisible = true
-            },
-            handleEdit(index, row) {
-                this.$router.push({
-                    path: `/infoEdit?id=${row.id}`
-                })
-            },
-            handleDetail(index, row){
-                this.$router.push({
-                    path: `/infoDetail?id=${row.date}`
-                })
-            },
-            handleDelete(index, row) {
-                console.log(row)
+            handleIsuse(index, row) {
+                this.handleData = row
+                this.centerText = row.isUse === '0' ? '是否确定启用该缴费基数设置信息？' : '是否确定停用该缴费基数设置信息？'
                 this.centerDialogVisible = true
             },
             sureDelDialog(){
-                this.centerDialogVisible = false
+                const data = {
+                    id: this.handleData.id,
+                    isUse: this.handleData.isUse === '0' ? '1' : '0'
+                }
+                basicFileApis.postBaseratiopayIsuse(data).then(res => {
+                    if (res.status === 200) {
+                        this.$message.success('操作成功')
+                        this.postBaseratiopayList()
+                        this.centerDialogVisible = false
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
             },
             cancleDelDialog(){
                 this.centerDialogVisible = false
@@ -202,7 +258,7 @@
             handleCurrentChange(val) {
                 this.tableData = []
                 this.page.currPage = val
-                console.log(`当前页: ${val}`);
+                this.postBaseratiopayList()
             }
         }
     }

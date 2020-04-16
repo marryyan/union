@@ -134,6 +134,21 @@ const basicFileApi = {
     const url = `/union/base/baseratiopay/info/${data.id}`;
     return postApi(url, data)
   },
+  // 基础档案---缴费基数设置 缴费基数添加
+  postBaseratiopaySave: function postBaseratiopaySave (data){
+    const url = `/union/base/baseratiopay/save`;
+    return postApi(url, data)
+  },
+  // 基础档案---缴费基数设置 缴费基数修改
+  postBaseratiopayUpdate: function postBaseratiopayUpdate (data){
+    const url = `/union/base/baseratiopay/update`;
+    return postApi(url, data)
+  },
+  // 基础档案---缴费基数设置 缴费基数启用停用
+  postBaseratiopayIsuse: function postBaseratiopayIsuse (data){
+    const url = `/union/base/baseratiopay/isuse`;
+    return postApi(url, data)
+  },
   // 基础档案---拨付比例设置 拨付比例启用停用
   postBaseratiocallbackIsuse: function postBaseratiocallbackIsuse (data){
     const url = `/union/base/baseratiocallback/isuse`;
