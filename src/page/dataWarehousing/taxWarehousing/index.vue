@@ -66,7 +66,7 @@
         <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
         <el-table-column prop="unionBank" label="工会开户行" width="180"></el-table-column>
         <el-table-column prop="unionBankAccount" label="工会银行账号" width="180"></el-table-column>
-        <el-table-column prop="unionBank" label="工会开户名称" width="180"></el-table-column>
+        <el-table-column prop="unionAccount" label="工会开户名称" width="180"></el-table-column>
         <el-table-column prop="ticketNumber" label="电子税票号码" width="180"></el-table-column>
         <el-table-column prop="collectionItems" label="征收品目"></el-table-column>
         <el-table-column prop="collectionItemsCode" label="征收品目代码" width="180"></el-table-column>
@@ -81,7 +81,7 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
-                       @click="handleEdit(scope.$index, scope.row)">确认提交</el-button>
+                       @click="handleSubmit(scope.row)">确认提交</el-button>
             <el-button size="mini" type="warning"
                        @click="handleDelete(scope.row)">删除</el-button>
           </template>
@@ -193,7 +193,7 @@
             sureDelDialog(){
                 this.centerDialogVisible = false
                 dataStorageApis.postStoreStoretaxtempDelete({
-                    ids: this.deleteId
+                    id: this.deleteId
                 }).then(res => {
                     if (res.status == 200) {
                         this.$message.success('删除成功！');
@@ -203,7 +203,6 @@
             },
             // 列表翻页
             handleCurrentChange(val) {
-                console.log('val', val)
                 this.page.currPage = val
                 this.postStoreStoretaxtempList()
             },
@@ -213,9 +212,14 @@
                 this.tableData = []
                 this.postStoreStoretaxtempList()
             },
-            handleEdit(index, row) {
-                this.$router.push({
-                    path: `/taxWarehousingInfoHandle?id=${row.id}`
+            handleSubmit(row) {
+                dataStorageApis.postStoreStoretaxtempSubmit(row).then(res => {
+                    if (res.status === 200) {
+                        this.$message.success('提交成功')
+                        this.postStoreStoretaxtempList()
+                    } else {
+                        this.$message.error(res.message)
+                    }
                 })
             },
         }

@@ -50,14 +50,14 @@ const dataStorageApi = {
     const url = `/union/store/storetaxtemp/info/${data.id}`;
     return postApi(url, data)
   },
-  // 数据入库--税务入库 税务入库-编辑
-  postStoreStoretaxtempUpdate: function postStoreStoretaxtempUpdate (data){
-    const url = `/union/store/storetaxtemp/update`;
+  // 数据入库--税务入库 税务入库提交
+  postStoreStoretaxtempSubmit: function postStoreStoretaxtempSubmit (data){
+    const url = `/union/store/storetaxtemp/submit`;
     return postApi(url, data)
   },
   // 数据入库--税务入库 税务入库删除
   postStoreStoretaxtempDelete: function postStoreStoretaxtempDelete (data){
-    const url = `/union/store/storetaxtemp/delete/${data.ids}`;
+    const url = `/union/store/storetaxtemp/nosubmitdelete`;
     return postApi(url, data)
   },
   // 数据入库--税务入库 税务入库足额分析（不足额数据分页）
