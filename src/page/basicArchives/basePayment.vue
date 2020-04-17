@@ -55,10 +55,10 @@
         @delDialog="sureDelDialog"
         @cancleDialog="cancleDelDialog"></DialogCommon>
       <!-- 新增 -->
-      <el-dialog :title="dialogTitle" :visible.sync="dialogVisible">
+      <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" :before-close="cancelInfo">
         <el-form :model="formInfo" label-position='right' label-width="130px">
           <el-form-item label="缴费基数编码：">
-            <el-input size="mini" v-model="formInfo.code" style="width:250px"></el-input>
+            <el-input size="mini" v-model="formInfo.code" style="width:250px" disabled></el-input>
           </el-form-item>
           <el-form-item label="基数类型：">
             <el-input size="mini" v-model="formInfo.payInfo" style="width:250px"></el-input>
@@ -110,7 +110,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false"  size="mini">取 消</el-button>
+          <el-button @click="cancelInfo"  size="mini">取 消</el-button>
           <el-button type="primary" @click="onSubmit" size="mini">确 定</el-button>
         </div>
       </el-dialog>
@@ -169,6 +169,16 @@
             })
         },
         methods: {
+            // 缴费基数编码
+            postbaseratiopayGetcode(){
+              basicFileApis.postbaseratiopayGetcode().then(res => {
+                if(res.status == '200'){
+                  this.formInfo.code = res.result
+                }else{
+                  this.$message.error(res.message);
+                }
+              })
+            },
             postBaseratiopayList() {
                 basicFileApis.postBaseratiopayList({...this.page}).then(res => {
                     if (res.status === 200) {
@@ -191,6 +201,7 @@
                 })
             },
             handleInfo(index, row){
+                this.postbaseratiopayGetcode()
                 if (row && row.id) {
                     this.dialogTitle = '修改缴费基数'
                     basicFileApis.postBaseratipayInfo({...row}).then(res => {
@@ -215,6 +226,7 @@
                 if (id) {
                     basicFileApis.postBaseratiopayUpdate(this.formInfo).then(res => {
                         if (res.status === 200) {
+                            this.formInfo = {}
                             this.$message.success('修改成功')
                             this.postBaseratiopayList()
                         } else {
@@ -224,6 +236,7 @@
                 } else {
                     basicFileApis.postBaseratiopaySave(this.formInfo).then(res => {
                         if (res.status === 200) {
+                            this.formInfo = {}
                             this.$message.success('添加成功')
                             this.postBaseratiopayList()
                         } else {
@@ -254,6 +267,10 @@
             },
             cancleDelDialog(){
                 this.centerDialogVisible = false
+            },
+            cancelInfo(){
+              this.dialogVisible = false
+              this.formInfo = {}
             },
             handleCurrentChange(val) {
                 this.tableData = []

@@ -216,6 +216,8 @@
                 dataStorageApis.postStoreStoretaxtempSubmit(row).then(res => {
                     if (res.status === 200) {
                         this.$message.success('提交成功')
+                        this.page.currPage = 1
+                this.tableData = []
                         this.postStoreStoretaxtempList()
                     } else {
                         this.$message.error(res.message)

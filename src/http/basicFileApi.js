@@ -11,12 +11,12 @@ const basicFileApi = {
   },
   // 基础档案---组织机构 工会列表
   postBaseunioninfoPage: function postBaseunioninfoPage (data){
-    const url = `/union/base/baseunioninfo/page`;
+    const url = `/union/base/baseunioninfo/page?dicConvert=1`;
     return postApi(url, data)
   },
   // 基础档案---组织机构 工会详情
   getBaseBaseunioninfoInfo: function getBaseBaseunioninfoInfo (data){
-    const url = `/union/base/baseunioninfo/info/${data.id}`;
+    const url = `/union/base/baseunioninfo/info/${data.id}?dicConvert=1`;
     return getApi(url, data)
   },
   // 基础档案---组织机构 工会添加
@@ -41,12 +41,12 @@ const basicFileApi = {
   },
   // 基础档案---税所机构库 税务局列表
   postBasebasetaxinfoPage: function postBasebasetaxinfoPage (data){
-    const url = `/union/base/basetaxinfo/page`;
+    const url = `/union/base/basetaxinfo/page?dicConvert=1`;
     return postApi(url, data)
   },
   // 基础档案---税所机构库 税务局详情
   getBasebasetaxinfoInfo: function getBasebasetaxinfoInfo (data){
-    const url = `/union/base/basetaxinfo/info/${data.id}`;
+    const url = `/union/base/basetaxinfo/info/${data.id}?dicConvert=1`;
     return getApi(url, data)
   },
   // 基础档案---税所机构库 税务局添加
@@ -66,17 +66,17 @@ const basicFileApi = {
   },
   // 基础档案---企业信息库 已建会列表
   postBaseBasecompanyinfoPagehas: function postBaseBasecompanyinfoPagehas (data){
-    const url = `/union/base/basecompanyinfo/pagehas`;
+    const url = `/union/base/basecompanyinfo/pagehas?dicConvert=1`;
     return postApi(url, data)
   },
   // 基础档案---企业信息库 未建会列表
   postBaseBasecompanyinfoPageno: function postBaseBasecompanyinfoPageno (data){
-    const url = `/union/base/basecompanyinfo/pageno`;
+    const url = `/union/base/basecompanyinfo/pageno?dicConvert=1`;
     return postApi(url, data)
   },
   // 基础档案---企业信息库 小微企业列表
   postPagesmallmicrobusinesses: function postPagesmallmicrobusinesses (data){
-    const url = `/union/base/basecompanyinfo/pagesmallmicrobusinesses`;
+    const url = `/union/base/basecompanyinfo/pagesmallmicrobusinesses?dicConvert=1`;
     return postApi(url, data)
   },
   // 基础档案---企业信息库 添加修改工会信息
@@ -101,12 +101,12 @@ const basicFileApi = {
   },
   // 基础档案---企业信息库 企业信息详情
   getBasecompanyinfoInfo: function getBasecompanyinfoInfo (data){
-    const url = `/union/base/basecompanyinfo/info/${data.id}`;
+    const url = `/union/base/basecompanyinfo/info/${data.id}?dicConvert=1`;
     return getApi(url, data)
   },
   // 基础档案---拨付比例设置 拨付比例设置分页
   getBaseratiocallbackList: function getBaseratiocallbackList (data){
-    const url = `/union/base/baseratiocallback/list`;
+    const url = `/union/base/baseratiocallback/list?dicConvert=1`;
     return postApi(url, data)
   },
   // 基础档案---拨付比例设置 拨付比例添加
@@ -116,7 +116,7 @@ const basicFileApi = {
   },
   // 基础档案---拨付比例设置 拨付比例详情
   postBaseratiocallbackInfo: function postBaseratiocallbackInfo (data){
-    const url = `/union/base/baseratiocallback/info/${data.id}`;
+    const url = `/union/base/baseratiocallback/info/${data.id}?dicConvert=1`;
     return postApi(url, data)
   },
   // 基础档案---拨付比例设置 拨付比例修改
@@ -126,12 +126,12 @@ const basicFileApi = {
   },
   // 基础档案---缴费基数设置 缴费基数设置分页
   postBaseratiopayList: function postBaseratiopayList (data){
-    const url = `/union/base/baseratiopay/list`;
+    const url = `/union/base/baseratiopay/list?dicConvert=1`;
     return postApi(url, data)
   },
   // 基础档案---缴费基数设置 缴费基数详情
   postBaseratipayInfo: function postBaseratipayInfo (data){
-    const url = `/union/base/baseratiopay/info/${data.id}`;
+    const url = `/union/base/baseratiopay/info/${data.id}?dicConvert=1`;
     return postApi(url, data)
   },
   // 基础档案---缴费基数设置 缴费基数添加
@@ -163,6 +163,16 @@ const basicFileApi = {
   postBasetaxinfoSelectbyname: function postBasetaxinfoSelectbyname (data){
     const url = `/union/base/basetaxinfo/selectbyname`;
     return postApi(url, data)
+  },
+  // 基础档案---拨付比例编号
+  postBaseratiocallbackGetcode: function postBaseratiocallbackGetcode (){
+    const url = `/union/base/baseratiocallback/getcode`;
+    return postApi(url)
+  },
+  // 基础档案---缴费基数编码
+  postbaseratiopayGetcode: function postbaseratiopayGetcode (){
+    const url = `/union/base/baseratiopay/getcode`;
+    return postApi(url)
   },
 }
 

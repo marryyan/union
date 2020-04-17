@@ -42,7 +42,7 @@
       @delDialog="sureDelDialog"
       @cancleDialog="cancleDelDialog"></DialogCommon>
       <!-- 新增，修改 -->
-      <el-dialog :title="dialogTitle" :visible.sync="dialogVisible">
+      <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" :before-close="cancelInfo">
         <el-form :model="formInfo" label-position='right' label-width="130px">
           <el-form-item label="拨付规则编码：">
             <el-input disabled size="mini" v-model="formInfo.code" autocomplete="off" style="width:250px"></el-input>
@@ -94,7 +94,7 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="dialogVisible = false"  size="mini">取 消</el-button>
+          <el-button @click="cancelInfo"  size="mini">取 消</el-button>
           <el-button type="primary" @click="submitInfo" size="mini">确 定</el-button>
         </div>
       </el-dialog>
@@ -146,6 +146,16 @@ export default {
     this.getBaseratiocallbackList()
   },
   methods: {
+    // 拨付比例编号
+    postBaseratiocallbackGetcode(){
+      basicFileApis.postBaseratiocallbackGetcode().then(res => {
+        if(res.status == '200'){
+          this.formInfo.code = res.result
+        }else{
+          this.$message.error(res.message);
+        }
+      })
+    },
     // 获取字典
     getDataDic() {
       // 企业认定
@@ -189,6 +199,7 @@ export default {
     },
     // 点击新增 / 修改
     changeInfo(e, row){
+      this.postBaseratiocallbackGetcode()
       if(e == 'add'){
         // 新增
         this.type = 'add'
@@ -281,6 +292,10 @@ export default {
     },
     cancleDelDialog(){
       this.centerDialogVisible = false
+    },
+    cancelInfo(){
+      this.dialogVisible = false
+      this.formInfo = {}
     },
     handleCurrentChange(val) {
       this.tableData = []
