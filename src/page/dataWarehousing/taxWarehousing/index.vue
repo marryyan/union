@@ -1,7 +1,7 @@
 <template>
   <div class="wrapper">
     <div class="flex-right">
-      <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+      <!-- <el-form :inline="true" :model="searchForm" class="demo-form-inline">
         <el-form-item label="所属税期：">
           <el-date-picker
             v-model="searchForm.taxPeriod"
@@ -54,9 +54,12 @@
         <el-form-item>
           <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
         </el-form-item>
-      </el-form>
+      </el-form> -->
       <div class="operation_btns">
+        <el-button size="mini" type="warning" @click="exportList">下载模板</el-button>
         <el-button size="mini" type="warning">xls导入</el-button>
+        <el-button size="mini" type="warning" @click="submitEdit">确认提交</el-button>
+        <el-button size="mini" type="warning" @click="submitDelete">删除</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxPeriod" label="所属税期"></el-table-column>
@@ -78,14 +81,14 @@
         <el-table-column prop="receiveTreasury" label="收款国库"></el-table-column>
         <el-table-column prop="taxCollectionAuthority" label="征收税务机关" width="180"></el-table-column>
         <el-table-column prop="registCode" label="登记序号"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <!-- <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
                        @click="handleSubmit(scope.row)">确认提交</el-button>
             <el-button size="mini" type="warning"
                        @click="handleDelete(scope.row)">删除</el-button>
           </template>
-        </el-table-column>
+        </el-table-column> -->
       </el-table>
       <el-pagination
         style="margin: 15px 0"
@@ -136,8 +139,8 @@
             }
         },
         mounted(){
-            this.postStoreStoretaxtempList()
-            this.getDataDic()
+            this.postStoretaxtempNosubmitlist()
+            // this.getDataDic()
         },
         methods: {
             // 获取字典
@@ -163,27 +166,71 @@
                     }
                 })
             },
-            // 列表
-            postStoreStoretaxtempList(){
-                let data = {
-                    ...this.searchForm,
-                    taxPeriod: this.searchForm.taxPeriod.split('-').join(''),
-                    ...this.page,
+            // 导出
+            exportList(){
+              let url = `/union/store/storetaxtemp/downloadexceltemplate`
+              window.location.href = url
+            },
+            // 确认提交
+            submitEdit(){
+              dataStorageApis.postStoretaxtempSubmit().then(res => {
+                if(res.status == '200'){
+                  this.$message.success('提交成功！');
+                  this.tableData = []
+                  this.postStoretaxtempNosubmitlist()
+                }else{
+                  this.$message.error(res.message);
                 }
-                dataStorageApis.postStoreStoretaxtempList(data).then( res=> {
-                    if (res.status === 200) {
-                        this.tableData = res.result.list
-                        this.page = {
-                            ...this.page,
-                            pageSize: res.result.pageSize,
-                            totalCount: res.result.totalCount,
-                            currPage: res.result.currPage
-                        }
-                    } else {
-                        this.$message.error(res.message)
-                    }
+              })
+            },
+            // 删除
+            submitDelete(){
+              dataStorageApis.postStoretaxtempNosubmitdelete().then(res => {
+                if(res.status == '200'){
+                  this.$message.success('删除成功！');
+                  this.tableData = []
+                  this.postStoretaxtempNosubmitlist()
+                }else{
+                  this.$message.error(res.message);
+                }
+              })
+            },
+            // 获取数据
+            postStoretaxtempNosubmitlist(){
+                let data = {
+                    "currPage": this.page.currPage,
+                    "pageSize": this.page.pageSize,
+                }
+                dataStorageApis.postStoretaxtempNosubmitlist(data).then(res=> {
+                  if(res.status == '200'){
+                    this.tableData = res.result.list
+                    this.page.totalPage = res.result.totalCount
+                  }else{
+                    this.$message.error(res.message);
+                  }
                 })
             },
+            // 列表
+            // postStoreStoretaxtempList(){
+            //     let data = {
+            //         ...this.searchForm,
+            //         taxPeriod: this.searchForm.taxPeriod.split('-').join(''),
+            //         ...this.page,
+            //     }
+            //     dataStorageApis.postStoreStoretaxtempList(data).then( res=> {
+            //         if (res.status === 200) {
+            //             this.tableData = res.result.list
+            //             this.page = {
+            //                 ...this.page,
+            //                 pageSize: res.result.pageSize,
+            //                 totalCount: res.result.totalCount,
+            //                 currPage: res.result.currPage
+            //             }
+            //         } else {
+            //             this.$message.error(res.message)
+            //         }
+            //     })
+            // },
             // 数据删除按钮
             handleDelete(row) {
                 this.centerDialogVisible = true

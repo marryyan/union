@@ -70,6 +70,46 @@ const dataStorageApi = {
     const url = `/union/store/storeversion/list`;
     return postApi(url, data)
   },
+  // 数据入库--银行入库 下载模板
+  postStorebanktempDownloadexceltemplate: function postStorebanktempDownloadexceltemplate (){
+    const url = `/union/store/storebanktemp/downloadexceltemplate`;
+    return postApi(url)
+  },
+  // 数据入库--银行入库 银行入库列表分页（未提交的可以在此查询）
+  postStorebanktempNosubmitlist: function postStorebanktempNosubmitlist (data){
+    const url = `/union/store/storebanktemp/nosubmitlist?dicConvert=1`;
+    return postApi(url, data)
+  },
+  // 数据入库--银行入库 银行入库提交
+  postStorebanktempSubmit: function postStorebanktempSubmit (){
+    const url = `/union/store/storebanktemp/submit`;
+    return postApi(url)
+  },
+  // 数据入库--银行入库 银行入库删除(未提交)
+  postStorebanktempNosubmitdelete: function postStorebanktempNosubmitdelete (){
+    const url = `/union/store/storebanktemp/nosubmitdelete`;
+    return postApi(url)
+  },
+  // 数据入库--税务入库 下载模板
+  postStorebanktempDownloadexceltemplate: function postStorebanktempDownloadexceltemplate (){
+    const url = `/union/store/storetaxtemp/downloadexceltemplate`;
+    return postApi(url)
+  },
+  // 数据入库--税务入库 税务入库列表分页（未提交的可以在此查询）
+  postStoretaxtempNosubmitlist: function postStoretaxtempNosubmitlist (data){
+    const url = `/union/store/storetaxtemp/nosubmitlist?dicConvert=1`;
+    return postApi(url, data)
+  },
+  // 数据入库--税务入库 税务入库提交
+  postStoretaxtempSubmit: function postStoretaxtempSubmit (){
+    const url = `/union/store/storetaxtemp/submit`;
+    return postApi(url)
+  },
+  // 数据入库--税务入库 税务入库删除（删除未提交的）
+  postStoretaxtempNosubmitdelete: function postStoretaxtempNosubmitdelete (){
+    const url = `/union/store/storetaxtemp/nosubmitdelete`;
+    return postApi(url)
+  },
 }
 
 export default dataStorageApi

@@ -1,8 +1,8 @@
 <template>
   <div class="wrapper">
     <div class="flex-right">
-      <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="对方户名：">
+      <!-- <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="对方名称：">
           <el-input size="mini" v-model="formInline.accountName" placeholder="请输入"></el-input>
         </el-form-item>
         <el-form-item label="征收税期：">
@@ -14,7 +14,7 @@
             placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
-        <el-form-item label="税款所属 税务机关：">
+        <el-form-item label="税款所属机关：">
           <el-select v-model="value" placeholder="请选择"  size="mini">
             <el-option
               v-for="item in options"
@@ -30,9 +30,12 @@
         <el-form-item>
           <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
         </el-form-item>
-      </el-form>
+      </el-form> -->
       <div class="operation_btns">
+        <el-button size="mini" type="warning" @click="exportList">下载模板</el-button>
         <el-button size="mini" type="warning" @click="openDrawer">xls导入</el-button>
+        <el-button size="mini" type="warning" @click="submitEdit">确认提交</el-button>
+        <el-button size="mini" type="warning" @click="submitDelete">删除</el-button>
         <el-drawer
           title="xls导入"
           :visible.sync="drawer"
@@ -77,14 +80,6 @@
         <el-table-column prop="borrowMoney" label="借方发生额" width="180"></el-table-column>
         <el-table-column prop="loanMoney" label="贷方发生额" width="180"></el-table-column>
         <el-table-column prop="balance" label="余额"></el-table-column>
-        <el-table-column label="操作" width="200">
-         <template slot-scope="scope">
-           <el-button size="mini" type="warning"
-                      @click="handleEdit(scope.$index, scope.row)">确认提交</el-button>
-           <el-button size="mini" type="warning"
-                      @click="handleDelete(scope.$index, scope.row)">删除</el-button>
-         </template>
-       </el-table-column>
       </el-table>
       <el-pagination
         style="margin: 15px 0"
@@ -112,23 +107,6 @@
         },
         data() {
             return {
-              options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        value: '',
                 formInline: {
                     "accountName": "", //对方账户名
                     "proDate": "", //日期
@@ -152,48 +130,59 @@
             }
         },
         mounted(){
-            this.postStoreStorebanktempList()
+            this.postStorebanktempNosubmitlist()
         },
         methods: {
-            postStoreStorebanktempList(){
+            // 导出
+            exportList(){
+              let url = `/union/store/storebanktemp/downloadexceltemplate`
+              window.location.href = url
+            },
+            // 确认提交
+            submitEdit(){
+              dataStorageApis.postStorebanktempSubmit().then(res => {
+                if(res.status == '200'){
+                  this.$message.success('提交成功！');
+                  this.tableData = []
+                  this.postStorebanktempNosubmitlist()
+                }else{
+                  this.$message.error(res.message);
+                }
+              })
+            },
+            // 删除
+            submitDelete(){
+              dataStorageApis.postStorebanktempNosubmitdelete().then(res => {
+                if(res.status == '200'){
+                  this.$message.success('删除成功！');
+                  this.tableData = []
+                  this.postStorebanktempNosubmitlist()
+                }else{
+                  this.$message.error(res.message);
+                }
+              })
+            },
+            // 获取数据
+            postStorebanktempNosubmitlist(){
                 let data = {
                     "currPage": this.page.currPage,
                     "pageSize": this.page.pageSize,
-                    "accountName": this.formInline.accountName, //对方账户名
-                    "proDate": this.formInline.proDate, //日期
-                    "accountNumber": this.formInline.accountNumber, //对方账户号
-                    "summary": this.formInline.summary, // 摘要
-                    "user": this.formInline.user
                 }
-                dataStorageApis.postStoreStorebanktempList(data).then(res=> {
+                dataStorageApis.postStorebanktempNosubmitlist(data).then(res=> {
+                  if(res.status == '200'){
                     this.tableData = res.result.list
                     this.page.totalPage = res.result.totalCount
+                  }else{
+                    this.$message.error(res.message);
+                  }
                 })
-            },
-            onSubmit() {
-                this.page.currPage = 1
-                this.tableData = []
-                this.postStoreStorebanktempList()
-            },
-            handleEdit(index, row) {
-                this.$router.push({
-                    path: `/bankWarehousingInfoHandle?id=${row.id}`
-                })
-            },
-            handleDelete(index, row) {
-                this.centerDialogVisible = true
-            },
-            sureDelDialog(){
-                this.centerDialogVisible = false
-            },
-            cancleDelDialog(){
-                this.centerDialogVisible = false
             },
             handleCurrentChange(val) {
-                // this.tableData = []
+                this.tableData = []
                 this.page.currPage = val
-                this.postStoreStorebanktempList()
+                this.postStorebanktempNosubmitlist()
             },
+            // xls
             handleSuccess(response, file, fileList) {
                 this.form.fileList = fileList
                 const { status } = response
@@ -253,8 +242,26 @@
                         });
                     }
                 })
-            }
-
+            },
+            onSubmit() {
+                this.page.currPage = 1
+                this.tableData = []
+                this.postStorebanktempNosubmitlist()
+            },
+            handleEdit(index, row) {
+                this.$router.push({
+                    path: `/bankWarehousingInfoHandle?id=${row.id}`
+                })
+            },
+            handleDelete(index, row) {
+                this.centerDialogVisible = true
+            },
+            sureDelDialog(){
+                this.centerDialogVisible = false
+            },
+            cancleDelDialog(){
+                this.centerDialogVisible = false
+            },
         }
     }
 </script>
