@@ -30,7 +30,7 @@ export const commonApi = {
   // 获取字典
   getDataDic: function getDataDic(data) {
     const url = `/union/sys/sysdict/select/${data}`
-    return postApi(url, data)
+    return postApi(url, {})
   },
 }
 

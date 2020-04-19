@@ -24,6 +24,11 @@ const returnManagementApi = {
     const url = `/union/store/storetaxcallback/cbjf/list`;
     return postApi(url, data)
   },
+  // 返还管理---返还管理列表分页
+  postStoretaxcallbackList: function postStoretaxcallbackList (data){
+    const url = `/union/store/storetaxcallback/list?dicConvert=1`;
+    return postApi(url, data)
+  },
 }
 
 export default returnManagementApi

@@ -260,9 +260,30 @@ import {  basicFileApis, commonApi} from '@/http/api'
         this.formBusiness.id = this.$route.query.id
         this.formTaxation.id = this.$route.query.id
         this.formPay.id = this.$route.query.id
+        this.getBasecompanyinfoInfo()
       }
     },
     methods:{
+      // 获取详情
+      getBasecompanyinfoInfo(){
+        let data = {
+          id: this.$route.query.id,
+          type:''
+        }
+        basicFileApis.getBasecompanyinfoInfo(data).then(res => {
+          if(res.status == '200'){
+            this.formLabour = res.result
+            this.formBusiness = res.result
+            this.formTaxation = res.result
+            this.formPay = res.result
+            console.log('unionBelongstoId',res.result.unionBelongstoId)
+            console.log('unionCode',res.result.unionCode)
+            console.log('unionName',res.result.unionName)
+          }else{
+            this.$message.error(res.message);
+          }
+        })
+      },
       // 获取字典
       getDataDic() {
         // 工会类型
@@ -337,9 +358,7 @@ import {  basicFileApis, commonApi} from '@/http/api'
       },
       // 添加修改工会信息
       postBasecompanyinfoUnion(){
-        if(this.formLabour.unionBelongstoId){
-          this.formLabour.unionBelongstoId = this.formLabour.unionBelongstoId.join(',')
-        }
+        this.formLabour.unionBelongstoId = this.formLabour.unionBelongstoId && this.formLabour.unionBelongstoId.join(',')
         let data = {
           ...this.formLabour
         }
