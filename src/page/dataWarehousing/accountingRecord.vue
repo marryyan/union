@@ -39,19 +39,19 @@
         <el-table-column prop="accountDifference" label="金额差异"></el-table-column>
         <el-table-column prop="accountCheckingStatus" label="是否对上">
           <template slot-scope="scope">
-            <span v-if="scope.row.accountCheckingStatus === 0">未对账</span>
-            <span v-if="scope.row.accountCheckingStatus === 1">已对上</span>
-            <span v-if="scope.row.accountCheckingStatus === 2">未对上</span>
-            <span v-if="scope.row.accountCheckingStatus === -1">--</span>
+            <span v-if="scope.row.accountCheckingStatus === '0'">未对账</span>
+            <span v-if="scope.row.accountCheckingStatus === '1'">已对上</span>
+            <span v-if="scope.row.accountCheckingStatus === '2'">未对上</span>
+            <span v-if="scope.row.accountCheckingStatus === '-1'">--</span>
           </template>
         </el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
 <!--            金额差异不为0： 不能入库， 为0时： 是否入库， 点击入库成功后： 已入库          -->
-            <div style="color: #606266">不能入库</div>
-            <div style="color: #e6a23c">已入库</div>
-            <el-button size="mini" type="warning"
-                       @click="handleDelete(scope.$index, scope.row)">是否入库</el-button>
+            <div style="color: #606266" v-if="scope.row.accountDifference !== 0">不能入库</div>
+            <div style="color: #e6a23c" v-if="scope.row.accountDifference === 0">已入库</div>
+            <el-button size="mini" type="warning" v-if="scope.row.accountDifference === 0"
+                       @click="handleInstorage(scope.$index, scope.row)">是否入库</el-button>
           </template>
         </el-table-column>
         <el-table-column prop="name" label="备注"></el-table-column>
@@ -145,8 +145,15 @@
                     path: `/infoDetail?id=${row.date}`
                 })
             },
-            handleDelete(index, row) {
-                this.centerDialogVisible = true
+            handleInstorage(index, row) {
+                dataStorageApis.postStoreInstorage(row).then(res => {
+                    if (res.status === 200) {
+                        this.$message.success('入库成功')
+                        this.postStoreStoreversionList()
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
             },
             handleCurrentChange(val) {
                 this.postStoreStoreversionList()

@@ -57,7 +57,16 @@
       </el-form> -->
       <div class="operation_btns">
         <el-button size="mini" type="warning" @click="exportList">下载模板</el-button>
-        <el-button size="mini" type="warning">xls导入</el-button>
+        <el-upload
+          class="upload-demo"
+          action="/union/sys/sysfile/upload"
+          :limit="1"
+          :on-success="uploadSuccess"
+          :before-upload="beforeUpload"
+          :show-file-list="false"
+          :file-list="fileList">
+          <el-button size="small" type="warning">xls导入</el-button>
+        </el-upload>
         <el-button size="mini" type="warning" @click="submitEdit">确认提交</el-button>
         <el-button size="mini" type="warning" @click="submitDelete">删除</el-button>
       </div>
@@ -79,7 +88,7 @@
         <el-table-column prop="taxRate" label="税率"></el-table-column>
         <el-table-column prop="paidAmount" label="实缴金额"></el-table-column>
         <el-table-column prop="receiveTreasury" label="收款国库"></el-table-column>
-        <el-table-column prop="taxCollectionAuthority" label="征收税务机关" width="180"></el-table-column>
+        <el-table-column prop="taxBelongsComp" label="征收税务机关" width="180"></el-table-column>
         <el-table-column prop="registCode" label="登记序号"></el-table-column>
         <!-- <el-table-column label="操作" width="200">
           <template slot-scope="scope">
@@ -116,13 +125,6 @@
         },
         data() {
             return {
-                searchForm: {
-                    "taxPeriod": "", //税期
-                    "collectionItems": "", //征收品目
-                    "belongsArea": "", //所属区
-                    "receiveTreasury": "", // 收款国库
-                    "taxCollectionAuthority":""// 征收税务机关
-                },
                 belongsAreaOptions: [], // 所属区下拉选项
                 taxCollectionAuthorityOptions: [], // 税务机关下拉选项
                 receiveTreasuryOptions: [], // 收款国库下拉选项
@@ -131,11 +133,11 @@
                 page:{
                     currPage:1, // 当前页
                     pageSize: 10, // 每页条数
-                    totalCount: 100, // 总页数
+                    totalCount: 0, // 总页数
                 },
                 centerText: '是否确定删除该税务入库信息？',
                 centerDialogVisible: false,
-                deleteId: ''
+                fileList: [],
             }
         },
         mounted(){
@@ -210,70 +212,41 @@
                   }
                 })
             },
-            // 列表
-            // postStoreStoretaxtempList(){
-            //     let data = {
-            //         ...this.searchForm,
-            //         taxPeriod: this.searchForm.taxPeriod.split('-').join(''),
-            //         ...this.page,
-            //     }
-            //     dataStorageApis.postStoreStoretaxtempList(data).then( res=> {
-            //         if (res.status === 200) {
-            //             this.tableData = res.result.list
-            //             this.page = {
-            //                 ...this.page,
-            //                 pageSize: res.result.pageSize,
-            //                 totalCount: res.result.totalCount,
-            //                 currPage: res.result.currPage
-            //             }
-            //         } else {
-            //             this.$message.error(res.message)
-            //         }
-            //     })
-            // },
-            // 数据删除按钮
-            handleDelete(row) {
-                this.centerDialogVisible = true
-                this.deleteId = row.id
-            },
-            // 删除弹窗确认
-            sureDelDialog(){
-                this.centerDialogVisible = false
-                dataStorageApis.postStoreStoretaxtempDelete({
-                    id: this.deleteId
-                }).then(res => {
-                    if (res.status == 200) {
-                        this.$message.success('删除成功！');
-                        this.postStoreStoretaxtempList()
-                    }
-                })
-            },
             // 列表翻页
             handleCurrentChange(val) {
                 this.page.currPage = val
                 this.postStoreStoretaxtempList()
             },
+            uploadSuccess(response, file, fileList) {
+                if (response.status === 200) {
 
-            onSubmit() {
-                this.page.currPage = 1
-                this.tableData = []
-                this.postStoreStoretaxtempList()
-            },
-            handleSubmit(row) {
-                dataStorageApis.postStoreStoretaxtempSubmit(row).then(res => {
-                    if (res.status === 200) {
-                        this.$message.success('提交成功')
-                        this.page.currPage = 1
-                this.tableData = []
-                        this.postStoreStoretaxtempList()
-                    } else {
-                        this.$message.error(res.message)
+                } else {
+                    if (response.status === 401) {
+                        this.$router.replace({
+                            path: '/login'
+                        })
                     }
-                })
+                    this.$message.error = response.message
+                }
             },
+            beforeUpload(file) {
+                if (this.fileList.length > 0) {
+                    this.$confirm('是否覆盖当前上传文件？')
+                        .then(_ => {
+                            this.fileList = []
+                            return true
+                            done();
+                        })
+                        .catch(_ => {});
+                } else {
+                    return true
+                }
+            }
         }
     }
 </script>
 <style lang="scss" scoped>
-
+.upload-demo {
+  margin: 0 10px;
+}
 </style>

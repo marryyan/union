@@ -33,40 +33,18 @@
       </el-form> -->
       <div class="operation_btns">
         <el-button size="mini" type="warning" @click="exportList">下载模板</el-button>
-        <el-button size="mini" type="warning" @click="openDrawer">xls导入</el-button>
+        <el-upload
+          class="upload-demo"
+          action="/union/sys/sysfile/upload"
+          :limit="1"
+          :on-success="uploadSuccess"
+          :before-upload="beforeUpload"
+          :show-file-list="false"
+          :file-list="fileList">
+          <el-button size="small" type="warning">xls导入</el-button>
+        </el-upload>
         <el-button size="mini" type="warning" @click="submitEdit">确认提交</el-button>
         <el-button size="mini" type="warning" @click="submitDelete">删除</el-button>
-        <el-drawer
-          title="xls导入"
-          :visible.sync="drawer"
-          direction="rtl"
-          custom-class="demo-drawer"
-          :destroy-on-close="true"
-          :before-close="closeDrawer">
-          <div class="demo-drawer__content">
-            <el-form :model="form">
-              <el-form-item required>
-                <el-upload
-                  action="/union/sys/sysfile/upload"
-                  :headers="{ token: '666666' }"
-                  :on-success="handleSuccess"
-                  :limit="1"
-                  :file-list="form.fileList">
-                  <el-button style="margin-left: 20px" size="mini" type="warning">xls导入</el-button>
-                </el-upload>
-              </el-form-item>
-              <el-form-item label="数据版本号" required>
-                <el-select v-model="form.versionNo" placeholder="请选择数据版本号">
-                  <el-option v-for="(item, index) in versionNoList" :key="index" :value="item.versionNo" ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-form>
-            <div class="demo-drawer__footer">
-              <el-button @click="closeDrawer">取 消</el-button>
-              <el-button type="primary" @click="submitDrawer">确 定</el-button>
-            </div>
-          </div>
-        </el-drawer>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxPeriod" label="征收税期"></el-table-column>
@@ -121,12 +99,8 @@
                 },
                 centerText: '是否确定删除该银行入库信息？',
                 centerDialogVisible: false,
-                drawer: false, // 抽屉开关
                 versionNoList: [], // versionNo列表
-                form: {
-                    fileList: [],
-                    versionNo: ''
-                }, // xls导入抽屉form
+                fileList: [],
             }
         },
         mounted(){
@@ -182,96 +156,42 @@
                 this.page.currPage = val
                 this.postStorebanktempNosubmitlist()
             },
-            // xls
-            handleSuccess(response, file, fileList) {
-                this.form.fileList = fileList
-                const { status } = response
-                if(status === 200) {
-                    this.$message({
-                        message: '上传成功',
-                        type: 'success'
-                    });
-                }
-            },
-            closeDrawer(done) {
-                this.$confirm('确认关闭？')
-                    .then(_ => {
-                        this.drawer = false
-                        this.form = {
-                            fileList: [],
-                            versionNo: ''
-                        }
-                        done();
-                    })
-                    .catch(_ => {});
-            },
-            openDrawer() {
-                dataStorageApis.postStoreStoreversionListNotInStorage().then(res => {
-                    const { status, result } = res
-                    if (status === 200) {
-                        this.drawer = true
-                        this.versionNoList = result
-                    }
-                })
-            },
-            submitDrawer () {
-                const { fileList, versionNo } = this.form
-                if (fileList.length === 0) {
-                    this.$message.error('请导入xls')
-                    return
-                }
-                if (versionNo === '') {
-                    this.$message.error('请选择数据版本号')
-                    return
-                }
-                const { response: { result } } = fileList[0]
-                dataStorageApis.postStoreStorebanktempImportexcel({
-                    fileId: result,
-                    versionNo
-                }).then(res => {
-                    if (res.status === 200) {
-                        this.postStoreStorebanktempList()
-                        this.drawer = false
-                        this.form = {
-                            fileList: [],
-                            versionNo: ''
-                        }
-                        this.$message({
-                            message: '上传成功',
-                            type: 'success'
-                        });
-                    }
-                })
-            },
-            onSubmit() {
-                this.page.currPage = 1
-                this.tableData = []
-                this.postStorebanktempNosubmitlist()
-            },
-            handleEdit(index, row) {
-                this.$router.push({
-                    path: `/bankWarehousingInfoHandle?id=${row.id}`
-                })
-            },
-            handleDelete(index, row) {
-                this.centerDialogVisible = true
-            },
             sureDelDialog(){
                 this.centerDialogVisible = false
             },
             cancleDelDialog(){
                 this.centerDialogVisible = false
             },
+            uploadSuccess(response, file, fileList) {
+                if (response.status === 200) {
+
+                } else {
+                    if (response.status === 401) {
+                        this.$router.replace({
+                            path: '/login'
+                        })
+                    }
+                    this.$message.error = response.message
+                }
+            },
+            beforeUpload(file) {
+                if (this.fileList.length > 0) {
+                    this.$confirm('是否覆盖当前上传文件？')
+                        .then(_ => {
+                            this.fileList = []
+                            return true
+                            done();
+                        })
+                        .catch(_ => {});
+                } else {
+                    return true
+                }
+            }
         }
     }
 </script>
 <style lang="scss" scoped>
-  .demo-drawer__content {
-    padding: 0 20px;
-  }
-  .demo-drawer__footer {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
+  .upload-demo {
+    margin: 0 10px;
   }
 </style>
