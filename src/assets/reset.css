@@ -127,7 +127,8 @@ blockquote:after {
   border-radius: 4px;
   padding: 10px;
   box-sizing: border-box;
-  overflow: hidden;
+  /*overflow: hidden;*/
+  overflow-x: hidden;
 }
 .operation_btns{
   display: flex;
