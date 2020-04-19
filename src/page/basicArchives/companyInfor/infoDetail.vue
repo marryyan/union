@@ -187,7 +187,8 @@ export default {
   methods:{
     getBasecompanyinfoInfo(){
       let data = {
-        id: this.$route.query.id
+        id: this.$route.query.id,
+        type:1
       }
       basicFileApis.getBasecompanyinfoInfo(data).then(res => {
         if(res.status == '200'){

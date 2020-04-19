@@ -101,7 +101,7 @@ const basicFileApi = {
   },
   // 基础档案---企业信息库 企业信息详情
   getBasecompanyinfoInfo: function getBasecompanyinfoInfo (data){
-    const url = `/union/base/basecompanyinfo/info/${data.id}?dicConvert=1`;
+    const url = `/union/base/basecompanyinfo/info/${data.id}?dicConvert=${data.type}`;
     return getApi(url, data)
   },
   // 基础档案---拨付比例设置 拨付比例设置分页
