@@ -121,14 +121,14 @@
                 searchForm: {
                     "dataType": 1, // 1 : 工会经费 2： 筹备金 3 小微企业
                     "belongsAreaId": "", // 企业信息库左侧的树 的id
-                    "unionFundCode": "", //工会经费编码  
+                    "unionFundCode": "", //工会经费编码
                     "taxPeriod": "", //税期
                     "compCode":"",// 统一社会信用代码
                     "taxPayer":"", // 单位名称
                     "processStatus":null,//处理状态-0：未处理， 1：已直拨 2：已回拨 3：已拨区县工会集中户 字典key  processStatus
                     currPage:1, // 当前页
                     pageSize: 10, // 每页条数
-                    totalPage: 100
+                    totalPage: 0
                 },
                 data: [],
                 defaultProps: {
@@ -178,7 +178,7 @@
                         this.tableData = res.result.list
                         this.searchForm = {
                             ...this.searchForm,
-                            totalCount: res.result.totalCount,
+                            totalPage: res.result.totalPage,
                             pageSize: res.result.pageSize,
                             currPage: res.result.currPage
                         }
