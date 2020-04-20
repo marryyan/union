@@ -30,7 +30,7 @@
         <ul class="list-ul" v-for="(item, index) in listData" :key="index">
          <!-- <li v-for="(itemSmall, indexSmall) in item" :key="indexSmall">{{itemSmall}}</li> -->
          <li>
-           <span style="display: inline-block; width: 180px" v-for="(itemSmall, indexSmall) in item" :key="indexSmall">{{itemSmall}}</span>
+           <span v-for="(itemSmall, indexSmall) in item" :key="indexSmall">{{itemSmall}}</span>
          </li>
         </ul>
       </div>
@@ -68,7 +68,7 @@
     data() {
       return {
         formInline: {
-          "dataType": 1, // 1 : 工会经费 2： 筹备金 3 小微企业 
+          "dataType": 1, // 1 : 工会经费 2： 筹备金 3 小微企业
           "startDate":"", // 开始格式 yyyy年MM月
           "endDate":"", //结束格式 yyyy年MM月
           "belongsAreaId":"" // 所属区, 企业信息库左侧的树形结构
@@ -155,18 +155,25 @@
 <style lang="scss" scoped>
 .list{
   width: 100%;
-  overflow-x: scroll;
-  border-top: 1px solid #cccccc;
-  border-left: 1px solid #cccccc;
+  overflow: scroll;
+  border: 1px solid #cccccc;
   .list-ul{
-    // display: flex;
-    // justify-content: space-between;
-    padding: 10px;
+    /*width: 1500px;*/
     box-sizing: border-box;
-    width: 100%;
+    width: fit-content;
     li{
+      width: fit-content;
       line-height: 30px;
       border-bottom: 1px solid #cccccc;
+      white-space: nowrap;
+      span{
+        width: 100px;
+        display: inline-block;
+        text-align: center;
+        padding: 10px;
+        border-left: 1px solid #cccccc;
+        border-right: 1px solid #cccccc;
+      }
     }
   }
 }
