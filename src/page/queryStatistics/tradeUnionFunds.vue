@@ -36,9 +36,9 @@
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxPeriod" label="税款所属期" width="180"></el-table-column>
-        <el-table-column prop="belongsAreaName" label="所属区"></el-table-column>
+        <el-table-column prop="belongsAreaName" label="所属区" width="180"></el-table-column>
         <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" width="250"></el-table-column>
-        <el-table-column prop="taxPayer" label="纳税人名称" width="180"></el-table-column>
+        <el-table-column prop="taxPayer" label="纳税人名称" width="200"></el-table-column>
         <el-table-column prop="ticketNumber" label="电子税票号码" width="180"></el-table-column>
         <el-table-column prop="collectionItems" label="征收品目"></el-table-column>
         <el-table-column prop="collectionItemsCode" label="征收品目代码" width="180"></el-table-column>
@@ -47,9 +47,9 @@
         <el-table-column prop="taxBasis" label="计税依据"></el-table-column>
         <el-table-column prop="taxRate" label="税率"></el-table-column>
         <el-table-column prop="paidAmount" label="实缴金额"></el-table-column>
-        <el-table-column prop="receiveTreasury" label="收款国库"></el-table-column>
-        <el-table-column prop="taxBelongsComp" label="征收税务机关" width="180"></el-table-column>
-        <el-table-column prop="registCode" label="登记序号"></el-table-column>
+        <el-table-column prop="receiveTreasury" label="收款国库" width="200"></el-table-column>
+        <el-table-column prop="taxBelongsComp" label="征收税务机关" width="250"></el-table-column>
+        <el-table-column prop="registCode" label="登记序号" width="180"></el-table-column>
       </el-table>
       <el-pagination
       style="margin: 15px 0"
@@ -103,11 +103,17 @@
           this.formInline.endDate = e[1]
       },
       handleNodeClick(data) {
+        if(this.formInline.startDate || this.formInline.endDate){
           this.tableData = []
           this.listData = []
           this.formInline.belongsAreaId = data.id
           this.postCountTable()
+          this.postCountList()
+        }else{
+          this.$message.error('请先选择日期！');
+        }
       },
+      // list
       postCountTable(){
         let data = {
           ...this.formInline
@@ -120,6 +126,7 @@
           }
         })
       },
+      // table
       postCountList(){
         let data = {
           ...this.formInline,
@@ -144,9 +151,7 @@
       },
       handleCurrentChange(val) {
         this.tableData = []
-        this.listData = []
         this.page.currPage = val
-        this.postCountTable()
         this.postCountList()
       }
     }
@@ -157,6 +162,7 @@
   width: 100%;
   overflow: scroll;
   border: 1px solid #cccccc;
+  margin-bottom: 20px;
   .list-ul{
     /*width: 1500px;*/
     box-sizing: border-box;
