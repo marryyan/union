@@ -31,7 +31,7 @@
             <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.unionName}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="unionRankText" label="工会级次"></el-table-column>
+        <el-table-column prop="unionRank" label="工会级次"></el-table-column>
         <el-table-column prop="unionAddress" label="工会地址"></el-table-column>
         <el-table-column prop="accountName" label="工会账户名称"></el-table-column>
         <el-table-column prop="accountNumber" label="工会账户号"></el-table-column>
@@ -122,7 +122,7 @@
                     this.tableData = res.result.list.map((item, index) => {
                         return {
                             ...item,
-                            unionRankText: item.unionRank ? this.unionRankOptions.find(it => it.k === item.unionRank).v : '',
+                            // unionRankText: item.unionRank ? this.unionRankOptions.find(it => it.k === item.unionRank).v : '',
                             sequenceNumber: index + 1 + ((res.result.currPage - 1) * res.result.pageSize)
                         }
                     })
