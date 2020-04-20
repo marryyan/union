@@ -102,42 +102,17 @@
     data() {
       return {
         formInline: {
-          user: '',
-          name: ''
+          "dataType": 3, // 1 : 工会经费 2： 筹备金 3 小微企业 
+          "taxPeriod":null, // 税款所属期
+          "taxPayer":null, //企业名称
+          "compCode":null,//社会统一信用代码
+          "unionType":null, //工会类别 字典: unionType
+          "taxBelongsComp":null, //  税款所属税务机关 检索下拉框税务局下拉的接口， 只要文本，不要id
+          "collectionItemsCode":null, // 缴费类型=征收品目 字典key:collectionItemsCode
+          "distributionType":null, // 分配状态 字典key:distributionType
+          "compFirmlyType": "2", //企业认定：0 正常缴费企业 ，1：试点企业 2：微型企业 ,3:小型企业  字典key：compFirmlyType
         },
-        options: [{
-          value: '选项1',
-          label: '黄金糕'
-        }, {
-          value: '选项2',
-          label: '双皮奶'
-        }, {
-          value: '选项3',
-          label: '蚵仔煎'
-        }, {
-          value: '选项4',
-          label: '龙须面'
-        }, {
-          value: '选项5',
-          label: '北京烤鸭'
-        }],
-        tableData: [{
-          date: '2016-05-02',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1518 弄'
-        }, {
-          date: '2016-05-04',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1517 弄'
-        }, {
-          date: '2016-05-01',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1519 弄'
-        }, {
-          date: '2016-05-03',
-          name: '王小虎',
-          address: '上海市普陀区金沙江路 1516 弄'
-        }],
+        tableData: [],
         page:{
           currPage:1, // 当前页
           pageSize: 10, // 每页条数

@@ -239,9 +239,6 @@
                     this.data.push(res.result)
                 })
             },
-            handleChange(e) {
-                console.log('222', e)
-            },
             postBaseunioninfoSelectbyname() {
                 let data = {
                     unionName: ''

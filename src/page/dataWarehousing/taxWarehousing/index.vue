@@ -72,7 +72,7 @@
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxPeriod" label="所属税期"></el-table-column>
-        <el-table-column prop="belongsArea" label="所属区"></el-table-column>
+        <el-table-column prop="belongsAreaName" label="所属区"></el-table-column>
         <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" width="250"></el-table-column>
         <el-table-column prop="taxPayer" label="纳税人名称" width="180"></el-table-column>
         <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
