@@ -110,7 +110,7 @@
         page:{
           currPage:1, // 当前页
           pageSize: 10, // 每页条数
-          totalPage: 100, // 总页数
+          totalPage: 1, // 总页数
         },
         unionTypeOptions: [],
         collectionItemsCodeOptions: [],
@@ -193,6 +193,7 @@
       handleCurrentChange(val) {
         this.tableData = []
         this.page.currPage = val
+        this.postCountErrorlist()
         console.log(`当前页: ${val}`);
       }
     }

@@ -33,10 +33,10 @@
         </el-table-column>
         <el-table-column prop="unionRank" label="工会级次"></el-table-column>
         <el-table-column prop="unionAddress" label="工会地址"></el-table-column>
-        <el-table-column prop="accountName" label="工会账户名称"></el-table-column>
-        <el-table-column prop="accountNumber" label="工会账户号"></el-table-column>
+        <el-table-column prop="accountName" label="工会账户名称" width="180"></el-table-column>
+        <el-table-column prop="accountNumber" label="工会账户号" width="180"></el-table-column>
         <el-table-column prop="master" label="负责人"></el-table-column>
-        <el-table-column prop="phone" label="联系电话"></el-table-column>
+        <el-table-column prop="phone" label="联系电话" width="180"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"

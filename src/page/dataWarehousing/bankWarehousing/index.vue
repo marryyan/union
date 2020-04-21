@@ -114,27 +114,35 @@
             },
             // 确认提交
             submitEdit(){
-              dataStorageApis.postStorebanktempSubmit().then(res => {
-                if(res.status == '200'){
-                  this.$message.success('提交成功！');
-                  this.tableData = []
-                  this.postStorebanktempNosubmitlist()
-                }else{
-                  this.$message.error(res.message);
-                }
-              })
+              if(this.tableData.length > 0){
+                dataStorageApis.postStorebanktempSubmit().then(res => {
+                  if(res.status == '200'){
+                    this.$message.success('提交成功！');
+                    this.tableData = []
+                    this.postStorebanktempNosubmitlist()
+                  }else{
+                    this.$message.error(res.message);
+                  }
+                })
+              }else{
+                this.$message.error('暂无可提交的数据！');
+              }
             },
             // 删除
             submitDelete(){
-              dataStorageApis.postStorebanktempNosubmitdelete().then(res => {
-                if(res.status == '200'){
-                  this.$message.success('删除成功！');
-                  this.tableData = []
-                  this.postStorebanktempNosubmitlist()
-                }else{
-                  this.$message.error(res.message);
-                }
-              })
+              if(this.tableData.length > 0){
+                dataStorageApis.postStorebanktempNosubmitdelete().then(res => {
+                  if(res.status == '200'){
+                    this.$message.success('删除成功！');
+                    this.tableData = []
+                    this.postStorebanktempNosubmitlist()
+                  }else{
+                    this.$message.error(res.message);
+                  }
+                })
+              }else{
+                this.$message.error('暂无可删除的数据！');
+              }
             },
             // 获取数据
             postStorebanktempNosubmitlist(){

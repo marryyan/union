@@ -29,7 +29,7 @@
           <el-input size="mini" v-model="searchForm.taxPayer" placeholder="请输入"></el-input>
         </el-form-item>
         <el-form-item label="处理状态：">
-          <el-select size="mini" v-model="searchForm.processStatus" placeholder="请输入">
+          <el-select size="mini" v-model="searchForm.processStatus" placeholder="请选择">
             <el-option
               v-for="item in processStatusOptions"
               :key="item.k"

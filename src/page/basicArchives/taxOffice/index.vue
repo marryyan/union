@@ -135,21 +135,21 @@ export default {
       this.postBasebasetaxinfoPage()
     },
     addInfo(){
-      if(this.treeId){
+      if(!isNaN(this.treeId) && this.treeId){
         this.$router.push({
           path: `/taxOfficeInfoAdd?treeId=${this.treeId}`
         })
       }else{
-        this.$message.error('请先选择左侧机构后再进行操作！');
+        this.$message.error('请先选择左侧有效机构后再进行操作！');
       }
     },
     handleEdit(index, row) {
-      if(this.treeId){
+      if(!isNaN(this.treeId) && this.treeId){
         this.$router.push({
         path: `/taxOfficeInfoEdit?treeId=${this.treeId}&id=${row.id}`
       })
       }else{
-        this.$message.error('请先选择左侧机构后再进行操作！');
+        this.$message.error('请先选择左侧有效机构后再进行操作！');
       }
     },
     handleDetail(index, row){

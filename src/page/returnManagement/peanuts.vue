@@ -178,7 +178,7 @@
                         this.tableData = res.result.list
                         this.searchForm = {
                             ...this.searchForm,
-                            totalCount: res.result.totalCount,
+                            totalPage: res.result.totalCount,
                             pageSize: res.result.pageSize,
                             currPage: res.result.currPage
                         }

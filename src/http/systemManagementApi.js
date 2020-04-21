@@ -85,6 +85,11 @@ const systemManagementApi = {
     const url = `/union/sys/role/auth`;
     return postApi(url, data)
   },
+  // 日志列表
+  postSysLogList: function postSysLogList (data){
+    const url = `/union/sys/log/list`;
+    return postApi(url, data)
+  },
 }
 
 export default systemManagementApi
