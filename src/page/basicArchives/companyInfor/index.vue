@@ -384,8 +384,10 @@
                 this.page.currPage = val
                 if (this.tabName == '已建会') {
                     this.postBaseBasecompanyinfoPagehas()
-                } else {
+                } else if (this.tabName == '未建会') {
                     this.postBaseBasecompanyinfoPageno()
+                } else if (this.tabName == '小微企业') {
+                    this.postPagesmallmicrobusinesses()
                 }
             }
         }
