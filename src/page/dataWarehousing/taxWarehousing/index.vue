@@ -57,17 +57,7 @@
       </el-form> -->
       <div class="operation_btns">
         <el-button size="mini" type="warning" @click="exportList">下载模板</el-button>
-        <el-upload
-          class="upload-demo"
-          action="/union/sys/sysfile/upload"
-          :limit="1"
-          :headers="{token: '666666'}"
-          :on-success="uploadSuccess"
-          :before-upload="beforeUpload"
-          :show-file-list="false"
-          :file-list="fileList">
-          <el-button size="small" type="warning">xls导入</el-button>
-        </el-upload>
+        <el-button size="small" type="warning" @click="dialogVisible = true">xls导入</el-button>
         <el-button size="mini" type="warning" @click="submitEdit">确认提交</el-button>
         <el-button size="mini" type="warning" @click="submitDelete">删除</el-button>
       </div>
@@ -108,6 +98,40 @@
         layout="prev, pager, next, jumper"
         :total="page.totalCount">
       </el-pagination>
+      <el-dialog title="xls导入" :visible.sync="dialogVisible" :destroy-on-close="true">
+        <el-upload
+          class="upload-demo"
+          action="/union/sys/sysfile/upload"
+          :limit="1"
+          :headers="{token: userToken}"
+          :on-success="uploadSuccess"
+          :before-upload="beforeUpload"
+          :file-list="fileList">
+          <el-button size="small" type="warning">xls导入</el-button>
+        </el-upload>
+        <br/>
+        <el-form :model="xlsUploadInfo" label-position='right' label-width="130px">
+          <el-form-item label="所属税期：">
+            <el-date-picker
+              v-model="xlsUploadInfo.taxPeriod"
+              size="mini"
+              type="month"
+              value-format="yyyy-MM"
+              placeholder="选择日期">
+            </el-date-picker>
+          </el-form-item>
+          <el-form-item label="征收税务机关：">
+            <el-cascader size="mini" :props="{value: 'id', label: 'collTaxComp'}" v-model="xlsUploadInfo.taxBelongsCompId" placeholder="请选择" :options="taxBelongsCompOptions" filterable></el-cascader>
+          </el-form-item>
+          <el-form-item label="国库名称：">
+            <el-cascader size="mini" :props="{value: 'accountName', label: 'accountName'}" v-model="xlsUploadInfo.receiveTreasury" placeholder="请选择" :options="receiveTreasuryOptions" filterable></el-cascader>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="() => { this.dialogVisible = false; this.xlsUploadInfo = {}; this.fileList = []; this.fileId = ''}"  size="mini">取 消</el-button>
+          <el-button type="primary" @click="xlsUpload" size="mini">确 定</el-button>
+        </div>
+      </el-dialog>
       <!-- 弹窗 -->
       <DialogCommon
         :centerText="centerText"
@@ -120,6 +144,8 @@
 <script>
     import DialogCommon from '@/components/dialogCommon';
     import {dataStorageApis, commonApi} from '@/http/api'
+    import { getItem } from "../../../helpers";
+
     export default {
         components: {
             DialogCommon
@@ -139,11 +165,19 @@
                 centerText: '是否确定删除该税务入库信息？',
                 centerDialogVisible: false,
                 fileList: [],
+                userToken: '',
+                dialogVisible: false,
+                xlsUploadInfo: {},
+                taxBelongsCompOptions: [],
+                fileId: ''
             }
         },
         mounted(){
             this.postStoretaxtempNosubmitlist()
             // this.getDataDic()
+            this.userToken = getItem('user_token')
+            this.getTaxBelongsCompOptions()
+            this.getReceiveTreasuryOptions()
         },
         methods: {
             // 获取字典
@@ -225,14 +259,7 @@
 
             uploadSuccess(response, file, fileList) {
                 if (response.status === 200) {
-                    const fileId = response.result
-                    dataStorageApis.postStoreStoretaxtempImportexcel().then(res => {
-                        if (res.status === 200) {
-
-                        } else {
-                            this.$message.error(res.message)
-                        }
-                    })
+                    this.fileId = response.result
                 } else {
                     if (response.status === 401) {
                         this.$router.replace({
@@ -254,6 +281,46 @@
                 } else {
                     return true
                 }
+            },
+            getTaxBelongsCompOptions() {
+                dataStorageApis.postBaseBasetaxinfoSelectbyCollTaxComp({ collTaxComp: '' }).then(res => {
+                    if (res.status === 200) {
+                        this.taxBelongsCompOptions = res.result
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+            },
+            getReceiveTreasuryOptions() {
+                dataStorageApis.postBaseBasetaxinfoSelectbyAccountName({ accountName: '' }).then(res => {
+                    if (res.status === 200) {
+                        this.receiveTreasuryOptions = res.result
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+            },
+            xlsUpload() {
+                const params = {
+                    ...this.xlsUploadInfo,
+                    fileId: this.fileId,
+                    taxBelongsCompId: this.xlsUploadInfo.taxBelongsCompId.join(','),
+                    receiveTreasury: this.xlsUploadInfo.receiveTreasury.join(','),
+                    collTaxComp: this.taxBelongsCompOptions.find(item => item.id === Number(this.xlsUploadInfo.taxBelongsCompId)).collTaxComp
+                }
+                console.log('--------------', params)
+                dataStorageApis.postStoreStoretaxtempImportexcel(params).then(res => {
+                    if (res.status === 200) {
+                        this.$message.success('文件上传成功')
+                        this.xlsUploadInfo = {}
+                        this.fileList = []
+                        this.fileId = ''
+                        this.dialogVisible = false
+                        this.postStoretaxtempNosubmitlist()
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
             }
         }
     }

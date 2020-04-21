@@ -51,6 +51,7 @@
                         setItem('permissions', JSON.stringify(permissions))
                         this.$router.replace("/home");
                     } else {
+                        this.getYzm()
                         this.$message.error(res.message)
                     }
                 })

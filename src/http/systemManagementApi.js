@@ -29,6 +29,21 @@ const systemManagementApi = {
     const url = `/union/sys/user/lock/${data.userId}`;
     return postApi(url, data)
   },
+  // 系统管理-用户解锁
+  postSysUserUnlock: function postSysUserUnlock (data) {
+    const url = `/union/sys/user/unlock/${data.userId}`;
+    return postApi(url, data)
+  },
+  // 系统管理-用户停用/启用
+  postSysUserDisable: function postSysUserDisable (data) {
+    const url = `/union/sys/user/disable`;
+    return postApi(url, data)
+  },
+  // 系统管理-重置密码
+  postSysUserReset: function postSysUserReset (data) {
+    const url = `/union/sys/user/reset/${data.userId}`;
+    return postApi(url, data)
+  },
   // 系统管理-- 角色列表
   postSysRoleList: function postSysRoleList (data){
     const url = `/union/sys/role/list?dicConvert=1`;

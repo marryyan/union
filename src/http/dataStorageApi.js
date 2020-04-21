@@ -40,6 +40,16 @@ const dataStorageApi = {
     const url = `/union/store/storetaxtemp/importexcel`;
     return postApi(url, data)
   },
+  // 数据入库--税务入库 征收税务机关-税务入库的时候使用
+  postBaseBasetaxinfoSelectbyCollTaxComp: function postBaseBasetaxinfoSelectbyCollTaxComp (data){
+    const url = `/union/base/basetaxinfo/selectbyCollTaxComp`;
+    return postApi(url, data)
+  },
+  // 数据入库--税务入库 收款国库，下拉检索_税务入库使用
+  postBaseBasetaxinfoSelectbyAccountName: function postBaseBasetaxinfoSelectbyAccountName (data){
+    const url = `/union/base/basetaxinfo/selectbyAccountName`;
+    return postApi(url, data)
+  },
   // 数据入库--税务入库 税务入库列表分页
   postStoreStoretaxtempList: function postStoreStoretaxtempList (data){
     const url = `/union/store/storetaxtemp/list`;

@@ -3,15 +3,15 @@
     <div class="flex-right">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="用户姓名：">
-          <el-input size="mini" v-model="formInline.name" placeholder="请输入"></el-input>
+          <el-input size="mini" v-model="formInline.realName" placeholder="请输入"></el-input>
         </el-form-item>
         <el-form-item label="状态：">
-          <el-select size="mini" v-model="formInline.user" placeholder="请输入">
+          <el-select size="mini" v-model="formInline.userStatus" placeholder="请输入">
             <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
+              v-for="item in userStatusOptions"
+              :key="item.k"
+              :label="item.v"
+              :value="item.k">
             </el-option>
           </el-select>
         </el-form-item>
@@ -35,22 +35,17 @@
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="mini" type="warning" v-if="scope.row.status !== 2"
-                       @click="prohibitLogin(scope.$index, scope.row)">禁止登录</el-button>
-            <el-button size="mini" type="warning" v-if="scope.row.status === 2"
-                       @click="prohibitLogin(scope.$index, scope.row)">解禁登录</el-button>
+            <el-button size="mini" type="warning"
+                       @click="prohibitLogin(scope.$index, scope.row)">{{scope.row.status !== 2 ? '禁止登录' : '解禁登录'}}</el-button>
             <el-button size="mini" type="warning"
                        @click="resetPassword(scope.$index, scope.row)">重置密码</el-button>
-            <el-button size="mini" type="warning" v-if="scope.row.status !== 0"
-                       @click="stopUsing(scope.$index, scope.row)">停用</el-button>
-            <el-button size="mini" type="warning" v-if="scope.row.status === 0"
-                       @click="stopUsing(scope.$index, scope.row)">启用</el-button>
+            <el-button size="mini" type="warning"
+                       @click="stopUsing(scope.$index, scope.row)">{{scope.row.status !== 0 ? '停用' : '启用'}}</el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination
         style="margin: 15px 0"
-        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
         :current-page.sync="page.currPage"
         :page-size="page.pageSize"
@@ -63,7 +58,7 @@
         :centerText="prohibitLoginText"
         :centerDialogVisible="prohibitLoginVisible"
         @delDialog="sureProhibitDialog"
-        @cancleDialog="cancleProhibitDialog"></DialogCommon>
+        @cancleDialog="prohibitLoginVisible = false"></DialogCommon>
       <!-- 重置密码 -->
       <DialogCommon
         :centerText="resetPasswordText"
@@ -75,13 +70,13 @@
         :centerText="stopUsingText"
         :centerDialogVisible="stopUsingVisible"
         @delDialog="sureStopDialog"
-        @cancleDialog="cancleStopDialog"></DialogCommon>
+        @cancleDialog="stopUsingVisible = false"></DialogCommon>
     </div>
   </div>
 </template>
 <script>
     import DialogCommon from '@/components/dialogCommon';
-    import { systemManagementApis } from "../../../http/api";
+    import {commonApi, systemManagementApis} from "../../../http/api";
 
     export default {
         components: {
@@ -90,45 +85,40 @@
         data() {
             return {
                 formInline: {
-                    user: '',
-                    name: ''
+                    userStatus: '',
+                    realName: ''
                 },
-                options: [{
-                    value: '选项1',
-                    label: '黄金糕'
-                }, {
-                    value: '选项2',
-                    label: '双皮奶'
-                }, {
-                    value: '选项3',
-                    label: '蚵仔煎'
-                }, {
-                    value: '选项4',
-                    label: '龙须面'
-                }, {
-                    value: '选项5',
-                    label: '北京烤鸭'
-                }],
+                userStatusOptions: [],
                 tableData: [],
                 page:{
                     currPage:1, // 当前页
                     pageSize: 10, // 每页条数
                     totalPage: 0, // 总页数
                 },
-                prohibitLoginText:'是否确定禁止登录？',
+                prohibitLoginText:'',
                 prohibitLoginVisible: false,
                 resetPasswordText: '是否确定重置密码？',
                 resetPasswordVisible: false,
-                stopUsingText: '是否确定停用该账户？',
+                stopUsingText: '',
                 stopUsingVisible: false,
                 operationUser: {}
             }
         },
         mounted() {
-            this.postSysRoleList()
+            this.getDic()
         },
         methods: {
-            postSysRoleList() {
+            getDic() {
+              commonApi.getDataDic('userStatus').then(res => {
+                  if (res.status === 200) {
+                      this.userStatusOptions = res.result
+                      this.postSysUserList()
+                  } else {
+                      this.$message.error(res.message)
+                  }
+              })
+            },
+            postSysUserList() {
                 const params = {
                     ...this.formInline,
                     ...this.page
@@ -149,8 +139,10 @@
                 })
             },
             onSubmit() {
-                console.log('submit!');
+                this.postSysUserList()
             },
+
+
             addInfo(){
                 this.$router.push({
                     path: `/userManageInfoAdd`
@@ -161,12 +153,14 @@
                     path: `/userManageInfoEdit?id=${row.userId}`
                 })
             },
-            handleDetail(index, row){
-                this.$router.push({
-                    path: `/infoDetail?id=${row.date}`
-                })
-            },
+
+
             prohibitLogin(index, row) {
+                if (row.status === 2) {
+                    this.prohibitLoginText = '是否解除禁止登录？'
+                } else {
+                    this.prohibitLoginText = '是否确定禁止登录？'
+                }
                 this.prohibitLoginVisible = true
                 this.operationUser = row
             },
@@ -174,41 +168,82 @@
                 const params = {
                     userId: this.operationUser.userId
                 }
-                systemManagementApis.postSysUserLock(params).then(res => {
+                if (this.operationUser.status === 2) {
+                    systemManagementApis.postSysUserUnlock(params).then(res => {
+                        if (res.status === 200) {
+                            this.prohibitLoginVisible = false
+                            this.$message.success('解除禁止用户登录成功')
+                            this.postSysUserList()
+                        } else {
+                            this.$message.error(res.message)
+                        }
+                    })
+                } else {
+                    systemManagementApis.postSysUserLock(params).then(res => {
+                        if (res.status === 200) {
+                            this.prohibitLoginVisible = false
+                            this.$message.success('禁止用户登录成功')
+                            this.postSysUserList()
+                        } else {
+                            this.$message.error(res.message)
+                        }
+                    })
+                }
+            },
+
+
+            resetPassword(index, row) {
+                this.operationUser = row
+                this.resetPasswordVisible = true
+            },
+            sureResetDialog(){
+                const params = {
+                    userId: this.operationUser.userId
+                }
+                systemManagementApis.postSysUserReset(params).then(res => {
                     if (res.status === 200) {
-                        this.prohibitLoginVisible = false
-                        this.postSysRoleList()
+                        this.$message.success('重置密码成功')
+                        this.resetPasswordVisible = false
+                        this.postSysUserList()
                     } else {
                         this.$message.error(res.message)
                     }
                 })
             },
-            cancleProhibitDialog(){
-                this.prohibitLoginVisible = false
-            },
-            resetPassword(index, row) {
-                this.resetPasswordVisible = true
-            },
-            sureResetDialog(){
-                this.resetPasswordVisible = false
-            },
             cancleResetDialog(){
                 this.resetPasswordVisible = false
             },
-            stopUsing(){
+
+
+            stopUsing(index, row){
+                if (row.status === 0) {
+                    this.stopUsingText = '是否确定启用该账户？'
+                } else {
+                    this.stopUsingText = '是否确定停用该账户？'
+                }
+                this.operationUser = row
                 this.stopUsingVisible = true
             },
             sureStopDialog(){
-                this.stopUsingVisible = false
+                const params = {
+                    userId: this.operationUser.userId,
+                    status: this.operationUser.status === 0 ? 1 : 0
+                }
+                systemManagementApis.postSysUserDisable(params).then(res => {
+                    if (res.status === 200) {
+                        this.stopUsingVisible = false
+                        this.$message.success('操作成功')
+                        this.postSysUserList()
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
             },
-            cancleStopDialog(){
-                this.stopUsingVisible = false
-            },
-            handleSizeChange(val) {
-                console.log(`每页 ${val} 条`);
-            },
+
+
             handleCurrentChange(val) {
-                console.log(`当前页: ${val}`);
+                this.page.currPage = val
+                this.postSysUserList()
             }
         }
     }

@@ -7,7 +7,7 @@ export function getItem (key) {
   if (!data || data === 'null') {
     return null
   }
-  return JSON.parse(data)
+  return data
 }
 
 export function removeItem (key) {
