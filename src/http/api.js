@@ -16,12 +16,12 @@ export const systemManagementApis = { ...systemManagementApi }
 export const loginApis = {
   // 登录
   userLogin: function userLogin(data) {
-    const url = '/msbase/sys/login';
+    const url = '/union/sys/login';
     return postApi(url, data)
   },
   // 获取验证码
   getYzmPic: function getYzmPic(data) {
-    const url = '/msbase/captcha.jpg?uuid=' + data.uuid;
+    const url = '/union/captcha.jpg?uuid=' + data.uuid;
     return getApi(url, data)
   },
 }

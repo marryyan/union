@@ -17,13 +17,6 @@ module.exports = {
         pathRewrite: {
           '^/union': '/union'
         }
-      },
-      '/msbase': {
-        target: 'http://115.28.210.47:8080/', // 云上地址
-        changeOrigin: true,
-        pathRewrite: {
-          '^/msbase': '/msbase'
-        }
       }
     },
 

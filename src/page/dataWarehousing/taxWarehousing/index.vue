@@ -61,6 +61,7 @@
           class="upload-demo"
           action="/union/sys/sysfile/upload"
           :limit="1"
+          :headers="{token: '666666'}"
           :on-success="uploadSuccess"
           :before-upload="beforeUpload"
           :show-file-list="false"
@@ -217,9 +218,21 @@
                 this.page.currPage = val
                 this.postStoreStoretaxtempList()
             },
+            sureDelDialog() {
+
+            },
+
+
             uploadSuccess(response, file, fileList) {
                 if (response.status === 200) {
+                    const fileId = response.result
+                    dataStorageApis.postStoreStoretaxtempImportexcel().then(res => {
+                        if (res.status === 200) {
 
+                        } else {
+                            this.$message.error(res.message)
+                        }
+                    })
                 } else {
                     if (response.status === 401) {
                         this.$router.replace({
