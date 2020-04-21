@@ -35,15 +35,15 @@
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="mini" type="warning" v-if="scope.row.state !== 2"
+            <el-button size="mini" type="warning" v-if="scope.row.status !== 2"
                        @click="prohibitLogin(scope.$index, scope.row)">禁止登录</el-button>
-            <el-button size="mini" type="warning" v-if="scope.row.state === 2"
+            <el-button size="mini" type="warning" v-if="scope.row.status === 2"
                        @click="prohibitLogin(scope.$index, scope.row)">解禁登录</el-button>
             <el-button size="mini" type="warning"
                        @click="resetPassword(scope.$index, scope.row)">重置密码</el-button>
-            <el-button size="mini" type="warning" v-if="scope.row.state !== 0"
+            <el-button size="mini" type="warning" v-if="scope.row.status !== 0"
                        @click="stopUsing(scope.$index, scope.row)">停用</el-button>
-            <el-button size="mini" type="warning" v-if="scope.row.state === 0"
+            <el-button size="mini" type="warning" v-if="scope.row.status === 0"
                        @click="stopUsing(scope.$index, scope.row)">启用</el-button>
           </template>
         </el-table-column>
@@ -133,7 +133,7 @@
                     ...this.formInline,
                     ...this.page
                 }
-                systemManagementApis.postSysRoleList(params).then(res => {
+                systemManagementApis.postSysUserList(params).then(res => {
                     if (res.status === 200) {
                         const { list, totalPage, currPage, pageSize } = res.result
                         this.page = {
@@ -177,6 +177,7 @@
                 systemManagementApis.postSysUserLock(params).then(res => {
                     if (res.status === 200) {
                         this.prohibitLoginVisible = false
+                        this.postSysRoleList()
                     } else {
                         this.$message.error(res.message)
                     }

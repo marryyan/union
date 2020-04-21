@@ -189,8 +189,8 @@ export default new Router({
           component: () => import('@/page/systemManage/roleManage/infoHandle')
         },
         {
-          path: '/roleManageInfoAdd',
-          name: '新增角色',
+          path: '/roleManageInfoDetail',
+          name: '角色详细信息',
           component: () => import('@/page/systemManage/roleManage/infoHandle')
         },
         {
