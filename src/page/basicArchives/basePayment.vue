@@ -46,7 +46,7 @@
         :current-page.sync="page.currPage"
         :page-size="page.pageSize"
         layout="prev, pager, next, jumper"
-        :total="page.totalPage">
+        :total="page.totalCount">
       </el-pagination>
       <!-- 弹窗 -->
       <DialogCommon
@@ -58,10 +58,10 @@
       <el-dialog :title="dialogTitle" :visible.sync="dialogVisible" :before-close="cancelInfo">
         <el-form :model="formInfo" label-position='right' label-width="130px">
           <el-form-item label="缴费基数编码：">
-            <el-input size="mini" v-model="formInfo.code" style="width:250px" disabled></el-input>
+            <el-input placeholder="请输入" size="mini" v-model="formInfo.code" style="width:250px" disabled></el-input>
           </el-form-item>
           <el-form-item label="基数类型：">
-            <el-input size="mini" v-model="formInfo.payInfo" style="width:250px"></el-input>
+            <el-input placeholder="请输入" size="mini" v-model="formInfo.payInfo" style="width:250px"></el-input>
           </el-form-item>
           <el-form-item label="缴费比例：">
             <el-select size="mini" v-model="formInfo.payPercentPre" style="width: 120px" placeholder="请选择">
@@ -72,8 +72,8 @@
                 :value="item.k">
               </el-option>
             </el-select>
-            <el-input size="mini" v-model="formInfo.payPercentCen" style="width:120px"></el-input>
-            <el-input size="mini" v-model="formInfo.payPercentSuf" style="width:120px"></el-input>
+            <el-input placeholder="请输入" size="mini" v-model="formInfo.payPercentCen" style="width:120px"></el-input>
+            <el-input placeholder="请输入" size="mini" v-model="formInfo.payPercentSuf" style="width:120px"></el-input>
           </el-form-item>
           <el-form-item label="缴费基数：">
             <el-select size="mini" v-model="formInfo.payCountPre" style="width: 120px" placeholder="请选择">
@@ -84,8 +84,8 @@
                 :value="item.k">
               </el-option>
             </el-select>
-            <el-input size="mini" v-model="formInfo.payCountCen" style="width:120px"></el-input>
-            <el-input size="mini" v-model="formInfo.payCountSuf" style="width:120px"></el-input>
+            <el-input placeholder="请输入" size="mini" v-model="formInfo.payCountCen" style="width:120px"></el-input>
+            <el-input placeholder="请输入" size="mini" v-model="formInfo.payCountSuf" style="width:120px"></el-input>
           </el-form-item>
           <el-form-item label="历次最小值比：">
             <el-select size="mini" v-model="formInfo.minPercentPre" style="width: 120px" placeholder="请选择">
@@ -96,8 +96,8 @@
                 :value="item.k">
               </el-option>
             </el-select>
-            <el-input size="mini" v-model="formInfo.minPercentCen" style="width:120px"></el-input>
-            <el-input size="mini" v-model="formInfo.minPercentSuf" style="width:120px"></el-input>
+            <el-input placeholder="请输入" size="mini" v-model="formInfo.minPercentCen" style="width:120px"></el-input>
+            <el-input placeholder="请输入" size="mini" v-model="formInfo.minPercentSuf" style="width:120px"></el-input>
           </el-form-item>
           <el-form-item label="是否正常：">
             <template>
@@ -106,7 +106,7 @@
             </template>
           </el-form-item>
           <el-form-item label="备注：">
-            <el-input size="mini" v-model="formInfo.description" style="width:250px"></el-input>
+            <el-input placeholder="请输入" size="mini" v-model="formInfo.description" style="width:250px"></el-input>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -131,7 +131,7 @@
                 page:{
                     currPage:1, // 当前页
                     pageSize: 10, // 每页条数
-                    totalCount: 100, // 总页数
+                    totalCount: 1, // 总页数
                 },
                 centerText: '',
                 dialogTitle: '新增缴费基数',
@@ -228,6 +228,8 @@
                         if (res.status === 200) {
                             this.formInfo = {}
                             this.$message.success('修改成功')
+                            this.tableData = []
+                            this.page.currPage = 1
                             this.postBaseratiopayList()
                         } else {
                             this.$message.error(res.message)
@@ -238,6 +240,8 @@
                         if (res.status === 200) {
                             this.formInfo = {}
                             this.$message.success('添加成功')
+                            this.tableData = []
+                            this.page.currPage = 1
                             this.postBaseratiopayList()
                         } else {
                             this.$message.error(res.message)
@@ -258,6 +262,8 @@
                 basicFileApis.postBaseratiopayIsuse(data).then(res => {
                     if (res.status === 200) {
                         this.$message.success('操作成功')
+                        this.tableData = []
+                        this.page.currPage = 1
                         this.postBaseratiopayList()
                         this.centerDialogVisible = false
                     } else {
@@ -271,6 +277,7 @@
             cancelInfo(){
               this.dialogVisible = false
               this.formInfo = {}
+              this.postbaseratiopayGetcode()
             },
             handleCurrentChange(val) {
                 this.tableData = []

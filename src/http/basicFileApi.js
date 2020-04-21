@@ -116,7 +116,7 @@ const basicFileApi = {
   },
   // 基础档案---拨付比例设置 拨付比例详情
   postBaseratiocallbackInfo: function postBaseratiocallbackInfo (data){
-    const url = `/union/base/baseratiocallback/info/${data.id}?dicConvert=1`;
+    const url = `/union/base/baseratiocallback/info/${data.id}?dicConvert=''`;
     return postApi(url, data)
   },
   // 基础档案---拨付比例设置 拨付比例修改
@@ -131,7 +131,7 @@ const basicFileApi = {
   },
   // 基础档案---缴费基数设置 缴费基数详情
   postBaseratipayInfo: function postBaseratipayInfo (data){
-    const url = `/union/base/baseratiopay/info/${data.id}?dicConvert=1`;
+    const url = `/union/base/baseratiopay/info/${data.id}?dicConvert=''`;
     return postApi(url, data)
   },
   // 基础档案---缴费基数设置 缴费基数添加

@@ -191,11 +191,15 @@
           })
         },
       onSubmit() {
-        console.log('submit!');
+        this.tableData = []
+        this.page.currPage = 1
+        this.postStoreTaxdistributionList()
       },
-        handleCurrentChange(val) {
-          console.log('val', val)
-        }
+      handleCurrentChange(val) {
+        this.tableData = []
+        this.page.currPage = val
+        this.postStoreTaxdistributionList()
+      }
     }
   }
 </script>
