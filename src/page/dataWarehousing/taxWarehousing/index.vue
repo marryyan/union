@@ -205,7 +205,7 @@
             },
             // 导出
             exportList(){
-              let url = `/union/store/storetaxtemp/downloadexceltemplate`
+              let url = `/union/store/storetaxtemp/downloadexceltemplate?token=${sessionStorage.getItem('user_token')}`
               window.location.href = url
             },
             // 确认提交

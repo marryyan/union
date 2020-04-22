@@ -109,7 +109,7 @@
         methods: {
             // 导出
             exportList(){
-              let url = `/union/store/storebanktemp/downloadexceltemplate`
+              let url = `/union/store/storebanktemp/downloadexceltemplate?token=${sessionStorage.getItem('user_token')}`
               window.location.href = url
             },
             // 确认提交

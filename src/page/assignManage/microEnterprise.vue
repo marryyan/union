@@ -73,13 +73,13 @@
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <el-button size="mini" type="warning">分配(下载打印)</el-button>
+        <el-button size="mini" type="warning" @click="exportList">分配(下载打印)</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="taxPeriod" label="所属税期"></el-table-column>
-        <el-table-column prop="belongsAreaName" label="所属区"></el-table-column>
-        <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" width="180"></el-table-column>
-        <el-table-column prop="taxPayer" label="纳税人名称" width="180"></el-table-column>
+        <el-table-column prop="taxPeriod" label="所属税期" width="180"></el-table-column>
+        <el-table-column prop="belongsAreaName" label="所属区" width="180"></el-table-column>
+        <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" width="250"></el-table-column>
+        <el-table-column prop="taxPayer" label="纳税人名称" width="250"></el-table-column>
         <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
         <el-table-column prop="unionBank" label="工会开户行" width="180"></el-table-column>
         <el-table-column prop="unionBankAccount" label="工会银行账号" width="180"></el-table-column>
@@ -89,7 +89,7 @@
         <el-table-column prop="paidAmount" label="实缴金额"></el-table-column>
         <el-table-column prop="compFirmlyType" label="企业认定"></el-table-column>
         <el-table-column prop="unionType" label="工会类别"></el-table-column>
-        <el-table-column prop="collectionItemsCode" label="缴费类型"></el-table-column>
+        <el-table-column prop="collectionItemsCode" label="缴费类型" width="180"></el-table-column>
         <el-table-column prop="provincePercent" label="省总分配比例" width="180"></el-table-column>
         <el-table-column prop="provinceMoney" label="省总分配金额" width="180"></el-table-column>
         <el-table-column prop="cityPercent" label="市总分配比例" width="180"></el-table-column>
@@ -120,14 +120,15 @@
       return {
           searchForm: {
               taxPeriod: '',
-              taxBelongsComp: '',
-              collectionItemsCode: '',
               taxPayer: '',
               compCode: '',
+              unionType: '',
+              taxBelongsComp: '',
+              collectionItemsCode: '',
               distributionType: '',
               dataType: 3,
-              unionType: '',
               compFirmlyType: "", //企业认定：0 正常缴费企业 ，1：试点企业 2：微型企业 ,3:小型企业  字典key：compFirmlyType
+              taxBelongsCompId:"", // 新增
           },
           page:{
               currPage: 1, // 当前页
@@ -151,6 +152,13 @@
         this.postStoreTaxdistributionList()
       },
     methods: {
+        // 导出
+        exportList(){
+          let formString = `taxPeriod=${this.searchForm.taxPeriod}&taxBelongsComp=${this.searchForm.taxBelongsComp}&collectionItemsCode=${this.searchForm.collectionItemsCode}&taxPayer=${this.searchForm.taxPayer}&compCode=${this.searchForm.compCode}&distributionType=${this.searchForm.distributionType}&dataType=${this.searchForm.dataType}&unionType=${this.searchForm.unionType}&taxBelongsCompId=${this.searchForm.taxBelongsCompId}&compFirmlyType=${this.searchForm.compFirmlyType}`
+          let pageString = `currPage=${this.page.currPage}&pageSize=${this.page.pageSize}`
+          let url = `/union/store/taxdistribution/downexcel?token=${sessionStorage.getItem('user_token')}&${formString}&${pageString}`
+          window.location.href = url
+        },
         getDataDic() {
             commonApi.getDataDic('unionType').then(res => {
                 if (res.status === 200) {

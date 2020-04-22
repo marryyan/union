@@ -23,10 +23,10 @@
         <el-button size="mini" type="warning" @click="addInfo">新增用户</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="username" label="账号"></el-table-column>
+        <el-table-column prop="username" label="账号" width="180"></el-table-column>
         <el-table-column prop="realName" label="姓名"></el-table-column>
-        <el-table-column prop="mobile" label="电话"></el-table-column>
-        <el-table-column prop="officeName" label="所属工会"></el-table-column>
+        <el-table-column prop="mobile" label="电话" width="180"></el-table-column>
+        <el-table-column prop="officeName" label="所属工会" width="180"></el-table-column>
         <el-table-column prop="dep" label="所属部门"></el-table-column>
         <el-table-column prop="dutyNames" label="职位"></el-table-column>
         <el-table-column prop="date" label="角色"></el-table-column>
