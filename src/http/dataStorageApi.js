@@ -77,7 +77,7 @@ const dataStorageApi = {
   },
   // 数据入库--银行入库 数据入库列表分页
   postStoreStoreversionList: function postStoreStoreversionList (data){
-    const url = `/union/store/in/list`;
+    const url = `/union/store/in/list?dicConvert=1`;
     return postApi(url, data)
   },
   // 数据入库--银行入库 银行入库列表分页（未提交的可以在此查询）

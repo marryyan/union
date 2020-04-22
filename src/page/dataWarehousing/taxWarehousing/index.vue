@@ -313,9 +313,9 @@
                 const params = {
                     ...this.xlsUploadInfo,
                     fileId: this.fileId,
-                    taxBelongsCompId: this.xlsUploadInfo.taxBelongsCompId.join(','),
-                    receiveTreasury: this.xlsUploadInfo.receiveTreasury.join(','),
-                    collTaxComp: this.taxBelongsCompOptions.find(item => item.id === Number(this.xlsUploadInfo.taxBelongsCompId)).collTaxComp
+                    taxBelongsCompId: this.xlsUploadInfo.taxBelongsCompId ? this.xlsUploadInfo.taxBelongsCompId.join(',') : '',
+                    receiveTreasury: this.xlsUploadInfo.receiveTreasury ? this.xlsUploadInfo.receiveTreasury.join(',') : '',
+                    collTaxComp: this.xlsUploadInfo.taxBelongsCompId ? this.taxBelongsCompOptions.find(item => item.id === Number(this.xlsUploadInfo.taxBelongsCompId)).collTaxComp : ''
                 }
                 console.log('--------------', params)
                 dataStorageApis.postStoreStoretaxtempImportexcel(params).then(res => {
