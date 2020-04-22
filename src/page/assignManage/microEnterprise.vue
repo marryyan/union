@@ -12,15 +12,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="税款所属 税务机关：">
-          <el-input size="mini" v-model="searchForm.taxBelongsComp" placeholder="请输入"></el-input>
-<!--          <el-select size="mini" v-model="searchForm.taxBelongsComp" placeholder="请输入">-->
-<!--            <el-option-->
-<!--              v-for="item in taxBelongsCompOptions"-->
-<!--              :key="item.k"-->
-<!--              :label="item.v"-->
-<!--              :value="item.k">-->
-<!--            </el-option>-->
-<!--          </el-select>-->
+          <el-cascader size="mini" v-model="searchForm.taxBelongsCompId" placeholder="请选择" :options="selectbynameOption" filterable></el-cascader>
         </el-form-item>
         <el-form-item label="企业名称：">
           <el-input size="mini" v-model="searchForm.taxPayer" placeholder="请输入"></el-input>
@@ -114,113 +106,139 @@
   </div>
 </template>
 <script>
-  import { distributionManagementApis, commonApi } from '@/http/api'
-  export default {
-    data() {
-      return {
-          searchForm: {
-              taxPeriod: '',
-              taxPayer: '',
-              compCode: '',
-              unionType: '',
-              taxBelongsComp: '',
-              collectionItemsCode: '',
-              distributionType: '',
-              dataType: 3,
-              compFirmlyType: "", //企业认定：0 正常缴费企业 ，1：试点企业 2：微型企业 ,3:小型企业  字典key：compFirmlyType
-              taxBelongsCompId:"", // 新增
-          },
-          page:{
-              currPage: 1, // 当前页
-              pageSize: 10, // 每页条数
-              totalPage: 0, // 总页数
-          },
-          tableData: [],
-        formInline: {
-          user: '',
-          name: ''
-        },
-          taxBelongsCompOptions: [],
-          unionTypeOptions: [],
-          collectionItemsCodeOptions: [],
-          distributionTypeOptions: [],
-          compFirmlyTypeOptions: [],
-      }
-    },
-      mounted() {
-        this.getDataDic()
-        this.postStoreTaxdistributionList()
-      },
-    methods: {
-        // 导出
-        exportList(){
-          let formString = `taxPeriod=${this.searchForm.taxPeriod}&taxBelongsComp=${this.searchForm.taxBelongsComp}&collectionItemsCode=${this.searchForm.collectionItemsCode}&taxPayer=${this.searchForm.taxPayer}&compCode=${this.searchForm.compCode}&distributionType=${this.searchForm.distributionType}&dataType=${this.searchForm.dataType}&unionType=${this.searchForm.unionType}&taxBelongsCompId=${this.searchForm.taxBelongsCompId}&compFirmlyType=${this.searchForm.compFirmlyType}`
-          let pageString = `currPage=${this.page.currPage}&pageSize=${this.page.pageSize}`
-          let url = `/union/store/taxdistribution/downexcel?token=${sessionStorage.getItem('user_token')}&${formString}&${pageString}`
-          window.location.href = url
-        },
-        getDataDic() {
-            commonApi.getDataDic('unionType').then(res => {
-                if (res.status === 200) {
-                    this.unionTypeOptions = res.result
-                } else {
-                    this.$message.error(res.message)
-                }
-            })
-            commonApi.getDataDic('collectionItemsCode').then(res => {
-                if (res.status === 200) {
-                    this.collectionItemsCodeOptions = res.result
-                } else {
-                    this.$message.error(res.message)
-                }
-            })
-            commonApi.getDataDic('distributionType').then(res => {
-                if (res.status === 200) {
-                    this.distributionTypeOptions = res.result
-                } else {
-                    this.$message.error(res.message)
-                }
-            })
-            commonApi.getDataDic('compFirmlyType').then(res => {
-                if (res.status === 200) {
-                    this.compFirmlyTypeOptions = res.result
-                } else {
-                    this.$message.error(res.message)
-                }
-            })
-        },
-        postStoreTaxdistributionList() {
-            const data = {
-                ...this.searchForm,
-                ...this.page
+    import { distributionManagementApis, commonApi, basicFileApis } from '@/http/api'
+    export default {
+        data() {
+            return {
+                searchForm: {
+                    taxPeriod: '',
+                    taxPayer: '',
+                    compCode: '',
+                    unionType: '',
+                    taxBelongsComp: '',
+                    collectionItemsCode: '',
+                    distributionType: '',
+                    dataType: 3,
+                    compFirmlyType: "", //企业认定：0 正常缴费企业 ，1：试点企业 2：微型企业 ,3:小型企业  字典key：compFirmlyType
+                    taxBelongsCompId:"", // 新增
+                },
+                page:{
+                    currPage: 1, // 当前页
+                    pageSize: 10, // 每页条数
+                    totalPage: 0, // 总页数
+                },
+                tableData: [],
+                formInline: {
+                    user: '',
+                    name: ''
+                },
+                taxBelongsCompOptions: [],
+                unionTypeOptions: [],
+                collectionItemsCodeOptions: [],
+                distributionTypeOptions: [],
+                compFirmlyTypeOptions: [],
+                selectbynameOption: [],
             }
-          distributionManagementApis.postStoreTaxdistributionList(data).then(res => {
-              if (res.status === 200) {
-                  const { list, pageSize, totalPage, currPage } = res.result
-                  this.page = {
-                      ...this.page,
-                      totalPage,
-                      currPage,
-                      pageSize,
-                  }
-                  this.tableData = list
-              } else {
-                  this.$message.error(res.message)
-              }
-          })
         },
-      onSubmit() {
-        this.tableData = []
-        this.page.currPage = 1
-        this.getBaseratiocallbackList()
-      },
-      handleCurrentChange(val) {
-        this.tableData = []
-        this.page.currPage = val
-        this.postStoreTaxdistributionList()
-      }
+        mounted() {
+            this.getDataDic()
+            this.postStoreTaxdistributionList()
+            this.postBasetaxinfoSelectbyname()
+        },
+        methods: {
+            // 导出
+            exportList(){
+                let formString = `taxPeriod=${this.searchForm.taxPeriod}&taxBelongsComp=${this.searchForm.taxBelongsComp}&collectionItemsCode=${this.searchForm.collectionItemsCode}&taxPayer=${this.searchForm.taxPayer}&compCode=${this.searchForm.compCode}&distributionType=${this.searchForm.distributionType}&dataType=${this.searchForm.dataType}&unionType=${this.searchForm.unionType}&taxBelongsCompId=${this.searchForm.taxBelongsCompId}&compFirmlyType=${this.searchForm.compFirmlyType}`
+                let pageString = `currPage=${this.page.currPage}&pageSize=${this.page.pageSize}`
+                let url = `/union/store/taxdistribution/downexcel?token=${sessionStorage.getItem('user_token')}&${formString}&${pageString}`
+                window.location.href = url
+            },
+            getDataDic() {
+                commonApi.getDataDic('unionType').then(res => {
+                    if (res.status === 200) {
+                        this.unionTypeOptions = res.result
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+                commonApi.getDataDic('collectionItemsCode').then(res => {
+                    if (res.status === 200) {
+                        this.collectionItemsCodeOptions = res.result
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+                commonApi.getDataDic('distributionType').then(res => {
+                    if (res.status === 200) {
+                        this.distributionTypeOptions = res.result
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+                commonApi.getDataDic('compFirmlyType').then(res => {
+                    if (res.status === 200) {
+                        this.compFirmlyTypeOptions = res.result
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+            },
+            // 所属工会
+            postBasetaxinfoSelectbyname(){
+                let data = {
+                    taxName: ''
+                }
+                basicFileApis.postBasetaxinfoSelectbyname(data).then(res => {
+                    if(res.status == '200'){
+                        res.result.map(item => {
+                            this.selectbynameOption.push({
+                                value: item.id,
+                                label: item.taxName
+                            })
+                        })
+                    }else{
+                        this.$message.error(res.message);
+                    }
+                })
+            },
+            postStoreTaxdistributionList() {
+                const data = {
+                    ...this.searchForm,
+                    ...this.page
+                }
+                distributionManagementApis.postStoreTaxdistributionList(data).then(res => {
+                    if (res.status === 200) {
+                        const { list, pageSize, totalPage, currPage } = res.result
+                        this.page = {
+                            ...this.page,
+                            totalPage,
+                            currPage,
+                            pageSize,
+                        }
+                        this.tableData = list
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+            },
+            onSubmit() {
+                this.tableData = []
+                this.page.currPage = 1
+                const { taxBelongsCompId } = this.searchForm
+                if (taxBelongsCompId.length > 0) {
+                    const taxbelongsCompId = taxBelongsCompId.pop()
+                    this.searchForm.taxBelongsCompId = taxbelongsCompId
+                    this.searchForm.taxBelongsComp = taxbelongsCompId && this.selectbynameOption.find(item => item.value === taxbelongsCompId).label
+                }
+                this.postStoreTaxdistributionList()
+            },
+            handleCurrentChange(val) {
+                this.tableData = []
+                this.page.currPage = val
+                this.postStoreTaxdistributionList()
+            }
+        }
     }
-  }
 </script>
 <style lang="scss" scoped>
 

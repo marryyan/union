@@ -12,14 +12,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="税款所属 税务机关：">
-          <el-select size="mini" v-model="searchForm.versionNo" placeholder="请选择">
-            <el-option
-              v-for="item in versionNoVos"
-              :key="item.k"
-              :label="item.v"
-              :value="item.k">
-            </el-option>
-          </el-select>
+          <el-cascader size="mini" v-model="searchForm.taxBelongsComp" placeholder="请选择" :options="selectbynameOption" filterable></el-cascader>
         </el-form-item>
         <el-form-item label="国库名称：">
           <el-input size="mini" v-model="searchForm.accountName" placeholder="请输入"></el-input>
@@ -68,7 +61,7 @@
   </div>
 </template>
 <script>
-    import { dataStorageApis, commonApi } from '@/http/api'
+    import { dataStorageApis, commonApi, basicFileApis } from '@/http/api'
     export default {
         data() {
             return {
@@ -87,10 +80,11 @@
                     totalPage: 100, // 总页数
                 },
                 centerText: '是否确定删除该入库对账信息？',
-                centerDialogVisible: false
+                centerDialogVisible: false,
+                selectbynameOption: []
             }
         },
-        created() {
+        mounted() {
             commonApi.getDataDic('accountCheckingStatus').then(res => {
                 if (res.status === 200) {
                     this.accountCheckingStatusVos = res.result
@@ -113,8 +107,27 @@
                 }
             })
             this.postStoreStoreversionList()
+            this.postBasetaxinfoSelectbyname()
         },
         methods: {
+            // 所属工会
+            postBasetaxinfoSelectbyname(){
+                let data = {
+                    taxName: ''
+                }
+                basicFileApis.postBasetaxinfoSelectbyname(data).then(res => {
+                    if(res.status == '200'){
+                        res.result.map(item => {
+                            this.selectbynameOption.push({
+                                value: item.id,
+                                label: item.taxName
+                            })
+                        })
+                    }else{
+                        this.$message.error(res.message);
+                    }
+                })
+            },
             postStoreStoreversionList () {
                 dataStorageApis.postStoreStoreversionList({ ...this.page, ...this.searchForm }).then(res => {
                     const { status, result } = res
@@ -128,6 +141,7 @@
                 })
             },
             onSubmit() {
+                this.searchForm.taxBelongsComp = this.searchForm.taxBelongsComp ? this.searchForm.taxBelongsComp.pop() : ''
                 this.postStoreStoreversionList()
             },
             addInfo(){

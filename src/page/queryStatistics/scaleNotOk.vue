@@ -4,7 +4,7 @@
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="税款所属期：">
           <el-date-picker
-           size="mini"
+            size="mini"
             v-model="formInline.taxPeriod"
             value-format="yyyy年MM月"
             type="month"
@@ -80,127 +80,131 @@
         <el-table-column prop="collectionItemsCodeText" label="缴费类型"></el-table-column>
       </el-table>
       <el-pagination
-      style="margin: 15px 0"
-      @current-change="handleCurrentChange"
-      :current-page.sync="page.currPage"
-      :page-size="page.pageSize"
-      layout="prev, pager, next, jumper"
-      :total="page.totalPage">
-    </el-pagination>
+        style="margin: 15px 0"
+        @current-change="handleCurrentChange"
+        :current-page.sync="page.currPage"
+        :page-size="page.pageSize"
+        layout="prev, pager, next, jumper"
+        :total="page.totalPage">
+      </el-pagination>
     </div>
   </div>
 </template>
 <script>
-  import { basicFileApis, commonApi, queryStatsApis } from '@/http/api'
-  export default {
-    data() {
-      return {
-        formInline: {
-          "taxPeriod":null, // 税款所属期 yyyy年MM月
-          "taxPayer":null, //企业名称
-          "compCode":null,//社会统一信用代码
-          "unionType":null, //工会类别 字典: unionType
-          "taxBelongsComp":[], //  税款所属税务机关 检索下拉框税务局下拉的接口， 只要文本，不要id
-          "collectionItemsCode":null, // 缴费类型=征收品目 字典key:collectionItemsCode
-          "distributionType":null, // 分配状态 字典key:distributionType
-          "compFirmlyType": "", //企业认定：0 正常缴费企业 ，1：试点企业 2：微型企业 ,3:小型企业  字典key：compFirmlyType
+    import { basicFileApis, commonApi, queryStatsApis } from '@/http/api'
+    export default {
+        data() {
+            return {
+                formInline: {
+                    "taxPeriod":null, // 税款所属期 yyyy年MM月
+                    "taxPayer":null, //企业名称
+                    "compCode":null,//社会统一信用代码
+                    "unionType":null, //工会类别 字典: unionType
+                    "taxBelongsComp":[], //  税款所属税务机关 检索下拉框税务局下拉的接口， 只要文本，不要id
+                    taxBelongsCompName: '',
+                    "collectionItemsCode":null, // 缴费类型=征收品目 字典key:collectionItemsCode
+                    "distributionType":null, // 分配状态 字典key:distributionType
+                    "compFirmlyType": "", //企业认定：0 正常缴费企业 ，1：试点企业 2：微型企业 ,3:小型企业  字典key：compFirmlyType
+                },
+                tableData: [],
+                page:{
+                    currPage:1, // 当前页
+                    pageSize: 10, // 每页条数
+                    totalPage: 1, // 总页数
+                },
+                unionTypeOptions: [],
+                collectionItemsCodeOptions: [],
+                distributionTypeOptions: [],
+                compFirmlyTypeOptions: [],
+                selectbynameOption: [],
+                taxBelongsCompList:[],
+            }
         },
-        tableData: [],
-        page:{
-          currPage:1, // 当前页
-          pageSize: 10, // 每页条数
-          totalPage: 1, // 总页数
+        mounted(){
+            this.getDataDic()
+            this.postBasetaxinfoSelectbyname()
+            this.postCountErrorlist()
         },
-        unionTypeOptions: [],
-        collectionItemsCodeOptions: [],
-        distributionTypeOptions: [],
-        compFirmlyTypeOptions: [],
-        selectbynameOption: [],
-        taxBelongsCompList:[],
-      }
-    },
-    mounted(){
-      this.getDataDic()
-      this.postBasetaxinfoSelectbyname()
-      this.postCountErrorlist()
-    },
-    methods: {
-      // 获取字典
-      getDataDic() {
-        // 工会类型
-        commonApi.getDataDic('unionType').then(res => {
-          if (res.status === 200) {
-              this.unionTypeOptions = res.result
-          }
-        })
-        // 缴费类型=征收品目
-        commonApi.getDataDic('collectionItemsCode').then(res => {
-            if (res.status === 200) {
-                this.collectionItemsCodeOptions = res.result
-            }
-        })
-        // 分配状态
-        commonApi.getDataDic('distributionType').then(res => {
-            if (res.status === 200) {
-                this.distributionTypeOptions = res.result
-            }
-        })
-        // 企业认定
-        commonApi.getDataDic('compFirmlyType').then(res => {
-            if (res.status === 200) {
-                this.compFirmlyTypeOptions = res.result
-            }
-        })
-      },
-      // 所属工会
-      postBasetaxinfoSelectbyname(){
-        let data = {
-          taxName: ''
-        }
-        basicFileApis.postBasetaxinfoSelectbyname(data).then(res => {
-            if(res.status == '200'){
-              res.result.map(item => {
-                this.selectbynameOption.push({
-                  value: item.id,
-                  label: item.taxName
+        methods: {
+            // 获取字典
+            getDataDic() {
+                // 工会类型
+                commonApi.getDataDic('unionType').then(res => {
+                    if (res.status === 200) {
+                        this.unionTypeOptions = res.result
+                    }
                 })
-              })
-            }else{
-              this.$message.error(res.message);
+                // 缴费类型=征收品目
+                commonApi.getDataDic('collectionItemsCode').then(res => {
+                    if (res.status === 200) {
+                        this.collectionItemsCodeOptions = res.result
+                    }
+                })
+                // 分配状态
+                commonApi.getDataDic('distributionType').then(res => {
+                    if (res.status === 200) {
+                        this.distributionTypeOptions = res.result
+                    }
+                })
+                // 企业认定
+                commonApi.getDataDic('compFirmlyType').then(res => {
+                    if (res.status === 200) {
+                        this.compFirmlyTypeOptions = res.result
+                    }
+                })
+            },
+            // 所属工会
+            postBasetaxinfoSelectbyname(){
+                let data = {
+                    taxName: ''
+                }
+                basicFileApis.postBasetaxinfoSelectbyname(data).then(res => {
+                    if(res.status == '200'){
+                        res.result.map(item => {
+                            this.selectbynameOption.push({
+                                value: item.id,
+                                label: item.taxName
+                            })
+                        })
+                    }else{
+                        this.$message.error(res.message);
+                    }
+                })
+            },
+            postCountErrorlist(){
+                let data = {
+                    ...this.formInline,
+                    "currPage": this.page.currPage,//当前页
+                    "pageSize": this.page.pageSize,//每页显示条数
+                    taxBelongsComp: this.formInline.taxBelongsCompName,
+                }
+                delete data.taxBelongsCompName
+                queryStatsApis.postCountErrorlist(data).then(res => {
+                    if(res.status == '200') {
+                        this.tableData = res.result.list
+                        this.page.totalPage = res.result.totalCount
+                    }else {
+                        this.$message.error(res.message);
+                    }
+                })
+            },
+            onSubmit() {
+                this.page.currPage = 1
+                this.tableData = []
+                const { taxBelongsComp } = this.formInline
+                if (taxBelongsComp.length > 0) {
+                    const taxbelongsCompId = taxBelongsComp.pop()
+                    this.formInline.taxBelongsCompName = taxbelongsCompId && this.selectbynameOption.find(item => item.value === taxbelongsCompId).label
+                }
+                this.postCountErrorlist()
+            },
+            handleCurrentChange(val) {
+                this.tableData = []
+                this.page.currPage = val
+                this.postCountErrorlist()
             }
-        })
-      },
-      postCountErrorlist(){
-        const taxBelongsCompId = this.formInline.taxBelongsComp.length > 0 ? this.formInline.taxBelongsComp.pop() : null
-        const taxBelongsCompName = taxBelongsCompId ? this.selectbynameOption.find(item => item.id == taxBelongsCompId).label : ''
-        console.log('taxBelongsCompName', taxBelongsCompName)
-        let data = {
-          ...this.formInline,
-          "currPage": this.page.currPage,//当前页
-          "pageSize": this.page.pageSize,//每页显示条数
         }
-        console.log('------------', this.formInline.taxBelongsComp)
-        queryStatsApis.postCountErrorlist(data).then(res => {
-          if(res.status == '200') {
-            this.tableData = res.result.list
-            this.page.totalPage = res.result.totalCount
-          }else {
-              this.$message.error(res.message);
-          }
-        })
-      },
-      onSubmit() {
-        this.page.currPage = 1
-        this.tableData = []
-        this.postCountErrorlist()
-      },
-      handleCurrentChange(val) {
-        this.tableData = []
-        this.page.currPage = val
-        this.postCountErrorlist()
-      }
     }
-  }
 </script>
 <style lang="scss" scoped>
 
