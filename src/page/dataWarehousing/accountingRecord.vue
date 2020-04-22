@@ -30,20 +30,13 @@
         <el-table-column prop="name" label="国库账号"></el-table-column>
         <el-table-column prop="name" label="国库收入金额" width="180"></el-table-column>
         <el-table-column prop="accountDifference" label="金额差异"></el-table-column>
-        <el-table-column prop="accountCheckingStatus" label="是否对上">
-          <template slot-scope="scope">
-            <span v-if="scope.row.accountCheckingStatus === '0'">未对账</span>
-            <span v-if="scope.row.accountCheckingStatus === '1'">已对上</span>
-            <span v-if="scope.row.accountCheckingStatus === '2'">未对上</span>
-            <span v-if="scope.row.accountCheckingStatus === '-1'">--</span>
-          </template>
-        </el-table-column>
+        <el-table-column prop="accountCheckingStatusText" label="是否对上"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
 <!--            金额差异不为0： 不能入库， 为0时： 是否入库， 点击入库成功后： 已入库          -->
-            <div style="color: #606266" v-if="scope.row.accountDifference !== 0">不能入库</div>
-            <div style="color: #e6a23c" v-if="scope.row.accountDifference === 0">已入库</div>
-            <el-button size="mini" type="warning" v-if="scope.row.accountDifference === 0"
+            <div style="color: #606266" v-if="scope.row.inStorageStatus == 0">不能入库</div>
+            <div style="color: #e6a23c" v-if="scope.row.inStorageStatus == 1">已入库</div>
+            <el-button size="mini" type="warning" v-if="scope.row.accountCheckingStatus === 1"
                        @click="handleInstorage(scope.$index, scope.row)">是否入库</el-button>
           </template>
         </el-table-column>
