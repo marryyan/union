@@ -64,8 +64,8 @@
     data() {
       return {
         formInline: {
-          "roleName":null, //工会名称
-          "roleStatus":null  // 角色状态 0 ：正常 1：停用 2禁止登录 字典的key : roleStatus
+          "roleName":'', //工会名称
+          "roleStatus":''  // 角色状态 0 ：正常 1：停用 2禁止登录 字典的key : roleStatus
         },
         tableData: [],
         page:{
@@ -87,7 +87,6 @@
     methods: {
       // 获取字典
       getDataDic() {
-        // 工会类型
         commonApi.getDataDic('roleStatus').then(res => {
             if (res.status === 200) {
                 this.roleStatusOptions = res.result
