@@ -1,15 +1,16 @@
 <template>
-  <div class="wrapper wrapper-flex">
-    <div class="flex-left">
-      <el-tree
-        :data="data"
-        :props="defaultProps"
-        accordion
-        @node-click="handleNodeClick">
-      </el-tree>
-    </div>
+  <div class="wrapper">
     <div class="flex-right">
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
+        <el-form-item label="所属区：">
+          <el-cascader
+            size="mini"
+            v-model="formInline.belongsAreaId" 
+            :options="treeList" 
+            @change="handleChange" 
+            placeholder="请选择" 
+            :props="{ value: 'id', label: 'title', checkStrictly: true}"></el-cascader>
+        </el-form-item>
         <el-form-item label="税款所属期：">
           <el-date-picker
            size="mini"
@@ -63,6 +64,7 @@
   </div>
 </template>
 <script>
+  import { getTreeData } from '@/helpers';
   import {  basicFileApis, commonApi, queryStatsApis} from '@/http/api'
   export default {
     data() {
@@ -74,11 +76,7 @@
           "belongsAreaId":"" // 所属区, 企业信息库左侧的树形结构
         },
         daterange: [], // 日期数组
-        data: [],
-        defaultProps: {
-            children: 'children',
-            label: 'title'
-        },
+        treeList:[],
         listData:[], // li数组
         tableData: [], // 表格数组
         page:{
@@ -94,24 +92,17 @@
     methods: {
       // 左侧树图
       getBaseBaseuniontree() {
+          this.treeList = [];
           basicFileApis.getBaseBaseuniontree().then(res => {
-              this.data.push(res.result)
+              this.treeList = getTreeData([res.result]);
           })
+      },
+      handleChange(value) {
+          this.formInline.belongsAreaId = value[value.length-1]
       },
       changeDate(e) {
           this.formInline.startDate = e[0]
           this.formInline.endDate = e[1]
-      },
-      handleNodeClick(data) {
-        if(this.formInline.startDate || this.formInline.endDate){
-          this.tableData = []
-          this.listData = []
-          this.formInline.belongsAreaId = data.id
-          this.postCountTable()
-          this.postCountList()
-        }else{
-          this.$message.error('请先选择日期！');
-        }
       },
       // list
       postCountTable(){
@@ -143,11 +134,15 @@
         })
       },
       onSubmit() {
-        this.page.currPage = 1
-        this.tableData = []
-        this.listData = []
-        this.postCountTable()
-        this.postCountList()
+        if(this.formInline.startDate || this.formInline.endDate){
+          this.page.currPage = 1
+          this.tableData = []
+          this.listData = []
+          this.postCountTable()
+          this.postCountList()
+        }else{
+          this.$message.error('请先选择日期！');
+        }
       },
       handleCurrentChange(val) {
         this.tableData = []

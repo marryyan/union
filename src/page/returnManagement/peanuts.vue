@@ -1,15 +1,16 @@
 <template>
-  <div class="wrapper wrapper-flex">
-    <div class="flex-left">
-      <el-tree
-        :data="data"
-        :props="defaultProps"
-        accordion
-        @node-click="handleNodeClick">
-      </el-tree>
-    </div>
+  <div class="wrapper">
     <div class="flex-right">
       <el-form :inline="true" :model="searchForm" class="demo-form-inline">
+        <el-form-item label="所属区：">
+          <el-cascader
+            size="mini"
+            v-model="searchForm.belongsAreaId" 
+            :options="treeList" 
+            @change="handleChange" 
+            placeholder="请选择" 
+            :props="{ value: 'id', label: 'title', checkStrictly: true}"></el-cascader>
+        </el-form-item>
         <el-form-item label="工会经费编码：">
           <el-input size="mini" v-model="searchForm.unionFundCode" placeholder="请输入"></el-input>
         </el-form-item>
@@ -114,6 +115,7 @@
   </div>
 </template>
 <script>
+    import { getTreeData } from '@/helpers';
     import { returnManagementApis, commonApi, basicFileApis } from '@/http/api'
     export default {
         data() {
@@ -130,11 +132,7 @@
                     pageSize: 10, // 每页条数
                     totalPage: 100
                 },
-                data: [],
-                defaultProps: {
-                    children: 'children',
-                    label: 'title'
-                },
+                treeList:[],
                 tableData: [],
                 processStatusOptions: [],
                 dialogFormVisible: false,
@@ -159,14 +157,13 @@
         methods: {
             // 左侧树图
             getBaseBaseuniontree() {
+                this.treeList = [];
                 basicFileApis.getBaseBaseuniontree().then(res => {
-                    this.data.push(res.result)
+                    this.treeList = getTreeData([res.result]);
                 })
             },
-            handleNodeClick(data) {
-                this.tableData = []
-                this.searchForm.belongsAreaId = data.id
-                this.postStoretaxcallbackList()
+            handleChange(value) {
+                this.searchForm.belongsAreaId = value[value.length-1]
             },
             // 列表
             postStoretaxcallbackList(){

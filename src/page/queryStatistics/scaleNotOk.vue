@@ -21,7 +21,6 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <!-- 此处只穿文本部分没处理 -->
         <el-form-item label="税款所属 税务机关：">
           <el-cascader size="mini" v-model="formInline.taxBelongsComp" placeholder="请选择" :options="selectbynameOption" filterable></el-cascader>
         </el-form-item>
@@ -101,7 +100,7 @@
           "taxPayer":null, //企业名称
           "compCode":null,//社会统一信用代码
           "unionType":null, //工会类别 字典: unionType
-          "taxBelongsComp":null, //  税款所属税务机关 检索下拉框税务局下拉的接口， 只要文本，不要id
+          "taxBelongsComp":[], //  税款所属税务机关 检索下拉框税务局下拉的接口， 只要文本，不要id
           "collectionItemsCode":null, // 缴费类型=征收品目 字典key:collectionItemsCode
           "distributionType":null, // 分配状态 字典key:distributionType
           "compFirmlyType": "", //企业认定：0 正常缴费企业 ，1：试点企业 2：微型企业 ,3:小型企业  字典key：compFirmlyType
@@ -117,6 +116,7 @@
         distributionTypeOptions: [],
         compFirmlyTypeOptions: [],
         selectbynameOption: [],
+        taxBelongsCompList:[],
       }
     },
     mounted(){
@@ -171,11 +171,15 @@
         })
       },
       postCountErrorlist(){
+        const taxBelongsCompId = this.formInline.taxBelongsComp.length > 0 ? this.formInline.taxBelongsComp.pop() : null
+        const taxBelongsCompName = taxBelongsCompId ? this.selectbynameOption.find(item => item.id == taxBelongsCompId).label : ''
+        console.log('taxBelongsCompName', taxBelongsCompName)
         let data = {
           ...this.formInline,
           "currPage": this.page.currPage,//当前页
           "pageSize": this.page.pageSize,//每页显示条数
         }
+        console.log('------------', this.formInline.taxBelongsComp)
         queryStatsApis.postCountErrorlist(data).then(res => {
           if(res.status == '200') {
             this.tableData = res.result.list
@@ -194,7 +198,6 @@
         this.tableData = []
         this.page.currPage = val
         this.postCountErrorlist()
-        console.log(`当前页: ${val}`);
       }
     }
   }
