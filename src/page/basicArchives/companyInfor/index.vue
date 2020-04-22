@@ -145,7 +145,7 @@
             <el-table-column prop="unionHandleBy" label="联系人"></el-table-column>
             <el-table-column prop="unionTel" label="电话"  width="180"></el-table-column>
             <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
-            <el-table-column label="操作" width="180">
+            <el-table-column label="操作" width="250">
               <template slot-scope="scope">
                 <el-button size="mini" type="warning"
                            @click="handleEdit(scope.$index, scope.row)">上传建会涵</el-button>
@@ -255,6 +255,7 @@
             },
             // 小微企业
             postPagesmallmicrobusinesses() {
+              console.log(this.formInline.unionBelongstoId)
                 this.formInline.unionBelongstoId = this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 let data = {
                     "currPage": this.page.currPage,//当前页
@@ -336,13 +337,7 @@
             handleTabClick(tab) {
                 this.page.currPage = 1
                 this.tableData = []
-                this.formInline.unionBelongsto = ''
-                this.formInline.taxBelongsComp = ''
-                this.formInline.areaName = ''
-                this.formInline.compCode = ''
-                this.formInline.compName = ''
-                this.formInline.startDate = ''
-                this.formInline.endDate = ''
+                this.formInline = {}
                 this.daterange = []
                 this.tabName = tab.label
                 if (this.tabName == '已建会') {

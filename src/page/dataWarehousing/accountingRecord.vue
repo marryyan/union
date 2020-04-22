@@ -128,27 +128,16 @@
                 })
             },
             onSubmit() {
+                this.page.currPage = 1
+                this.tableData = []
                 this.postStoreStoreversionList()
-            },
-            addInfo(){
-                this.$router.push({
-                    path: `/infoAdd`
-                })
-            },
-            handleEdit(index, row) {
-                this.$router.push({
-                    path: `/infoEdit?id=${row.date}`
-                })
-            },
-            handleDetail(index, row){
-                this.$router.push({
-                    path: `/infoDetail?id=${row.date}`
-                })
             },
             handleInstorage(index, row) {
                 dataStorageApis.postStoreInstorage(row).then(res => {
                     if (res.status === 200) {
                         this.$message.success('入库成功')
+                        this.page.currPage = 1
+                        this.tableData = []
                         this.postStoreStoreversionList()
                     } else {
                         this.$message.error(res.message)
@@ -156,6 +145,8 @@
                 })
             },
             handleCurrentChange(val) {
+                this.page.currPage = val
+                this.tableData = []
                 this.postStoreStoreversionList()
             }
         }

@@ -91,6 +91,7 @@
               systemManagementApis.postSysUserSave(params).then(res => {
                   if (res.status === 200) {
                       this.$message.success('添加用户成功')
+                      this.$router.go(-1)
                   } else {
                       this.$message.error(res.message)
                   }

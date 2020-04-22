@@ -139,6 +139,8 @@
                 })
             },
             onSubmit() {
+                this.page.currPage =1
+                this.tableData = []
                 this.postSysUserList()
             },
 
@@ -239,9 +241,8 @@
                     }
                 })
             },
-
-
             handleCurrentChange(val) {
+                this.tableData = []
                 this.page.currPage = val
                 this.postSysUserList()
             }
