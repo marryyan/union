@@ -174,6 +174,16 @@ const basicFileApi = {
     const url = `/union/base/baseratiopay/getcode`;
     return postApi(url)
   },
+  // 基础档案---缴费基数编码
+  postbaseBasecompanyinfoUploadunionLetter: function postbaseBasecompanyinfoUploadunionLetter (data){
+    const url = `/union/base/basecompanyinfo/uploadunionLetter/${data.id}/${data.unionLetter}`;
+    return postApi(url)
+  },
+  // 基础档案---缴费基数编码
+  postSysfileBase: function postSysfileBase (data){
+    const url = `/union/sys/sysfile/base64/${data.id}`;
+    return postApi(url)
+  },
 }
 
 export default basicFileApi

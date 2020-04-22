@@ -105,7 +105,9 @@
           </div>
           <div class="info-detail-li">
             <div class="detail-li-left">建会涵</div>
-            <div class="detail-li-right">{{detailInfo.unionLetter}}</div>
+            <div class="detail-li-right">
+              <img :src="detailInfo.unionLetter" />
+            </div>
           </div>
           <div class="info-detail-li">
             <div class="detail-li-left">经办人</div>
@@ -193,6 +195,13 @@ export default {
       basicFileApis.getBasecompanyinfoInfo(data).then(res => {
         if(res.status == '200'){
           this.detailInfo = res.result
+            basicFileApis.postSysfileBase({ id: res.result.unionLetter }).then(response => {
+                if (response.status === 200) {
+                    this.detailInfo.unionLetter = response.result
+                } else {
+                    this.$message.error(response.message)
+                }
+            })
         }else{
           this.$message.error(res.message);
         }

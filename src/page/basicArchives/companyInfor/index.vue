@@ -147,8 +147,17 @@
             <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
             <el-table-column label="操作" width="250">
               <template slot-scope="scope">
-                <el-button size="mini" type="warning"
-                           @click="handleEdit(scope.$index, scope.row)">上传建会涵</el-button>
+                <el-upload
+                  class="upload-demo"
+                  :limit="1"
+                  :headers="{token: userToken}"
+                  action="/union/sys/sysfile/upload"
+                  :on-success="uploadSuccess"
+                  :file-list="fileList"
+                  :show-file-list="false"
+                  list-type="picture">
+                  <el-button size="mini" type="warning" @click="rowId = scope.row.id">上传建会涵</el-button>
+                </el-upload>
                 <el-button size="mini" type="warning"
                            @click="handleEdit(scope.$index, scope.row)">修改</el-button>
               </template>
@@ -169,6 +178,7 @@
 </template>
 <script>
     import {  basicFileApis, commonApi} from '@/http/api'
+    import { getItem } from "../../../helpers";
     export default {
         data() {
             return {
@@ -208,7 +218,10 @@
                     resource: '',
                     desc: ''
                 },
-                formLabelWidth: '120px'
+                fileList: [],
+                formLabelWidth: '120px',
+                userToken: '',
+                rowId: ''
             }
         },
         mounted() {
@@ -216,6 +229,7 @@
             this.getBaseBaseuniontree() //左树
             this.postBaseunioninfoSelectbyname() // 所属工会
             this.postPagesmallmicrobusinesses() // 小微企业
+            this.userToken = getItem('user_token')
         },
         methods: {
             // 获取字典
@@ -384,7 +398,30 @@
                 } else if (this.tabName == '小微企业') {
                     this.postPagesmallmicrobusinesses()
                 }
-            }
+            },
+            uploadSuccess(response, file, fileList) {
+                if (response.status === 200) {
+                    console.log('---------', response.result)
+                    basicFileApis.postbaseBasecompanyinfoUploadunionLetter({
+                        id: this.rowId,
+                        unionLetter: response.result
+                    }).then(res => {
+                        if (res.status === 200) {
+                            this.$message.success('上传成功')
+                            this.fileList = []
+                        } else {
+                            this.$message.error(res.message)
+                        }
+                    })
+                } else {
+                    if (response.status === 401) {
+                        this.$router.replace({
+                            path: '/login'
+                        })
+                    }
+                    this.$message.error = response.message
+                }
+            },
         }
     }
 </script>

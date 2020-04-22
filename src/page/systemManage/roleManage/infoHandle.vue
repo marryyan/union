@@ -100,7 +100,7 @@
         const menuIds = this.checkedKeys.join(',')
         const params = {
           roleId: this.$route.query.id,
-          menuIds
+          menuIds: this.defalutCheckedKeys.length > 0 ? this.defalutCheckedKeys.join(',') : ''
         }
         systemManagementApis.postSysRoleAuth(params).then(res => {
           if (res.status === 200) {

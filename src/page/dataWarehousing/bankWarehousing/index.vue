@@ -66,6 +66,7 @@
           :headers="{token: userToken}"
           :on-success="uploadSuccess"
           :before-upload="beforeUpload"
+          accept=".xls, .xlsx"
           :file-list="fileList">
           <el-button size="small" type="warning">xls导入</el-button>
         </el-upload>
