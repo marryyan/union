@@ -121,7 +121,7 @@
     },
     mounted(){
       this.getDataDic()
-      this.postBaseunioninfoSelectbyname()
+      this.postBasetaxinfoSelectbyname()
       this.postCountErrorlist()
     },
     methods: {
@@ -153,16 +153,16 @@
         })
       },
       // 所属工会
-      postBaseunioninfoSelectbyname(){
+      postBasetaxinfoSelectbyname(){
         let data = {
-          unionName: ''
+          taxName: ''
         }
-        basicFileApis.postBaseunioninfoSelectbyname(data).then(res => {
+        basicFileApis.postBasetaxinfoSelectbyname(data).then(res => {
             if(res.status == '200'){
               res.result.map(item => {
                 this.selectbynameOption.push({
                   value: item.id,
-                  label: item.unionName
+                  label: item.taxName
                 })
               })
             }else{
