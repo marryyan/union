@@ -71,7 +71,7 @@
           <el-button size="small" type="warning">xls导入</el-button>
         </el-upload>
         <br/>
-        <el-form :model="xlsUploadInfo" label-position='right' label-width="130px">
+        <el-form :model="xlsUploadInfo" label-position='right' label-width="160px">
           <el-form-item label="所属税期：">
             <el-date-picker
               v-model="xlsUploadInfo.taxPeriod"
@@ -85,7 +85,7 @@
             <el-cascader size="mini" :props="{value: 'id', label: 'taxName'}" v-model="xlsUploadInfo.taxBelongsCompId" placeholder="请选择" :options="taxBelongsCompOptions" filterable></el-cascader>
           </el-form-item>
           <el-form-item label="国库名称：">
-            <el-cascader size="mini" :props="{value: 'accountName', label: 'accountName'}" v-model="xlsUploadInfo.receiveTreasury" placeholder="请选择" :options="receiveTreasuryOptions" filterable></el-cascader>
+            <el-cascader size="mini" :props="{value: 'accountNumber', label: 'accountName'}" v-model="xlsUploadInfo.accountNumber" placeholder="请选择" :options="receiveTreasuryOptions" filterable></el-cascader>
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
@@ -253,19 +253,20 @@
                 const params = {
                     ...this.xlsUploadInfo,
                     fileId: this.fileId,
-                    taxBelongsCompId:  this.xlsUploadInfo.taxBelongsCompId ? this.xlsUploadInfo.taxBelongsCompId.join(',') : '',
-                    receiveTreasury: this.xlsUploadInfo.receiveTreasury.join(','),
-                    collTaxComp: this.taxBelongsCompOptions.find(item => item.id === Number(this.xlsUploadInfo.taxBelongsCompId)).collTaxComp
+                    taxBelongsComp: this.xlsUploadInfo.taxBelongsCompId && this.taxBelongsCompOptions.find(item => item.id === this.xlsUploadInfo.taxBelongsCompId[0]).taxName,
+                    accountName: this.xlsUploadInfo.accountNumber && this.receiveTreasuryOptions.find(item => item.accountNumber === this.xlsUploadInfo.accountNumber[0]).accountName,
+                    taxBelongsCompId: this.xlsUploadInfo.taxBelongsCompId && this.xlsUploadInfo.taxBelongsCompId[0],
+                    accountNumber: this.xlsUploadInfo.accountNumber && this.xlsUploadInfo.accountNumber[0],
                 }
                 console.log('--------------', params)
-                dataStorageApis.postStoreStoretaxtempImportexcel(params).then(res => {
+                dataStorageApis.postStoreStorebanktempImportexcel(params).then(res => {
                     if (res.status === 200) {
                         this.$message.success('文件上传成功')
                         this.xlsUploadInfo = {}
                         this.fileList = []
                         this.fileId = ''
                         this.dialogVisible = false
-                        this.postStoretaxtempNosubmitlist()
+                        this.postStorebanktempNosubmitlist()
                     } else {
                         this.$message.error(res.message)
                     }

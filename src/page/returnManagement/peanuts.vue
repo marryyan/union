@@ -7,7 +7,6 @@
             size="mini"
             v-model="searchForm.belongsAreaId" 
             :options="treeList" 
-            @change="handleChange" 
             placeholder="请选择" 
             :props="{ value: 'id', label: 'title', checkStrictly: true}"></el-cascader>
         </el-form-item>
@@ -100,7 +99,7 @@
             </el-date-picker>
           </el-form-item>
          <el-form-item label="返还金额">
-           <el-input size="mini" v-model="form.backMoney" autocomplete="off" style="width:250px"></el-input>
+           <el-input type="number" size="mini" v-model="form.backMoney" autocomplete="off" style="width:250px"></el-input>
          </el-form-item>
           <el-form-item label="处理结果">
             <el-input size="mini" v-model="form.processResult" autocomplete="off" style="width:250px"></el-input>
@@ -122,7 +121,7 @@
             return {
                 searchForm: {
                     "dataType": 3, // 1 : 工会经费 2： 筹备金 3 小微企业
-                    "belongsAreaId": "", // 企业信息库左侧的树 的id
+                    "belongsAreaId": [], // 企业信息库左侧的树 的id
                     "unionFundCode": "", //工会经费编码  
                     "taxPeriod": "", //税期
                     "compCode":"",// 统一社会信用代码
@@ -162,13 +161,12 @@
                     this.treeList = getTreeData([res.result]);
                 })
             },
-            handleChange(value) {
-                this.searchForm.belongsAreaId = value[value.length-1]
-            },
             // 列表
             postStoretaxcallbackList(){
+              const belongsAreaId = this.searchForm.belongsAreaId
                 const newData = {
                     ...this.searchForm,
+                    belongsAreaId: belongsAreaId[belongsAreaId.length - 1]
                 }
                 returnManagementApis.postStoretaxcallbackList(newData).then(res=> {
                     if (res.status === 200) {

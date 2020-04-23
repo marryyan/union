@@ -153,7 +153,7 @@
       <el-tab-pane label="缴费信息">
         <el-form label-position="left" label-width="150px" :model="formPay" class="demo-form-inline">
           <el-form-item label="开户名称">
-            <el-input size="small" style="width:200px" v-model="formPay.name" disabled></el-input>
+            <el-input size="small" style="width:200px" v-model="formPay.compName" disabled></el-input>
           </el-form-item>
           <el-form-item label="银行账号">
             <el-input size="small" style="width:200px" v-model="formPay.payAccount"></el-input>
@@ -164,7 +164,7 @@
           <el-form-item label="银行行别">
             <el-select size="small" style="width:200px" v-model="formPay.bankType" placeholder="请选择">
               <el-option
-                v-for="item in unionTypeOptions"
+                v-for="item in bankTypeOptions"
                 :key="item.k"
                 :label="item.v"
                 :value="item.k">
@@ -301,6 +301,7 @@
                             })
                         }
                         this.formLabour = data
+                        this.formLabour.unionBelongstoId = Number(data.unionBelongstoId)
                         this.formBusiness = data
                         this.formTaxation = data
                         this.formPay = data

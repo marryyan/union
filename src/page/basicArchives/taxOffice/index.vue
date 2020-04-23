@@ -135,7 +135,8 @@ export default {
       this.postBasebasetaxinfoPage()
     },
     addInfo(){
-      if(!isNaN(this.treeId) && this.treeId){
+      // if(!isNaN(this.treeId) && this.treeId){
+      if(this.treeId){
         this.$router.push({
           path: `/taxOfficeInfoAdd?treeId=${this.treeId}`
         })
@@ -144,7 +145,8 @@ export default {
       }
     },
     handleEdit(index, row) {
-      if(!isNaN(this.treeId) && this.treeId){
+      // if(!isNaN(this.treeId) && this.treeId){
+      if(this.treeId){
         this.$router.push({
         path: `/taxOfficeInfoEdit?treeId=${this.treeId}&id=${row.id}`
       })

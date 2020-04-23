@@ -7,7 +7,6 @@
             size="mini"
             v-model="formInline.belongsAreaId" 
             :options="treeList" 
-            @change="handleChange" 
             placeholder="请选择" 
             :props="{ value: 'id', label: 'title', checkStrictly: true}"></el-cascader>
         </el-form-item>
@@ -24,7 +23,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>（请设置正确的搜索条件后查看数据）
+          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>（请选择日期后查看数据）
         </el-form-item>
       </el-form>
       <div class="list">
@@ -73,7 +72,7 @@
           "dataType": 2, // 1 : 工会经费 2： 筹备金 3 小微企业
           "startDate":"", // 开始格式 yyyy年MM月
           "endDate":"", //结束格式 yyyy年MM月
-          "belongsAreaId":"" // 所属区, 企业信息库左侧的树形结构
+          "belongsAreaId":[] // 所属区, 企业信息库左侧的树形结构
         },
         daterange: [], // 日期数组
         treeList:[],
@@ -97,17 +96,16 @@
               this.treeList = getTreeData([res.result]);
           })
       },
-      handleChange(value) {
-          this.formInline.belongsAreaId = value[value.length-1]
-      },
       changeDate(e) {
           this.formInline.startDate = e[0]
           this.formInline.endDate = e[1]
       },
       // list
       postCountTable(){
+        const belongsAreaId = this.formInline.belongsAreaId
         let data = {
-          ...this.formInline
+          ...this.formInline,
+           belongsAreaId: belongsAreaId[belongsAreaId.length - 1]
         }
         queryStatsApis.postCountTable(data).then(res => {
           if(res.status == '200') {
@@ -119,10 +117,13 @@
       },
       // table
       postCountList(){
+        console.log('11111111111111111')
+        const belongsAreaId = this.formInline.belongsAreaId
         let data = {
           ...this.formInline,
           "currPage": this.page.currPage,//当前页
           "pageSize": this.page.pageSize,//每页显示条数
+          belongsAreaId: belongsAreaId[belongsAreaId.length - 1]
         }
         queryStatsApis.postCountList(data).then(res => {
           if(res.status == '200') {

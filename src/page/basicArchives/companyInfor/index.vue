@@ -270,12 +270,12 @@
             // 小微企业
             postPagesmallmicrobusinesses() {
               console.log(this.formInline.unionBelongstoId)
-                this.formInline.unionBelongstoId = this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 let data = {
                     "currPage": this.page.currPage,//当前页
                     "pageSize": this.page.pageSize,//每页显示条数
                     ...this.formInline,
-                    "belongsUnionTreeId": this.treeId // 左侧树形结构的id
+                    "belongsUnionTreeId": this.treeId, // 左侧树形结构的id
+                    unionBelongstoId:this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 }
                 basicFileApis.postPagesmallmicrobusinesses(data).then(res => {
                     if (res.status == '200') {
@@ -288,12 +288,12 @@
             },
             // 已建会
             postBaseBasecompanyinfoPagehas() {
-                this.formInline.unionBelongstoId = this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 let data = {
                     "currPage": this.page.currPage,//当前页
                     "pageSize": this.page.pageSize,//每页显示条数
                     ...this.formInline,
-                    "belongsUnionTreeId": this.treeId // 左侧树形结构的id
+                    "belongsUnionTreeId": this.treeId, // 左侧树形结构的id
+                    unionBelongstoId:this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 }
                 basicFileApis.postBaseBasecompanyinfoPagehas(data).then(res => {
                     if (res.status == '200') {
@@ -306,12 +306,12 @@
             },
             // 未建会
             postBaseBasecompanyinfoPageno() {
-                this.formInline.unionBelongstoId = this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 let data = {
                     "currPage": this.page.currPage,//当前页
                     "pageSize": this.page.pageSize,//每页显示条数
                     ...this.formInline,
-                    "belongsUnionTreeId": this.treeId // 左侧树形结构的id
+                    "belongsUnionTreeId": this.treeId, // 左侧树形结构的id
+                    unionBelongstoId:this.formInline.unionBelongstoId && this.formInline.unionBelongstoId.join(',')
                 }
                 basicFileApis.postBaseBasecompanyinfoPageno(data).then(res => {
                     if (res.status == '200') {
