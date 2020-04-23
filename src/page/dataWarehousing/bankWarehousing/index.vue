@@ -81,8 +81,8 @@
               placeholder="选择日期">
             </el-date-picker>
           </el-form-item>
-          <el-form-item label="征收税务机关：">
-            <el-cascader size="mini" :props="{value: 'id', label: 'collTaxComp'}" v-model="xlsUploadInfo.taxBelongsCompId" placeholder="请选择" :options="taxBelongsCompOptions" filterable></el-cascader>
+          <el-form-item label="税款所属 税务机关：">
+            <el-cascader size="mini" :props="{value: 'id', label: 'taxName'}" v-model="xlsUploadInfo.taxBelongsCompId" placeholder="请选择" :options="taxBelongsCompOptions" filterable></el-cascader>
           </el-form-item>
           <el-form-item label="国库名称：">
             <el-cascader size="mini" :props="{value: 'accountName', label: 'accountName'}" v-model="xlsUploadInfo.receiveTreasury" placeholder="请选择" :options="receiveTreasuryOptions" filterable></el-cascader>
@@ -139,6 +139,8 @@
         mounted(){
             this.postStorebanktempNosubmitlist()
             this.userToken = getItem('user_token')
+            this.getTaxBelongsCompOptions()
+            this.getReceiveTreasuryOptions()
         },
         methods: {
             // 导出
@@ -230,7 +232,7 @@
                 }
             },
             getTaxBelongsCompOptions() {
-                dataStorageApis.postBaseBasetaxinfoSelectbyCollTaxComp({ collTaxComp: '' }).then(res => {
+                dataStorageApis.postBaseBasetaxinfoSelectbyname({ taxName: '' }).then(res => {
                     if (res.status === 200) {
                         this.taxBelongsCompOptions = res.result
                     } else {
@@ -251,7 +253,7 @@
                 const params = {
                     ...this.xlsUploadInfo,
                     fileId: this.fileId,
-                    taxBelongsCompId: this.xlsUploadInfo.taxBelongsCompId.join(','),
+                    taxBelongsCompId:  this.xlsUploadInfo.taxBelongsCompId ? this.xlsUploadInfo.taxBelongsCompId.join(',') : '',
                     receiveTreasury: this.xlsUploadInfo.receiveTreasury.join(','),
                     collTaxComp: this.taxBelongsCompOptions.find(item => item.id === Number(this.xlsUploadInfo.taxBelongsCompId)).collTaxComp
                 }

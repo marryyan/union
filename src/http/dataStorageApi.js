@@ -45,6 +45,11 @@ const dataStorageApi = {
     const url = `/union/base/basetaxinfo/selectbyCollTaxComp`;
     return postApi(url, data)
   },
+  // 数据入库--银行入库 右侧税务信息，下拉检索
+  postBaseBasetaxinfoSelectbyname: function postBaseBasetaxinfoSelectbyname (data){
+    const url = `/union/base/basetaxinfo/selectbyname`;
+    return postApi(url, data)
+  },
   // 数据入库--税务入库 收款国库，下拉检索_税务入库使用
   postBaseBasetaxinfoSelectbyAccountName: function postBaseBasetaxinfoSelectbyAccountName (data){
     const url = `/union/base/basetaxinfo/selectbyAccountName`;
