@@ -79,15 +79,19 @@
   </el-container>
 </template>
 <script>
-import { loginApis } from '../http/api.js'
+import {commonApi, loginApis} from "../http/api";
+
 export default {
     name: 'home',
-    data(){
-      return{
-
-      }
+    data() {
+        return {
+            userTreeMenu: []
+        }
     },
-    methods:{
+    mounted() {
+        this.getUserTreeMenu()
+    },
+    methods: {
       handleLogOut(){
         loginApis.handleLogOut({}).then(res => {
           if (res.status == 200) {
@@ -96,7 +100,16 @@ export default {
               })
           }
         })
-      }
+      },
+        getUserTreeMenu() {
+            commonApi.getUserTreeMenu().then(res => {
+                if (res.status === 200) {
+                    this.userTreeMenu = res.result
+                } else {
+                    this.$message.error(res.message)
+                }
+            })
+        }
     }
 }
 </script>
