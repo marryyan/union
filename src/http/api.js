@@ -32,6 +32,11 @@ export const commonApi = {
     const url = `/union/sys/sysdict/select/${data}`
     return postApi(url, {})
   },
+  // 用户菜单列表，权限按钮
+  getUserTreeMenu: function getUserTreeMenu() {
+    const url = `/union/sys/user/getUserTreeMenu`
+    return postApi(url, {})
+  }
 }
 
 
