@@ -24,6 +24,11 @@ export const loginApis = {
     const url = '/union/captcha.jpg?uuid=' + data.uuid;
     return getApi(url, data)
   },
+  // 退出登录
+  handleLogOut: function handleLogOut(data) {
+    const url = '/union/sys/logout';
+    return postApi(url, data)
+  }
 }
 
 export const commonApi = {

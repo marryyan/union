@@ -7,7 +7,7 @@
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="sequenceNumber" label="序号"></el-table-column>
         <el-table-column prop="code" label="缴费基数编码" width="180"></el-table-column>
-        <el-table-column prop="payInfo" label="基数类型"></el-table-column>
+        <el-table-column prop="payInfo" label="缴费类型"></el-table-column>
         <el-table-column prop="payPercent" label="缴费比例">
           <template slot-scope="scope">
             <span>{{`${scope.row.payPercentPre}${scope.row.payPercentCen}${scope.row.payPercentSuf}`}}</span>
@@ -23,11 +23,7 @@
             <span>{{`${scope.row.minPercentPre}${scope.row.minPercentCen}${scope.row.minPercentSuf}`}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="isNormal" label="是否正常">
-          <template slot-scope="scope">
-            <span v-html="scope.row.isNormal === 0 ? '正常' : '不正常'"></span>
-          </template>
-        </el-table-column>
+        <el-table-column prop="isNormal" label="是否正常"></el-table-column>
         <el-table-column prop="description" label="备注"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
@@ -60,7 +56,7 @@
           <el-form-item label="缴费基数编码：">
             <el-input placeholder="请输入" size="mini" v-model="formInfo.code" style="width:250px" disabled></el-input>
           </el-form-item>
-          <el-form-item label="基数类型：">
+          <el-form-item label="缴费类型：">
             <el-input placeholder="请输入" size="mini" v-model="formInfo.payInfo" style="width:250px"></el-input>
           </el-form-item>
           <el-form-item label="缴费比例：">

@@ -3,6 +3,10 @@
     <el-header>
       <img src="../../static/images/small_logo.png" alt="">
       <span>西安市总工会经费缴费数据管理平台-费源库</span>
+      <div class="logout" @click="handleLogOut">
+        <i class="el-icon-switch-button"></i>
+        <span>退出</span>
+      </div>
     </el-header>
     <el-container style="height:100%;">
       <el-aside width="200px">
@@ -75,14 +79,31 @@
   </el-container>
 </template>
 <script>
+import { loginApis } from '../http/api.js'
 export default {
-    name: 'home'
+    name: 'home',
+    data(){
+      return{
+
+      }
+    },
+    methods:{
+      handleLogOut(){
+        loginApis.handleLogOut({}).then(res => {
+          if (res.status == 200) {
+              this.$router.push({
+                  path: '/login'
+              })
+          }
+        })
+      }
+    }
 }
 </script>
 <style>
   .el-header, .el-footer {
-    /* background-color: #e62111; */
-    background-color: #ffffff;
+    background-color: #e62111;
+    /* background-color: #ffffff; */
     color: #333;
     text-align: center;
     line-height: 60px;
@@ -92,6 +113,14 @@ export default {
       font-size: 14px;
       display: flex;
       align-items: center;
+      position: relative;
+  }
+  .logout{
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 4%;
+    cursor: pointer;
   }
   .el-header img {
       width: 30px;
