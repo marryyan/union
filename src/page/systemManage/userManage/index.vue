@@ -101,7 +101,8 @@
                 resetPasswordVisible: false,
                 stopUsingText: '',
                 stopUsingVisible: false,
-                operationUser: {}
+                operationUser: {},
+                sysRoleList: []
             }
         },
         mounted() {
@@ -133,6 +134,13 @@
                             pageSize
                         }
                         this.tableData = list
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+                systemManagementApis.postSysRoleSelect().then(res => {
+                    if (res.status === 200) {
+                        this.sysRoleList = res.result
                     } else {
                         this.$message.error(res.message)
                     }

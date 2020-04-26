@@ -55,9 +55,9 @@ const systemManagementApi = {
     return postApi(url, data)
   },
   // 系统管理-- 08角色选择项
-  postSysRoleSelect: function postSysRoleSelect (data){
+  postSysRoleSelect: function postSysRoleSelect (){
     const url = `/union/sys/role/select`;
-    return postApi(url, data)
+    return postApi(url, {})
   },
   // 系统管理-- 角色保存
   postSysRoleSave: function postSysRoleSave (data){
