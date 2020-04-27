@@ -126,25 +126,26 @@
                 }
                 systemManagementApis.postSysUserList(params).then(res => {
                     if (res.status === 200) {
-                        const { list, totalPage, currPage, pageSize } = res.result
+                        const { list, totalCount, currPage, pageSize } = res.result
                         this.page = {
                             ...this.page,
-                            totalPage,
+                            totalPage:res.result.totalCount,
                             currPage,
                             pageSize
                         }
+                        console.log(this.page)
                         this.tableData = list
                     } else {
                         this.$message.error(res.message)
                     }
                 })
-                systemManagementApis.postSysRoleSelect().then(res => {
-                    if (res.status === 200) {
-                        this.sysRoleList = res.result
-                    } else {
-                        this.$message.error(res.message)
-                    }
-                })
+                // systemManagementApis.postSysRoleSelect().then(res => {
+                //     if (res.status === 200) {
+                //         this.sysRoleList = res.result
+                //     } else {
+                //         this.$message.error(res.message)
+                //     }
+                // })
             },
             onSubmit() {
                 this.page.currPage =1

@@ -19,6 +19,16 @@
       <el-form-item label="职位">
         <el-input size="small" style="width:200px" v-model="formLabelAlign.dutyNames"></el-input>
       </el-form-item>
+      <el-form-item label="角色">
+        <el-select v-model="formLabelAlign.roleIdList" multiple placeholder="请选择" size="small" style="width:200px">
+          <el-option
+            v-for="item in sysRoleList"
+            :key="item.roleId"
+            :label="item.roleName"
+            :value="item.roleId">
+          </el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item v-if="showAdd">
         <el-button style="width:80px" size="small" type="primary" v-on:click="userAdd">确认</el-button>
       </el-form-item>
@@ -42,7 +52,9 @@
             officeName: '',
             dep: '',
             dutyNames: '',
-        }
+            roleIdList:[] //角色id列表
+        },
+        sysRoleList:[]
       };
     },
     mounted(){
@@ -53,8 +65,18 @@
       }else{
         this.showAdd = true
       }
+      this.postSysUserList()
     },
       methods: {
+          postSysUserList(){
+            systemManagementApis.postSysRoleSelect().then(res => {
+                if (res.status === 200) {
+                    this.sysRoleList = res.result
+                } else {
+                    this.$message.error(res.message)
+                }
+            })
+          },
           postSysUserInfo() {
               const params = {
                   userId: this.$route.query.id
@@ -85,6 +107,7 @@
               })
           },
           userAdd () {
+            // console.log(this.formLabelAlign)
               const params = {
                   ...this.formLabelAlign
               }

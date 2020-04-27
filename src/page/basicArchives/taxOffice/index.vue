@@ -1,6 +1,9 @@
 <template>
   <div class="wrapper wrapper-flex">
-    <div class="flex-left">
+    <div class="flex-left" v-if="showTree">
+      <div class="flex-left-icon" @click="handleSlideLeft" v-if="showTree">
+          <i class="el-icon-s-fold"></i>收起
+      </div>
       <el-tree
         :data="data"
         :props="defaultProps"
@@ -9,6 +12,9 @@
       </el-tree>
     </div>
     <div class="flex-right">
+      <div class="flex-left-icon" @click="handleSlideRight" v-if="!showTree">
+            <i class="el-icon-s-unfold"></i>展开
+        </div>
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="税务局名称：">
           <el-input size="mini" v-model="formInline.taxName" placeholder="请输入"></el-input>
@@ -89,7 +95,8 @@ export default {
       },
       centerText: '是否确定删除该税所机构库信息？',
       centerDialogVisible: false,
-      deleteId: ''
+      deleteId: '',
+      showTree: true
     }
   },
   mounted(){
@@ -97,6 +104,12 @@ export default {
     this.postBasebasetaxinfoPage()
   },
   methods: {
+    handleSlideLeft(){
+        this.showTree = false
+    },
+    handleSlideRight(){
+        this.showTree = true
+    },
     // 左树
     getBasebasetaxtreetree(){
       basicFileApis.getBasebasetaxtreetree().then(res => {
@@ -190,5 +203,14 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-
+.flex-left-icon{
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #999;
+    cursor: pointer;
+    i{
+        font-size: 18px;
+        margin-right: 5px;
+    }
+}
 </style>

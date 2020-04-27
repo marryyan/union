@@ -114,7 +114,7 @@ blockquote:after {
   justify-content: space-between;
 }
 .flex-left{
-  min-width: 220px;
+  width: 220px;
   background-color: #fff;
   border-radius: 4px;
   padding: 10px;

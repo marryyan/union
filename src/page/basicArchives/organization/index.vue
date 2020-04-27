@@ -1,14 +1,20 @@
 <template>
   <div class="wrapper wrapper-flex">
-    <div class="flex-left">
-      <el-tree
-        :data="data"
-        :props="defaultProps"
-        accordion
-        @node-click="handleNodeClick">
-      </el-tree>
+    <div class="flex-left" v-if="showTree">
+        <div class="flex-left-icon" @click="handleSlideLeft" v-if="showTree">
+            <i class="el-icon-s-fold"></i>收起
+        </div>
+        <el-tree
+            :data="data"
+            :props="defaultProps"
+            accordion
+            @node-click="handleNodeClick">
+        </el-tree>
     </div>
     <div class="flex-right">
+        <div class="flex-left-icon" @click="handleSlideRight" v-if="!showTree">
+            <i class="el-icon-s-unfold"></i>展开
+        </div>
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="工会名称：">
           <el-input size="mini" v-model="formInline.unionName" placeholder="请输入"></el-input>
@@ -91,7 +97,8 @@
                 },
                 centerText: '是否确定删除该组织机构会信息？',
                 centerDialogVisible: false,
-                deleteId: ''
+                deleteId: '',
+                showTree: true
             }
         },
         mounted(){
@@ -106,6 +113,12 @@
             })
         },
         methods: {
+            handleSlideLeft(){
+                this.showTree = false
+            },
+            handleSlideRight(){
+                this.showTree = true
+            },
             getBaseBaseuniontree(){
                 basicFileApis.getBaseBaseuniontree().then(res => {
                     this.data.push(res.result)
@@ -185,5 +198,14 @@
     }
 </script>
 <style lang="scss" scoped>
-
+.flex-left-icon{
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #999;
+    cursor: pointer;
+    i{
+        font-size: 18px;
+        margin-right: 5px;
+    }
+}
 </style>

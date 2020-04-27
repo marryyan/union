@@ -1,6 +1,9 @@
 <template>
   <div class="wrapper wrapper-flex">
-    <div class="flex-left">
+    <div class="flex-left" v-if="showTree">
+      <div class="flex-left-icon" @click="handleSlideLeft" v-if="showTree">
+            <i class="el-icon-s-fold"></i>收起
+        </div>
       <el-tree
         :data="data"
         :props="defaultProps"
@@ -9,6 +12,9 @@
       </el-tree>
     </div>
     <div class="flex-right">
+      <div class="flex-left-icon" @click="handleSlideRight" v-if="!showTree">
+            <i class="el-icon-s-unfold"></i>展开
+        </div>
       <el-form :inline="true" :model="formInline" class="demo-form-inline">
         <el-form-item label="所属工会：">
           <el-cascader size="mini" v-model="formInline.unionBelongstoId" placeholder="请选择" :options="selectbynameOption" filterable></el-cascader>
@@ -221,7 +227,8 @@
                 fileList: [],
                 formLabelWidth: '120px',
                 userToken: '',
-                rowId: ''
+                rowId: '',
+                showTree: true
             }
         },
         mounted() {
@@ -232,6 +239,12 @@
             this.userToken = getItem('user_token')
         },
         methods: {
+            handleSlideLeft(){
+                this.showTree = false
+            },
+            handleSlideRight(){
+                this.showTree = true
+            },
             // 获取字典
             getDataDic() {
                 // 工会类型
@@ -426,5 +439,14 @@
     }
 </script>
 <style lang="scss" scoped>
-
+.flex-left-icon{
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #999;
+    cursor: pointer;
+    i{
+        font-size: 18px;
+        margin-right: 5px;
+    }
+}
 </style>
