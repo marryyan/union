@@ -14,10 +14,12 @@
       @check="checkboxChange"
       :props="defaultProps">
     </el-tree>
-    <el-button v-if="type == '1'" size="mini" type="warning"
+    <div class="submit-btn" v-if="type == '1'" @click="$router.go('-1')" style="width:80px">返回</div>
+    <div class="submit-btn" v-if="type != '1'" @click="handleEdit" style="width:80px">确认</div>
+    <!-- <el-button v-if="type == '1'" size="mini" type="warning"
                @click="$router.go('-1')">返回</el-button>
     <el-button v-if="type != '1'" size="mini" type="warning"
-               @click="handleEdit">确认</el-button>
+               @click="handleEdit">确认</el-button> -->
   </div>
 </template>
 <script>

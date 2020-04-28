@@ -20,10 +20,12 @@
         <el-input size="small" style="width:200px" v-model="formLabelAlign.phone"></el-input>
       </el-form-item>
       <el-form-item v-if="showAdd">
-        <el-button style="width:80px" size="small" type="primary" @click="submitAdd('formLabelAlign')">确认</el-button>
+        <div class="submit-btn" @click="submitAdd('formLabelAlign')" style="width:80px">确认</div>
+        <!-- <el-button style="width:80px" size="small" type="primary" @click="submitAdd('formLabelAlign')">确认</el-button> -->
       </el-form-item>
       <el-form-item v-else>
-        <el-button style="width:80px" size="small" type="primary" @click="submitEdit('formLabelAlign')">修改</el-button>
+        <div class="submit-btn" @click="submitEdit('formLabelAlign')" style="width:80px">修改</div>
+        <!-- <el-button style="width:80px" size="small" type="primary" @click="submitEdit('formLabelAlign')">修改</el-button> -->
       </el-form-item>
     </el-form>
   </div>

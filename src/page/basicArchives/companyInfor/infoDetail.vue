@@ -168,7 +168,8 @@
           <el-table-column prop="compCode" label="个税人数"></el-table-column>
         </el-table> -->
       </el-tab-pane>
-      <el-button style="width:80px; margin-left:100px" size="small" type="primary" @click="$router.go(-1)">返回</el-button>
+      <div class="submit-btn" @click="$router.go(-1)" style="width:80px; margin-left:100px">返回</div>
+      <!-- <el-button style="width:80px; margin-left:100px" size="small" type="primary" @click="$router.go(-1)">返回</el-button> -->
     </el-tabs>
   </div>
 </template>

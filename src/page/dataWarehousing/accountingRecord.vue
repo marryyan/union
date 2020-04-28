@@ -35,8 +35,8 @@
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
 <!--            金额差异不为0： 不能入库， 为0时： 是否入库， 点击入库成功后： 已入库          -->
-            <div style="color: #606266" v-if="scope.row.inStorageStatus == 0">未入库</div>
-            <div style="color: #e6a23c" v-if="scope.row.inStorageStatus == 1">已入库</div>
+            <div style="color: #EC536B" v-if="scope.row.inStorageStatus == 0">未入库</div>
+            <div style="color: #24C789" v-if="scope.row.inStorageStatus == 1">已入库</div>
             <el-button size="mini" type="text" style="color: #24C789; border: 0" v-if="scope.row.accountCheckingStatus === 1"
                        @click="handleInstorage(scope.$index, scope.row)">是否入库</el-button>
           </template>
