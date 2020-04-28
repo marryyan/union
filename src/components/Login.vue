@@ -1,5 +1,6 @@
 <template>
   <div class="login">
+    <!-- <div class="login-box"></div> -->
     <div class="title_logo">
       <img src="../../static/images/logo_text.png" alt="">
     </div>
@@ -67,15 +68,25 @@
         },
     }
 </script>
-<style>
+<style lang="scss" scoped>
   @import "../assets/reset.css";
   .login {
     width: 100%;
     height: 100%;
+    // background: url("/static/images/beijing.png") no-repeat;
     background: url("/static/images/login_bg.png") no-repeat;
     position: relative;
-    background-size: cover;
+    background-size: 100% 100%;
     text-align: center;
+    .login-box{
+      width: 63%;
+      height: 60%;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      background-color: red;
+    }
   }
   .title_logo {
     text-align: center;

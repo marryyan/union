@@ -13,7 +13,9 @@
         <el-menu router :default-active="$route.path" :unique-opened="true">
           <el-submenu index="1">
             <template slot="title">
-              <i class="el-icon-menu"></i>
+              <!-- <i class="el-icon-menu"></i> -->
+              <img class="img" src="../../static/images/jichudangan-blue.png" alt="">
+              <img class="img" src="../../static/images/jichudangan-gray.png" alt="">
               <span>基础档案</span>
             </template>
             <el-menu-item index="/organization">组织机构库</el-menu-item>
@@ -24,7 +26,9 @@
           </el-submenu>
           <el-submenu index="2">
             <template slot="title">
-              <i class="el-icon-menu"></i>
+              <!-- <i class="el-icon-menu"></i> -->
+              <img class="img" src="../../static/images/xitongguanli-blue.png" alt="">
+              <img class="img" src="../../static/images/xitongguanli-gray.png" alt="">
               <span>数据入库</span>
             </template>
             <el-menu-item index="/taxWarehousing">税务入库</el-menu-item>
@@ -162,5 +166,9 @@ export default {
     margin-bottom: 20px;
     font-weight: bolder;
     font-size: 16px;
+  }
+  .img{
+    width: 13px;
+    height: 16px;
   }
 </style>
