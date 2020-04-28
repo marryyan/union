@@ -1,23 +1,31 @@
 <template>
   <div class="login">
-    <!-- <div class="login-box"></div> -->
-    <div class="title_logo">
-      <img src="../../static/images/logo_text.png" alt="">
-    </div>
-    <div class="login_con">
-      <div class="user_ipt" style="margin-top:20px;">
-        <img src="../../static/images/user_icon.png" alt="">
-        <input type="text" v-model="username" placeholder="昵称/邮箱/手机号码">
-      </div>
-      <div class="user_ipt" style="margin-top:30px;">
-        <img src="../../static/images/pwd_icon.png" alt="">
-        <input type="password" v-model="password" placeholder="密码">
-      </div>
-      <div class="user_ipt" style="margin-top:30px; display: flex; justify-content: space-between;">
-        <input type="text" v-model="captcha" placeholder="请输入验证码">
-        <img :src="imgSrc" @click="getYzm" style="width: 100px">
-      </div>
-      <button class="login_btn" @click="loginSubmit">登录</button>
+    <div class="login-box">
+      <div class="login-box-left">
+        <img src="/static/images/wenzi.png" alt="" class="box-left-top">
+        <img src="/static/images/chahua.png" alt="" class="box-left-bottom">
+      </div> 
+      <div class="login-box-right">
+        <img src="/static/images/gonghuilogo.png" alt="" class="box-right-logo">
+        <div class="login_con">
+          <div class="user_ipt" style="margin-top:20px;">
+            <img src="../../static/images/yonghuming.png" alt="">
+            <input type="text" v-model="username" placeholder="昵称/邮箱/手机号码">
+          </div>
+          <div class="user_ipt" style="margin-top:30px;">
+            <img src="../../static/images/mima.png" alt="">
+            <input type="password" v-model="password" placeholder="密码">
+          </div>
+          <div class="user_ipt" style="margin-top:30px; display: flex; justify-content: space-between;">
+            <div style="display: flex;">
+              <img src="../../static/images/yanzhengma.png" alt="">
+              <input type="text" v-model="captcha" placeholder="请输入验证码">
+            </div>
+            <img :src="imgSrc" @click="getYzm" style="width: 100px">
+          </div>
+          <button class="login_btn" @click="loginSubmit">登录</button>
+        </div>
+      </div> 
     </div>
   </div>
 </template>
@@ -73,19 +81,51 @@
   .login {
     width: 100%;
     height: 100%;
-    // background: url("/static/images/beijing.png") no-repeat;
-    background: url("/static/images/login_bg.png") no-repeat;
+    min-width: 1200px;
+    background: url("/static/images/beijing.png") no-repeat;
+    // background: url("/static/images/login_bg.png") no-repeat;
     position: relative;
     background-size: 100% 100%;
     text-align: center;
     .login-box{
-      width: 63%;
-      height: 60%;
+      width: 1200px;
+      height: 65%;
       position: absolute;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
-      background-color: red;
+      display: flex;
+      .login-box-left{
+        width: 50%;
+        text-align: center;
+        padding-top: 96px;
+        box-sizing: border-box;
+        .box-left-top{
+          width: 55%;
+          height: 76px;
+          margin-bottom: 40px;
+        }
+        .box-left-bottom{
+          width: 68%;
+        }
+      }
+      .login-box-right{
+        position: relative;
+        padding-top: 130px;
+        box-sizing: border-box;
+        width: 400px;
+        .box-right-logo{
+          width: 80px;
+          height: 80px;
+          position: absolute;
+          top: 52px;
+          right: 0;
+        }
+        .login_con{
+          margin-top: 40px;
+          padding: 30px 30px;
+        }
+      }
     }
   }
   .title_logo {
@@ -94,37 +134,34 @@
     box-sizing: border-box;
   }
   .login_con{
-    display: inline-block;
-    background-color: #ffffff;
-    box-shadow: 14px 14px 18px 0px
-    rgba(0, 0, 0, 0.3);
-    border-radius: 8px;
     margin-top: 40px;
     padding: 30px 30px;
   }
   .login_btn {
-    margin-top: 30px;
-    width: 316px;
-    height: 46px;
+    margin-top: 27px;
+    width: 400px;
+    height: 50px;
+    line-height: 50px;
     font-size: 16px;
-    background-color: #e9460b;
-    border-radius: 3px;
-    color: #f5f243;
+    background:linear-gradient(94deg,rgba(59,119,227,1),rgba(86,147,254,1));
+    border-radius: 6px;
+    font-size: 22px;
+    color: #fff;
     border: none;
     outline: none;
     outline: 0;
   }
   .user_ipt {
-    width: 310px;
-    padding: 6px 0;
+    width: 400px;
+    padding: 10px 12px;
+    box-sizing: border-box;
     border-bottom: solid 1px #d6d3d6;
     display: flex;
-    /* justify-content: center; */
     align-items: center;
   }
   .user_ipt img {
-    margin-right: 6px;
-    width: 19px;
+    margin-right: 28px;
+    width: 20px;
     height: 20px;
   }
   .user_ipt input {
@@ -132,5 +169,6 @@
     outline: none;
     outline: 0;
     line-height: 24px;
+    color: #333333;
   }
 </style>

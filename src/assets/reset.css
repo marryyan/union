@@ -2,7 +2,6 @@
   overflow-x: auto;
   overflow-y: scroll;
 } */
-
 body,
 dl,
 dt,
@@ -222,12 +221,27 @@ blockquote:after {
   margin-top: 10px;
 }
 .el-menu-item.is-active {
-  background-color: #e62111 !important;
+  background-color: #E9EFFA !important;
+  /* border-radius: 20px !important; */
   /* background-color: #999 !important; */
 }
 .el-menu-item.is-active {
-  color: #ffffff !important;
+  color: #3B77E3 !important;
 }
 .el-table td, .el-table th {
   padding: 8px 0 !important;
+}
+.el-input__inner{
+  border-radius:16px !important;
+}
+.submit-btn{
+  width:70px;
+  height:28px;
+  line-height: 28px;
+  font-size: 14px;
+  color: #fff;
+  text-align: center;
+  background:rgba(59,119,227,1);
+  border-radius:16px;
+  margin-top: 5px;
 }
