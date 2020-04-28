@@ -12,9 +12,9 @@
     </el-header>
     <el-container style="height:100%;">
       <el-aside width="200px">
-        <el-menu router 
-        :default-active="$route.path" 
-        :unique-opened="true" 
+        <el-menu router
+        :default-active="$route.path"
+        :unique-opened="true"
         :collapse='collapse' >
           <el-submenu index="1">
             <template slot="title">

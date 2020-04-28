@@ -2,30 +2,34 @@
   <div class="login">
     <div class="login-box">
       <div class="login-box-left">
-        <img src="/static/images/wenzi.png" alt="" class="box-left-top">
-        <img src="/static/images/chahua.png" alt="" class="box-left-bottom">
-      </div> 
+        <div class="login-box-left-img">
+          <img src="/static/images/wenzi.png" alt="" class="box-left-top">
+          <img src="/static/images/chahua.png" alt="" class="box-left-bottom">
+        </div>
+      </div>
       <div class="login-box-right">
-        <img src="/static/images/gonghuilogo.png" alt="" class="box-right-logo">
+        <div class="box-right-logo">
+          <img src="/static/images/gonghuilogo.png" alt="">
+        </div>
         <div class="login_con">
-          <div class="user_ipt" style="margin-top:20px;">
+          <div class="user_ipt">
             <img src="../../static/images/yonghuming.png" alt="">
             <input type="text" v-model="username" placeholder="昵称/邮箱/手机号码">
           </div>
-          <div class="user_ipt" style="margin-top:30px;">
+          <div class="user_ipt">
             <img src="../../static/images/mima.png" alt="">
             <input type="password" v-model="password" placeholder="密码">
           </div>
-          <div class="user_ipt" style="margin-top:30px; display: flex; justify-content: space-between;">
-            <div style="display: flex;">
-              <img src="../../static/images/yanzhengma.png" alt="">
-              <input type="text" v-model="captcha" placeholder="请输入验证码">
+          <div class="user_ipt" style="position: relative">
+            <img src="../../static/images/yanzhengma.png" alt="">
+            <input type="text" v-model="captcha" placeholder="请输入验证码">
+            <div style="position: absolute; top: 0;right: 0; width: 30%; height: 100%">
+              <img style="height: 100%; width: 100%" :src="imgSrc" @click="getYzm">
             </div>
-            <img :src="imgSrc" @click="getYzm" style="width: 100px">
           </div>
           <button class="login_btn" @click="loginSubmit">登录</button>
         </div>
-      </div> 
+      </div>
     </div>
   </div>
 </template>
@@ -81,15 +85,17 @@
   .login {
     width: 100%;
     height: 100%;
-    min-width: 1200px;
+    /*min-width: 1200px;*/
     background: url("/static/images/beijing.png") no-repeat;
     // background: url("/static/images/login_bg.png") no-repeat;
-    position: relative;
+    position: fixed;
+    left: 0;
+    top: 0;
     background-size: 100% 100%;
     text-align: center;
     .login-box{
-      width: 1200px;
-      height: 65%;
+      width: 62%;
+      height: 62%;
       position: absolute;
       left: 50%;
       top: 50%;
@@ -97,33 +103,42 @@
       display: flex;
       .login-box-left{
         width: 50%;
-        text-align: center;
-        padding-top: 96px;
-        box-sizing: border-box;
-        .box-left-top{
-          width: 55%;
-          height: 76px;
-          margin-bottom: 40px;
-        }
-        .box-left-bottom{
-          width: 68%;
+        height: 100%;
+        position: relative;
+        .login-box-left-img {
+          width: 100%;
+          height: 60%;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+          img {
+            width: 70%;
+          }
         }
       }
       .login-box-right{
         position: relative;
-        padding-top: 130px;
-        box-sizing: border-box;
-        width: 400px;
+        width: 50%;
         .box-right-logo{
-          width: 80px;
-          height: 80px;
-          position: absolute;
-          top: 52px;
-          right: 0;
+          width: 100%;
+          height: 10%;
+          text-align: right;
+          padding-top: 10%;
+          padding-right: 15%;
+          box-sizing: border-box;
+          img {
+            width: 15%
+          }
         }
         .login_con{
-          margin-top: 40px;
-          padding: 30px 30px;
+          position: absolute;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          height: 70%;
+          padding: 0 10%;
+          box-sizing: border-box;
         }
       }
     }
@@ -133,15 +148,11 @@
     padding-top: 6%;
     box-sizing: border-box;
   }
-  .login_con{
-    margin-top: 40px;
-    padding: 30px 30px;
-  }
   .login_btn {
-    margin-top: 27px;
-    width: 400px;
-    height: 50px;
-    line-height: 50px;
+    margin-top: 13%;
+    width: 100%;
+    height: 13%;
+    line-height: 13%;
     font-size: 16px;
     background:linear-gradient(94deg,rgba(59,119,227,1),rgba(86,147,254,1));
     border-radius: 6px;
@@ -152,23 +163,24 @@
     outline: 0;
   }
   .user_ipt {
-    width: 400px;
-    padding: 10px 12px;
+    width: 100%;
+    margin: 5% 0;
+    padding: 1% 1%;
     box-sizing: border-box;
     border-bottom: solid 1px #d6d3d6;
     display: flex;
     align-items: center;
+    justify-content: space-between;
   }
   .user_ipt img {
-    margin-right: 28px;
-    width: 20px;
-    height: 20px;
+    width: 5%;
   }
   .user_ipt input {
+    width: 90%;
+    font-size: 18px;
     border: none;
     outline: none;
     outline: 0;
-    line-height: 24px;
     color: #333333;
   }
 </style>
