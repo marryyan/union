@@ -63,8 +63,8 @@
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <el-button size="mini" type="warning">xls导入</el-button>
-        <el-button size="mini" type="warning" @click="addInfo">新建</el-button>
+        <el-button class="xlsButton" size="mini" type="warning">xls导入</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="addInfo">新建</el-button>
       </div>
       <el-tabs type="border-card" @tab-click="handleTabClick">
         <el-tab-pane label="小微企业">
@@ -92,7 +92,7 @@
             <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
             <el-table-column label="操作" width="180">
               <template slot-scope="scope">
-                <el-button size="mini" type="warning"
+                <el-button size="mini" type="text" style="color: #24C789; border: 0"
                            @click="handleEdit(scope.$index, scope.row)">修改</el-button>
               </template>
             </el-table-column>
@@ -123,7 +123,7 @@
             <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
             <el-table-column label="操作" width="180">
               <template slot-scope="scope">
-                <el-button size="mini" type="warning"
+                <el-button size="mini" type="text" style="color: #24C789; border: 0"
                            @click="handleEdit(scope.$index, scope.row)">修改</el-button>
               </template>
             </el-table-column>
@@ -163,9 +163,9 @@
                   :file-list="fileList"
                   :show-file-list="false"
                   list-type="picture">
-                  <el-button size="mini" type="warning" @click="rowId = scope.row.id">上传建会涵</el-button>
+                  <el-button size="mini" type="text" style="color: #24C789; border: 0" @click="rowId = scope.row.id">上传建会涵</el-button>
                 </el-upload>
-                <el-button size="mini" type="warning"
+                <el-button size="mini" type="text" style="color: #24C789; border: 0"
                            @click="handleEdit(scope.$index, scope.row)">修改</el-button>
               </template>
             </el-table-column>

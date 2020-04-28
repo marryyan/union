@@ -16,11 +16,12 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
+          <div class="submit-btn" @click="onSubmit">检索</div>
+<!--          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>-->
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <el-button size="mini" type="warning" @click="addInfo">新增角色</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="addInfo">新增角色</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="roleName" label="角色名称"></el-table-column>
@@ -28,9 +29,9 @@
         <el-table-column prop="createTime" label="创建时间"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
             @click="handleDetail(scope.$index, scope.row)">查看</el-button>
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
             @click="handleEdit(scope.$index, scope.row)">编辑权限</el-button>
           </template>
         </el-table-column>

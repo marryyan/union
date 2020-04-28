@@ -66,7 +66,7 @@
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <el-button size="mini" type="warning" @click="exportList">分配(下载打印)</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="exportList">分配(下载打印)</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxPeriod" label="所属税期" width="180"></el-table-column>

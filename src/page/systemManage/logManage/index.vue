@@ -18,7 +18,8 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
+          <div class="submit-btn" @click="onSubmit">检索</div>
+<!--          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>-->
         </el-form-item>
       </el-form>
       <el-tabs type="border-card" @tab-click="handleTabClick">

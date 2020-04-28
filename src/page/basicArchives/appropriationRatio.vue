@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="flex-right">
       <div class="operation_btns">
-        <el-button size="mini" type="warning" @click="changeInfo('add')">新增</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="changeInfo('add')">新增</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column label="序号" prop="sequenceNumber"></el-table-column>
@@ -18,27 +18,27 @@
         <el-table-column prop="isUseText" label="是否启用"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
               @click="changeInfo('edit', scope.row)">修改</el-button>
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
               @click="handleUse('use', scope.row)" v-if="scope.row.isUse == '1'">禁用</el-button>
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
               @click="handleUse('unUse', scope.row)" v-if="scope.row.isUse == '0'">启用</el-button>
           </template>
         </el-table-column>
       </el-table>
       <el-pagination
         style="margin: 15px 0"
-        @current-change="handleCurrentChange" 
+        @current-change="handleCurrentChange"
         :current-page.sync="page.currPage"
         :page-size="page.pageSize"
         layout="prev, pager, next, jumper"
         :total="page.totalPage">
       </el-pagination>
       <!-- 弹窗 -->
-      <DialogCommon 
-      :centerText="centerText" 
-      :centerDialogVisible="centerDialogVisible" 
+      <DialogCommon
+      :centerText="centerText"
+      :centerDialogVisible="centerDialogVisible"
       @delDialog="sureDelDialog"
       @cancleDialog="cancleDelDialog"></DialogCommon>
       <!-- 新增，修改 -->

@@ -2,7 +2,7 @@
   <div class="wrapper">
     <div class="flex-right">
       <div class="operation_btns">
-        <el-button size="mini" type="warning" @click="handleInfo">新增</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="handleInfo">新增</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="sequenceNumber" label="序号"></el-table-column>
@@ -27,11 +27,11 @@
         <el-table-column prop="description" label="备注"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleInfo(scope.$index, scope.row)">修改</el-button>
-            <el-button v-if="scope.row.isUse === '1'" size="mini" type="warning"
+            <el-button v-if="scope.row.isUse === '1'" size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleIsuse(scope.$index, scope.row)">停用</el-button>
-            <el-button v-if="scope.row.isUse === '0'" size="mini" type="warning"
+            <el-button v-if="scope.row.isUse === '0'" size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleIsuse(scope.$index, scope.row)">启用</el-button>
           </template>
         </el-table-column>

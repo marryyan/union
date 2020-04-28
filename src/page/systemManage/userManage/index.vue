@@ -16,11 +16,12 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
+          <div class="submit-btn" @click="onSubmit">检索</div>
+<!--          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>-->
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <el-button size="mini" type="warning" @click="addInfo">新增用户</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="addInfo">新增用户</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="username" label="账号" width="180"></el-table-column>
@@ -33,13 +34,13 @@
         <el-table-column prop="status" label="状态"></el-table-column>
         <el-table-column label="操作" width="400">
           <template slot-scope="scope">
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="prohibitLogin(scope.$index, scope.row)">{{scope.row.status !== 2 ? '禁止登录' : '解禁登录'}}</el-button>
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="resetPassword(scope.$index, scope.row)">重置密码</el-button>
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="stopUsing(scope.$index, scope.row)">{{scope.row.status !== 0 ? '停用' : '启用'}}</el-button>
           </template>
         </el-table-column>

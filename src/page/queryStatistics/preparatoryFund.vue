@@ -5,9 +5,9 @@
         <el-form-item label="所属区：">
           <el-cascader
             size="mini"
-            v-model="formInline.belongsAreaId" 
-            :options="treeList" 
-            placeholder="请选择" 
+            v-model="formInline.belongsAreaId"
+            :options="treeList"
+            placeholder="请选择"
             :props="{ value: 'id', label: 'title', checkStrictly: true}"></el-cascader>
         </el-form-item>
         <el-form-item label="税款所属期：">
@@ -23,7 +23,11 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>（请选择日期后查看数据）
+          <div style="display: flex">
+            <div class="submit-btn" @click="onSubmit">检索</div>
+            <div>（请选择日期后查看数据）</div>
+          </div>
+<!--          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>（请选择日期后查看数据）-->
         </el-form-item>
       </el-form>
       <div class="list">

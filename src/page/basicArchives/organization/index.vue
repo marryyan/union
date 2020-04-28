@@ -28,8 +28,8 @@
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <el-button size="mini" type="warning">xls导入</el-button>
-        <el-button size="mini" type="warning" @click="addInfo">新建</el-button>
+        <el-button class="xlsButton" size="mini" type="warning">xls导入</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="addInfo">新建</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="sequenceNumber" label="序号"></el-table-column>
@@ -46,7 +46,7 @@
         <el-table-column prop="phone" label="联系电话" width="180"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleEdit(scope.$index, scope.row)">修改</el-button>
             <el-button size="mini" type="warning"
                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>

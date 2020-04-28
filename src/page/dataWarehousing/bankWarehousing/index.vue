@@ -32,10 +32,10 @@
         </el-form-item>
       </el-form> -->
       <div class="operation_btns">
-        <el-button size="mini" type="warning" @click="exportList">下载模板</el-button>
-        <el-button size="small" type="warning" @click="dialogVisible = true">xls导入</el-button>
-        <el-button size="mini" type="warning" @click="submitEdit">确认提交</el-button>
-        <el-button size="mini" type="warning" @click="submitDelete">删除</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="exportList">下载模板</el-button>
+        <el-button class="xlsButton" size="small" type="warning" @click="dialogVisible = true">xls导入</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="submitEdit">确认提交</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="submitDelete">删除</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxPeriod" label="征收税期"></el-table-column>
@@ -68,7 +68,7 @@
           :before-upload="beforeUpload"
           accept=".xls, .xlsx"
           :file-list="fileList">
-          <el-button size="small" type="warning">xls导入</el-button>
+          <el-button class="xlsButton" size="small" type="warning">xls导入</el-button>
         </el-upload>
         <br/>
         <el-form :model="xlsUploadInfo" label-position='right' label-width="160px">

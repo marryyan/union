@@ -18,7 +18,8 @@
           <el-input size="mini" v-model="searchForm.accountName" placeholder="请输入"></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
+          <div class="submit-btn" @click="onSubmit">检索</div>
+<!--          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>-->
         </el-form-item>
       </el-form>
       <el-table :data="tableData" stripe style="width: 100%">
@@ -36,7 +37,7 @@
 <!--            金额差异不为0： 不能入库， 为0时： 是否入库， 点击入库成功后： 已入库          -->
             <div style="color: #606266" v-if="scope.row.inStorageStatus == 0">未入库</div>
             <div style="color: #e6a23c" v-if="scope.row.inStorageStatus == 1">已入库</div>
-            <el-button size="mini" type="warning" v-if="scope.row.accountCheckingStatus === 1"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0" v-if="scope.row.accountCheckingStatus === 1"
                        @click="handleInstorage(scope.$index, scope.row)">是否入库</el-button>
           </template>
         </el-table-column>

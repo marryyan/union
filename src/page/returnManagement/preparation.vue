@@ -5,9 +5,9 @@
         <el-form-item label="所属区：">
           <el-cascader
             size="mini"
-            v-model="searchForm.belongsAreaId" 
-            :options="treeList" 
-            placeholder="请选择" 
+            v-model="searchForm.belongsAreaId"
+            :options="treeList"
+            placeholder="请选择"
             :props="{ value: 'id', label: 'title', checkStrictly: true}"></el-cascader>
         </el-form-item>
         <el-form-item label="工会经费编码：">
@@ -39,7 +39,8 @@
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
+          <div class="submit-btn" @click="onSubmit">检索</div>
+<!--          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>-->
         </el-form-item>
       </el-form>
       <el-table :data="tableData" stripe style="width: 100%">
@@ -64,7 +65,7 @@
         <el-table-column prop="backMoney" label="返还金额"></el-table-column>
         <el-table-column label="操作" width="200">
           <template slot-scope="scope">
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleEdit(scope.row)">处理回拨</el-button>
           </template>
         </el-table-column>
@@ -122,7 +123,7 @@
                 searchForm: {
                     "dataType": 2, // 1 : 工会经费 2： 筹备金 3 小微企业
                     "belongsAreaId": [], // 企业信息库左侧的树 的id
-                    "unionFundCode": "", //工会经费编码  
+                    "unionFundCode": "", //工会经费编码
                     "taxPeriod": "", //税期
                     "compCode":"",// 统一社会信用代码
                     "taxPayer":"", // 单位名称
