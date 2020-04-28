@@ -166,7 +166,7 @@
                   <el-button size="mini" type="text" style="color: #24C789; border: 0" @click="rowId = scope.row.id">上传建会涵</el-button>
                 </el-upload>
                 <el-button size="mini" type="text" style="color: #24C789; border: 0"
-                           @click="handleEdit(scope.$index, scope.row)">修改</el-button>
+                    @click="handleEdit(scope.$index, scope.row)">修改</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -449,5 +449,9 @@
         font-size: 18px;
         margin-right: 5px;
     }
+}
+.upload-demo{
+  display: inline-block;
+  margin-right: 10px;
 }
 </style>

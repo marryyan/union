@@ -7,8 +7,8 @@
   center>
   <div class="center-text">{{centerText}}</div>
   <span slot="footer" class="dialog-footer">
-    <el-button size="mini" @click="cancleDialog">取 消</el-button>
-    <el-button size="mini" type="warning" @click="delDialog">确 定</el-button>
+    <el-button size="mini" @click="cancleDialog" style="border-radius:16px">取 消</el-button>
+    <el-button size="mini" style="background: rgba(59,119,227,1) !important; color:#fff; border-radius:16px" @click="delDialog">确 定</el-button>
   </span>
 </el-dialog>
 </template>

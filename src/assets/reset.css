@@ -134,7 +134,7 @@ blockquote:after {
   margin-bottom: 10px;
 }
 .hover-color:hover{
-  color: #E6A23C;
+  color: #3B77E3;
   cursor: pointer;
 }
 .info-detail{
@@ -244,9 +244,13 @@ blockquote:after {
   background:rgba(59,119,227,1);
   border-radius:16px;
   margin-top: 5px;
+  cursor: pointer;
 }
 .xlsButton {
   background-color: #4CB6AC !important;
   border-color: #4CB6AC !important;
   border-radius: 16px !important;
+}
+.flex-right::-webkit-scrollbar {
+  display: none;
 }

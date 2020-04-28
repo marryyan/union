@@ -48,7 +48,7 @@
           <template slot-scope="scope">
             <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleEdit(scope.$index, scope.row)">修改</el-button>
-            <el-button size="mini" type="warning"
+            <el-button size="mini" type="text" style="color: #EC536B; border: 0"
                        @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>

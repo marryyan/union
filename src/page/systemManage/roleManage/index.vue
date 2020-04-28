@@ -52,8 +52,8 @@
           </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-          <el-button @click="cancelInfo"  size="mini">取 消</el-button>
-          <el-button type="primary" @click="submitInfo" size="mini">确 定</el-button>
+          <el-button @click="cancelInfo"  size="mini" style="border-radius:16px">取 消</el-button>
+          <el-button type="primary" @click="submitInfo" size="mini" style="background: rgba(59,119,227,1) !important; color:#fff; border-radius:16px">确 定</el-button>
         </div>
       </el-dialog>
     </div>

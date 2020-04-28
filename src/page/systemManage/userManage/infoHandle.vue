@@ -30,10 +30,12 @@
         </el-select>
       </el-form-item>
       <el-form-item v-if="showAdd">
-        <el-button style="width:80px" size="small" type="primary" v-on:click="userAdd">确认</el-button>
+        <div class="submit-btn" v-on:click="userAdd" style="width:80px">确认</div>
+        <!-- <el-button style="width:80px" size="small" type="primary" v-on:click="userAdd">确认</el-button> -->
       </el-form-item>
       <el-form-item v-else>
-        <el-button style="width:80px" size="small" type="primary" v-on:click="userUpdate">修改</el-button>
+        <div class="submit-btn" v-on:click="userUpdate" style="width:80px">修改</div>
+        <!-- <el-button style="width:80px" size="small" type="primary" v-on:click="userUpdate">修改</el-button> -->
       </el-form-item>
     </el-form>
   </div>
