@@ -251,3 +251,6 @@ blockquote:after {
   border-color: #4CB6AC !important;
   border-radius: 16px !important;
 }
+.flex-right::-webkit-scrollbar {
+  display: none;
+}
