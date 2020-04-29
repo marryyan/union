@@ -159,26 +159,32 @@
 <style lang="scss" scoped>
 .list{
   width: 100%;
+  // height: 300px;
   overflow: scroll;
   border: 1px solid #cccccc;
   margin-bottom: 20px;
   padding-bottom: 20px;
   padding-right: 20px;
   box-sizing: border-box;
+  // position: relative;
   .list-ul{
     /*width: 1500px;*/
     box-sizing: border-box;
     width: fit-content;
+    margin: 0 auto;
+    // position: absolute;
+    // left: 50%;
+    // transform: translateX(-50%);
     li{
       width: fit-content;
       line-height: 30px;
-      border-bottom: 1px solid #cccccc;
       white-space: nowrap;
       span{
         width: 100px;
         display: inline-block;
         text-align: center;
         padding: 10px;
+        border-bottom: 1px solid #cccccc;
         border-left: 1px solid #cccccc;
         border-right: 1px solid #cccccc;
       }

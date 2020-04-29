@@ -173,13 +173,14 @@
     li{
       width: fit-content;
       line-height: 30px;
-      border-bottom: 1px solid #cccccc;
+      // border-bottom: 1px solid #cccccc;
       white-space: nowrap;
       span{
         width: 100px;
         display: inline-block;
         text-align: center;
         padding: 10px;
+        border-bottom: 1px solid #cccccc;
         border-left: 1px solid #cccccc;
         border-right: 1px solid #cccccc;
       }
