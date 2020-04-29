@@ -30,7 +30,7 @@
 <!--          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>（请选择日期后查看数据）-->
         </el-form-item>
       </el-form>
-      <div class="list">
+      <div class="list" v-if="listData.length >0">
         <ul class="list-ul" v-for="(item, index) in listData" :key="index">
          <!-- <li v-for="(itemSmall, indexSmall) in item" :key="indexSmall">{{itemSmall}}</li> -->
          <li>
@@ -162,11 +162,19 @@
   overflow: scroll;
   border: 1px solid #cccccc;
   margin-bottom: 20px;
+  padding-bottom: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
   .list-ul{
     /*width: 1500px;*/
     box-sizing: border-box;
     width: fit-content;
+    width: -moz-fit-content;
+    width: -webkit-fit-content;
+    border-bottom: 1px solid #cccccc;
     li{
+      width: -moz-fit-content;
+      width: -webkit-fit-content;
       width: fit-content;
       line-height: 30px;
       border-bottom: 1px solid #cccccc;

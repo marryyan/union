@@ -57,7 +57,15 @@
             <el-input placeholder="请输入" size="mini" v-model="formInfo.code" style="width:250px" disabled></el-input>
           </el-form-item>
           <el-form-item label="缴费类型：">
-            <el-input placeholder="请输入" size="mini" v-model="formInfo.payInfo" style="width:250px"></el-input>
+            <el-select size="mini" v-model="formInfo.payInfo" style="width: 120px" placeholder="请选择">
+              <el-option
+                v-for="item in collectionItemsCodeOptions"
+                :key="item.k"
+                :label="item.v"
+                :value="item.k">
+              </el-option>
+            </el-select>
+            <!-- <el-input placeholder="请输入" size="mini" v-model="formInfo.payInfo" style="width:250px"></el-input> -->
           </el-form-item>
           <el-form-item label="缴费比例：">
             <el-select size="mini" v-model="formInfo.payPercentPre" style="width: 120px" placeholder="请选择">
@@ -134,6 +142,7 @@
                 centerDialogVisible: false,
                 dialogVisible: false,
                 computeSignOptions: [],
+                collectionItemsCodeOptions:[],
                 handleData: {},
                 formInfo: {
                     id: '',
@@ -158,6 +167,14 @@
             commonApi.getDataDic('computeSign').then(res => {
                 if (res.status === 200) {
                     this.computeSignOptions = res.result
+                    this.postBaseratiopayList()
+                } else {
+                    this.$message.error(res.message)
+                }
+            })
+            commonApi.getDataDic('collectionItemsCode').then(res => {
+                if (res.status === 200) {
+                    this.collectionItemsCodeOptions = res.result
                     this.postBaseratiopayList()
                 } else {
                     this.$message.error(res.message)

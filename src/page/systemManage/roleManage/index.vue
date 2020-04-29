@@ -33,6 +33,8 @@
             @click="handleDetail(scope.$index, scope.row)">查看</el-button>
             <el-button size="mini" type="text" style="color: #24C789; border: 0"
             @click="handleEdit(scope.$index, scope.row)">编辑权限</el-button>
+            <el-button size="mini" type="text" style="color: #EC536B; border: 0"
+            @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -56,12 +58,23 @@
           <el-button type="primary" @click="submitInfo" size="mini" style="background: rgba(59,119,227,1) !important; color:#fff; border-radius:16px">确 定</el-button>
         </div>
       </el-dialog>
+      <!-- 删除 -->
+      <!-- 弹窗 -->
+      <DialogCommon
+        :centerText="centerText"
+        :centerDialogVisible="centerDialogVisible"
+        @delDialog="sureDelDialog"
+        @cancleDialog="cancleDelDialog"></DialogCommon>
     </div>
   </div>
 </template>
 <script>
   import { systemManagementApis, commonApi } from '@/http/api'
+  import DialogCommon from '@/components/dialogCommon';
   export default {
+    components: {
+        DialogCommon
+    },
     data() {
       return {
         formInline: {
@@ -78,7 +91,10 @@
         dialogAddVisible: false,
         formInfo: {
            "roleName":null //角色名称
-        }
+        },
+        centerText: '是否确定删除该角色信息？',
+        centerDialogVisible: false,
+        deleteId: '',
       }
     },
     mounted(){
@@ -108,6 +124,27 @@
               this.$message.error(res.message);
           }
         })
+      },
+      handleDelete(index, row) {
+          this.centerDialogVisible = true
+          this.deleteId = row.roleId
+      },
+      sureDelDialog(){
+          this.centerDialogVisible = false;
+          let data = {
+              roleId: this.deleteId
+          }
+          systemManagementApis.postSysRoleDelete(data).then(res => {
+              if (res.status == 200) {
+                  this.$message.success('删除成功！');
+                  this.page.currPage = 1
+                  this.tableData = []
+                  this.postSysRoleList()
+              }
+          })
+      },
+      cancleDelDialog(){
+          this.centerDialogVisible = false
       },
       // 提交新增
       addInfo(){

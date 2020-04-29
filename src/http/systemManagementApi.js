@@ -90,6 +90,11 @@ const systemManagementApi = {
     const url = `/union/sys/log/list`;
     return postApi(url, data)
   },
+  // 08角色删除sys:role:delete
+  postSysRoleDelete: function postSysRoleDelete (data){
+    const url = `/union/sys/role/delete/${data.roleId}`;
+    return postApi(url, data)
+  },
 }
 
 export default systemManagementApi

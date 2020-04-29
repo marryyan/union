@@ -22,7 +22,7 @@
           </div>
           <div class="user_ipt" style="position: relative">
             <img src="../../static/images/yanzhengma.png" alt="">
-            <input type="text" v-model="captcha" placeholder="请输入验证码">
+            <input type="text" v-model="captcha" placeholder="请输入验证码" style="margin-left:5%">
             <div style="position: absolute; top: 0;right: 0; width: 30%; height: 100%">
               <img style="height: 100%; width: 100%" :src="imgSrc" @click="getYzm">
             </div>

@@ -254,3 +254,25 @@ blockquote:after {
 .flex-right::-webkit-scrollbar {
   display: none;
 }
+.el-submenu__title{
+  text-align: left !important;
+}
+.el-menu-item{
+  text-align: left !important;
+
+  text-indent:2em !important;
+}
+.el-submenu .el-menu-item{
+  padding-left: 25px !important;
+}
+.el-table td, .el-table th.is-leaf{
+  /* background-color: #EDF0F7 !important; */
+}
+.el-table--striped .el-table__body tr.el-table__row--striped td{
+  background-color: #F2F5FB !important;
+}
+.el-table th>.cell{
+  background-color: #EDF0F7 !important;
+  height: 40px !important;
+  line-height: 40px !important;
+}
