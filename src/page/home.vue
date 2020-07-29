@@ -111,10 +111,10 @@ export default {
     },
     methods: {
       aaa(){
-        console.log(window.location)
-        console.log(window.location.hash)
+        // console.log(window.location)
+        // console.log(window.location.hash)
         if (window.location.hash === '#/organization') {
-          console.log(1111)
+          // console.log(1111)
         }else{
           this.$router.go(-1)
         }

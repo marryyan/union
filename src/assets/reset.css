@@ -229,7 +229,7 @@ blockquote:after {
   color: #3B77E3 !important;
 }
 .el-table td, .el-table th {
-  padding: 8px 0 !important;
+  padding: 20px 0 !important;
 }
 .el-input__inner{
   border-radius:16px !important;

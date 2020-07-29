@@ -129,7 +129,7 @@
                     "taxPayer":"", // 单位名称
                     "processStatus":null,//处理状态-0：未处理， 1：已直拨 2：已回拨 3：已拨区县工会集中户 字典key  processStatus
                     currPage:1, // 当前页
-                    pageSize: 10, // 每页条数
+                    pageSize: 30, // 每页条数
                     totalPage: 0
                 },
                 treeList:[],

@@ -70,7 +70,7 @@
                 tableData: [],
                 page:{
                     currPage: 1, // 当前页
-                    pageSize: 10, // 每页条数
+                    pageSize: 30, // 每页条数
                     totalPage: 100, // 总页数
                 },
                 centerText: '是否确定删除该入库对账信息？',
@@ -135,7 +135,8 @@
                 })
             },
             onSubmit() {
-                this.searchForm.taxBelongsComp = this.searchForm.taxBelongsComp ? this.searchForm.taxBelongsComp.pop() : ''
+                // this.searchForm.taxBelongsComp = this.searchForm.taxBelongsComp ? this.searchForm.taxBelongsComp.pop() : ''
+                this.searchForm.taxBelongsComp = typeof this.searchForm.taxBelongsComp == 'object' ? this.searchForm.taxBelongsComp.pop() : this.searchForm.taxBelongsComp
                 this.page.currPage = 1
                 this.tableData = []
                 this.postStoreStoreversionList()

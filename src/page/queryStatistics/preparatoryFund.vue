@@ -84,7 +84,7 @@
         tableData: [], // 表格数组
         page:{
           currPage:1, // 当前页
-          pageSize: 10, // 每页条数
+          pageSize: 30, // 每页条数
           totalPage: 1, // 总页数
         }
       }
@@ -121,7 +121,6 @@
       },
       // table
       postCountList(){
-        console.log('11111111111111111')
         const belongsAreaId = this.formInline.belongsAreaId
         let data = {
           ...this.formInline,

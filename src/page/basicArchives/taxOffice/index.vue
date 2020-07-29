@@ -28,7 +28,7 @@
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <el-button class="xlsButton" size="mini" type="warning">xls导入</el-button>
+        <!-- <el-button class="xlsButton" size="mini" type="warning">xls导入</el-button> -->
         <el-button class="xlsButton" size="mini" type="warning" @click="addInfo">新建</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
@@ -91,7 +91,7 @@ export default {
       tableData: [],
       page:{
         currPage:1, // 当前页
-        pageSize: 10, // 每页条数
+        pageSize: 30, // 每页条数
         totalPage: 100, // 总页数
       },
       centerText: '是否确定删除该税所机构库信息？',

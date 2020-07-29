@@ -63,7 +63,7 @@
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <el-button class="xlsButton" size="mini" type="warning">xls导入</el-button>
+        <!-- <el-button class="xlsButton" size="mini" type="warning">xls导入</el-button> -->
         <el-button class="xlsButton" size="mini" type="warning" @click="addInfo">新建</el-button>
       </div>
       <el-tabs type="border-card" @tab-click="handleTabClick">
@@ -210,8 +210,8 @@
                 tableData: [],
                 page: {
                     currPage: 1, // 当前页
-                    pageSize: 10, // 每页条数
-                    totalPage: 100, // 总页数
+                    pageSize: 30, // 每页条数
+                    totalPage: 0, // 总页数
                 },
                 tabName: '小微企业',
                 dialogFormVisible: false,
