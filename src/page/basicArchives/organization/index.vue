@@ -93,7 +93,7 @@
                 tableData: [],
                 page:{
                     currPage:1, // 当前页
-                    pageSize: 10, // 每页条数
+                    pageSize: 30, // 每页条数
                     totalPage: 100, // 总页数
                 },
                 centerText: '是否确定删除该组织机构会信息？',

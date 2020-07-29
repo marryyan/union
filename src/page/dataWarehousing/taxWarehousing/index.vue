@@ -96,7 +96,7 @@
         :current-page.sync="page.currPage"
         :page-size="page.pageSize"
         layout="prev, pager, next, jumper"
-        :total="page.totalCount">
+        :total="page.totalPage">
       </el-pagination>
       <el-dialog title="xls导入" :visible.sync="dialogVisible" :destroy-on-close="true">
         <el-upload
@@ -161,7 +161,7 @@
                 page:{
                     currPage:1, // 当前页
                     pageSize: 10, // 每页条数
-                    totalCount: 0, // 总页数
+                    totalPage: 0, // 总页数
                 },
                 centerText: '是否确定删除该税务入库信息？',
                 centerDialogVisible: false,

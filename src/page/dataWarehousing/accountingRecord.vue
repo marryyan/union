@@ -23,13 +23,13 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="name" label="序号"></el-table-column>
-        <el-table-column prop="name" label="征收税期"></el-table-column>
-        <el-table-column prop="name" label="税局名称"></el-table-column>
-        <el-table-column prop="name" label="应缴金额"></el-table-column>
-        <el-table-column prop="name" label="国库名称"></el-table-column>
-        <el-table-column prop="name" label="国库账号"></el-table-column>
-        <el-table-column prop="name" label="国库收入金额" width="180"></el-table-column>
+        <el-table-column prop="id" label="序号"></el-table-column>
+        <el-table-column prop="taxPeriod" label="征收税期"></el-table-column>
+        <el-table-column prop="taxBelongsComp" label="税局名称"></el-table-column>
+        <el-table-column prop="shouldPay" label="应缴金额"></el-table-column>
+        <el-table-column prop="accountName" label="国库名称"></el-table-column>
+        <el-table-column prop="accountNumber" label="国库账号"></el-table-column>
+        <el-table-column prop="receiveTreasuryPay" label="国库收入金额" width="180"></el-table-column>
         <el-table-column prop="accountDifference" label="金额差异"></el-table-column>
         <el-table-column prop="accountCheckingStatusText" label="是否对上"></el-table-column>
         <el-table-column label="操作" width="200">
@@ -41,7 +41,7 @@
                        @click="handleInstorage(scope.$index, scope.row)">是否入库</el-button>
           </template>
         </el-table-column>
-        <el-table-column prop="name" label="备注"></el-table-column>
+        <el-table-column prop="content" label="备注"></el-table-column>
       </el-table>
       <el-pagination
         style="margin: 15px 0"
