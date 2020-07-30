@@ -6,26 +6,26 @@
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="sequenceNumber" label="序号"></el-table-column>
-        <el-table-column prop="code" label="缴费基数编码" width="180"></el-table-column>
+        <el-table-column prop="code" label="缴费基数编码" min-width="180"></el-table-column>
         <el-table-column prop="payInfo" label="缴费类型"></el-table-column>
         <el-table-column prop="payPercent" label="缴费比例">
           <template slot-scope="scope">
             <span>{{`${scope.row.payPercentPre}${scope.row.payPercentCen}${scope.row.payPercentSuf}`}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="payCount" label="基数（元）" width="180">
+        <el-table-column prop="payCount" label="基数（元）" min-width="180">
           <template slot-scope="scope">
             <span>{{`${scope.row.payCountPre}${scope.row.payCountCen}${scope.row.payCountSuf}`}}</span>
           </template>
         </el-table-column>
-        <el-table-column prop="minPercent" label="最小值（历次最小值）" width="180">
+        <el-table-column prop="minPercent" label="最小值（历次最小值）" min-width="180">
           <template slot-scope="scope">
             <span>{{`${scope.row.minPercentPre}${scope.row.minPercentCen}${scope.row.minPercentSuf}`}}</span>
           </template>
         </el-table-column>
         <el-table-column prop="isNormal" label="是否正常"></el-table-column>
         <el-table-column prop="description" label="备注"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" min-width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleInfo(scope.$index, scope.row)">修改</el-button>

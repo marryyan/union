@@ -69,28 +69,28 @@
       <el-tabs type="border-card" @tab-click="handleTabClick">
         <el-tab-pane label="小微企业">
           <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column label="单位名称" width="180">
+            <el-table-column label="单位名称" min-width="250">
               <template slot-scope="scope">
                 <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.compName}}</div>
               </template>
             </el-table-column>
-            <el-table-column prop="compCode" label="统一社会信用代码" width="180"></el-table-column>
-            <el-table-column prop="unionManagerCode" label="管理代码" width="180"></el-table-column>
-            <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
-            <el-table-column prop="unionBelongsto" label="所属系统工会" width="180"></el-table-column>
+            <el-table-column prop="compCode" label="统一社会信用代码" min-width="180"></el-table-column>
+            <el-table-column prop="unionManagerCode" label="管理代码" min-width="180"></el-table-column>
+            <el-table-column prop="unionFundCode" label="工会经费编码" min-width="180"></el-table-column>
+            <el-table-column prop="unionBelongsto" label="所属系统工会" min-width="180"></el-table-column>
             <el-table-column prop="compPerson" label="职工人数"></el-table-column>
             <el-table-column prop="totalAssets" label="资产总额"></el-table-column>
-            <el-table-column prop="operatingReceipt" label="营业收入"></el-table-column>
+            <el-table-column prop="operatingReceipt" label="营业收入" min-width="100"></el-table-column>
             <el-table-column prop="compStatus" label="企业状态"></el-table-column>
             <el-table-column prop="hasUnion" label="工会状态"></el-table-column>
-            <el-table-column prop="compFirmlyType" label="企业认定" width="180"></el-table-column>
+            <el-table-column prop="compFirmlyType" label="企业认定" min-width="180"></el-table-column>
             <el-table-column prop="unionType" label="工会类别"></el-table-column>
             <el-table-column prop="unionParentName" label="上级工会"></el-table-column>
-            <el-table-column prop="unionCreateDate" label="工会建会时间" width="180"></el-table-column>
+            <el-table-column prop="unionCreateDate" label="工会建会时间" min-width="180"></el-table-column>
             <el-table-column prop="unionHandleBy" label="联系人"></el-table-column>
-            <el-table-column prop="unionTel" label="电话"  width="180"></el-table-column>
-            <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
-            <el-table-column label="操作" width="180">
+            <el-table-column prop="unionTel" label="电话"  min-width="180"></el-table-column>
+            <el-table-column prop="taxBelongsComp" label="所属地税分局" min-width="300"></el-table-column>
+            <el-table-column label="操作" min-width="180">
               <template slot-scope="scope">
                 <el-button size="mini" type="text" style="color: #24C789; border: 0"
                            @click="handleEdit(scope.$index, scope.row)">修改</el-button>
@@ -100,28 +100,28 @@
         </el-tab-pane>
         <el-tab-pane label="已建会">
           <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column label="单位名称" width="180">
+            <el-table-column label="单位名称" min-width="250">
               <template slot-scope="scope">
                 <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.compName}}</div>
               </template>
             </el-table-column>
-            <el-table-column prop="compCode" label="统一社会信用代码" width="180"></el-table-column>
-            <el-table-column prop="unionManagerCode" label="管理代码" width="180"></el-table-column>
-            <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
-            <el-table-column prop="unionBelongsto" label="所属系统工会" width="180"></el-table-column>
+            <el-table-column prop="compCode" label="统一社会信用代码" min-width="180"></el-table-column>
+            <el-table-column prop="unionManagerCode" label="管理代码" min-width="180"></el-table-column>
+            <el-table-column prop="unionFundCode" label="工会经费编码" min-width="180"></el-table-column>
+            <el-table-column prop="unionBelongsto" label="所属系统工会" min-width="180"></el-table-column>
             <el-table-column prop="compPerson" label="职工人数"></el-table-column>
             <el-table-column prop="totalAssets" label="资产总额"></el-table-column>
-            <el-table-column prop="operatingReceipt" label="营业收入"></el-table-column>
+            <el-table-column prop="operatingReceipt" label="营业收入" min-width="100"></el-table-column>
             <el-table-column prop="compStatus" label="企业状态"></el-table-column>
             <el-table-column prop="hasUnion" label="工会状态"></el-table-column>
-            <el-table-column prop="compFirmlyType" label="企业认定" width="180"></el-table-column>
+            <el-table-column prop="compFirmlyType" label="企业认定" min-width="180"></el-table-column>
             <el-table-column prop="unionType" label="工会类别"></el-table-column>
             <el-table-column prop="unionParentName" label="上级工会"></el-table-column>
-            <el-table-column prop="unionCreateDate" label="工会建会时间" width="180"></el-table-column>
+            <el-table-column prop="unionCreateDate" label="工会建会时间" min-width="180"></el-table-column>
             <el-table-column prop="unionHandleBy" label="联系人"></el-table-column>
-            <el-table-column prop="unionTel" label="电话"  width="180"></el-table-column>
-            <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
-            <el-table-column label="操作" width="180">
+            <el-table-column prop="unionTel" label="电话"  min-width="180"></el-table-column>
+            <el-table-column prop="taxBelongsComp" label="所属地税分局" min-width="300"></el-table-column>
+            <el-table-column label="操作" min-width="180">
               <template slot-scope="scope">
                 <el-button size="mini" type="text" style="color: #24C789; border: 0"
                            @click="handleEdit(scope.$index, scope.row)">修改</el-button>
@@ -131,28 +131,28 @@
         </el-tab-pane>
         <el-tab-pane label="未建会">
           <el-table :data="tableData" stripe style="width: 100%">
-            <el-table-column label="单位名称" width="180">
+            <el-table-column label="单位名称" min-width="250">
               <template slot-scope="scope">
                 <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.compName}}</div>
               </template>
             </el-table-column>
-            <el-table-column prop="compCode" label="统一社会信用代码" width="180"></el-table-column>
-            <el-table-column prop="unionManagerCode" label="管理代码" width="180"></el-table-column>
-            <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
-            <el-table-column prop="unionBelongsto" label="所属系统工会" width="180"></el-table-column>
+            <el-table-column prop="compCode" label="统一社会信用代码" min-width="180"></el-table-column>
+            <el-table-column prop="unionManagerCode" label="管理代码" min-width="180"></el-table-column>
+            <el-table-column prop="unionFundCode" label="工会经费编码" min-width="180"></el-table-column>
+            <el-table-column prop="unionBelongsto" label="所属系统工会" min-width="180"></el-table-column>
             <el-table-column prop="compPerson" label="职工人数"></el-table-column>
             <el-table-column prop="totalAssets" label="资产总额"></el-table-column>
-            <el-table-column prop="operatingReceipt" label="营业收入"></el-table-column>
+            <el-table-column prop="operatingReceipt" label="营业收入" min-width="100"></el-table-column>
             <el-table-column prop="compStatus" label="企业状态"></el-table-column>
             <el-table-column prop="hasUnion" label="工会状态"></el-table-column>
-            <el-table-column prop="compFirmlyType" label="企业认定" width="180"></el-table-column>
+            <el-table-column prop="compFirmlyType" label="企业认定" min-width="180"></el-table-column>
             <el-table-column prop="unionType" label="工会类别"></el-table-column>
             <el-table-column prop="unionParentName" label="上级工会"></el-table-column>
-            <el-table-column prop="unionCreateDate" label="工会建会时间" width="180"></el-table-column>
+            <el-table-column prop="unionCreateDate" label="工会建会时间" min-width="180"></el-table-column>
             <el-table-column prop="unionHandleBy" label="联系人"></el-table-column>
-            <el-table-column prop="unionTel" label="电话"  width="180"></el-table-column>
-            <el-table-column prop="taxBelongsComp" label="所属地税分局" width="180"></el-table-column>
-            <el-table-column label="操作" width="250">
+            <el-table-column prop="unionTel" label="电话"  min-width="180"></el-table-column>
+            <el-table-column prop="taxBelongsComp" label="所属地税分局" min-width="300"></el-table-column>
+            <el-table-column label="操作" min-width="250">
               <template slot-scope="scope">
                 <el-upload
                   class="upload-demo"

@@ -33,17 +33,17 @@
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxTreeId" label="序号"></el-table-column>
-        <el-table-column label="税务局名称" width="180">
+        <el-table-column label="税务局名称" min-width="180">
           <template slot-scope="scope">
             <div class="hover-color" @click="handleDetail(scope.$index, scope.row)">{{scope.row.taxName}}</div>
           </template>
         </el-table-column>
-        <el-table-column prop="collTaxComp" label="征收税务机关" width="180"></el-table-column>
-        <el-table-column prop="accountName" label="归集账户名称" width="180"></el-table-column>
-        <el-table-column prop="accountNumber" label="归集账户号" width="180"></el-table-column>
+        <el-table-column prop="collTaxComp" label="征收税务机关" min-width="180"></el-table-column>
+        <el-table-column prop="accountName" label="归集账户名称" min-width="180"></el-table-column>
+        <el-table-column prop="accountNumber" label="归集账户号" min-width="180"></el-table-column>
         <el-table-column prop="master" label="联系人"></el-table-column>
-        <el-table-column prop="phone" label="联系电话" width="180"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column prop="phone" label="联系电话" min-width="180"></el-table-column>
+        <el-table-column label="操作" min-width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="text" style="color: #24C789; border: 0"
               @click="handleEdit(scope.$index, scope.row)">修改</el-button>

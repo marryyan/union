@@ -44,26 +44,26 @@
         </el-form-item>
       </el-form>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="taxPeriod" label="所属税期" width="180"></el-table-column>
-        <el-table-column prop="belongsAreaName" label="所属区" width="180"></el-table-column>
-        <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" width="250"></el-table-column>
-        <el-table-column prop="taxPayer" label="纳税人名称" width="250"></el-table-column>
-        <el-table-column prop="unionBank" label="工会开户行" width="180"></el-table-column>
-        <el-table-column prop="unionBankAccount" label="工会银行账号" width="180"></el-table-column>
-        <el-table-column prop="unionAccount" label="工会开户名称" width="180"></el-table-column>
+        <el-table-column prop="taxPeriod" label="所属税期" min-width="180"></el-table-column>
+        <el-table-column prop="belongsAreaName" label="所属区" min-width="180"></el-table-column>
+        <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" min-width="250"></el-table-column>
+        <el-table-column prop="taxPayer" label="纳税人名称" min-width="250"></el-table-column>
+        <el-table-column prop="unionBank" label="工会开户行" min-width="180"></el-table-column>
+        <el-table-column prop="unionBankAccount" label="工会银行账号" min-width="180"></el-table-column>
+        <el-table-column prop="unionAccount" label="工会开户名称" min-width="180"></el-table-column>
         <el-table-column prop="taxBasis" label="计税依据"></el-table-column>
         <el-table-column prop="taxRate" label="税率"></el-table-column>
         <el-table-column prop="paidAmount" label="实缴金额"></el-table-column>
-        <el-table-column prop="receiveTreasury" label="收款国库" width="250"></el-table-column>
+        <el-table-column prop="receiveTreasury" label="收款国库" min-width="250"></el-table-column>
         <el-table-column prop="processResult" label="处理结果"></el-table-column>
         <el-table-column prop="processStatus" label="处理状态">
 <!--          <template slot-scope="scope">-->
 <!--            <span v-text="oprocessStatusOptions.find(item => Number(item.k) === scope.row.processStatus).v"></span>-->
 <!--          </template>-->
         </el-table-column>
-        <el-table-column prop="backDate" label="返还日期" width="100"></el-table-column>
+        <el-table-column prop="backDate" label="返还日期" min-width="100"></el-table-column>
         <el-table-column prop="backMoney" label="返还金额"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" min-width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleEdit(scope.row)">处理回拨</el-button>

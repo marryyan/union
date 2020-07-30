@@ -69,30 +69,30 @@
         <el-button class="xlsButton" size="mini" type="warning" @click="exportList">分配(下载打印)</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="taxPeriod" label="所属税期" width="180"></el-table-column>
-        <el-table-column prop="belongsAreaName" label="所属区" width="180"></el-table-column>
-        <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" width="250"></el-table-column>
-        <el-table-column prop="taxPayer" label="纳税人名称" width="250"></el-table-column>
-        <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
-        <el-table-column prop="unionBank" label="工会开户行" width="180"></el-table-column>
-        <el-table-column prop="unionBankAccount" label="工会银行账号" width="180"></el-table-column>
-        <el-table-column prop="unionAccount" label="工会开户名称" width="180"></el-table-column>
+        <el-table-column prop="taxPeriod" label="所属税期" min-width="180"></el-table-column>
+        <el-table-column prop="belongsAreaName" label="所属区" min-width="180"></el-table-column>
+        <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" min-width="250"></el-table-column>
+        <el-table-column prop="taxPayer" label="纳税人名称" min-width="250"></el-table-column>
+        <el-table-column prop="unionFundCode" label="工会经费编码" min-width="180"></el-table-column>
+        <el-table-column prop="unionBank" label="工会开户行" min-width="180"></el-table-column>
+        <el-table-column prop="unionBankAccount" label="工会银行账号" min-width="180"></el-table-column>
+        <el-table-column prop="unionAccount" label="工会开户名称" min-width="180"></el-table-column>
         <el-table-column prop="taxBasis" label="计税依据"></el-table-column>
         <el-table-column prop="taxRate" label="税率"></el-table-column>
         <el-table-column prop="paidAmount" label="实缴金额"></el-table-column>
         <el-table-column prop="compFirmlyType" label="企业认定"></el-table-column>
         <el-table-column prop="unionType" label="工会类别"></el-table-column>
-        <el-table-column prop="collectionItemsCode" label="缴费类型" width="180"></el-table-column>
-        <el-table-column prop="provincePercent" label="省总分配比例" width="180"></el-table-column>
-        <el-table-column prop="provinceMoney" label="省总分配金额" width="180"></el-table-column>
-        <el-table-column prop="cityPercent" label="市总分配比例" width="180"></el-table-column>
-        <el-table-column prop="cityMoney" label="市总分配金额" width="180"></el-table-column>
+        <el-table-column prop="collectionItemsCode" label="缴费类型" min-width="180"></el-table-column>
+        <el-table-column prop="provincePercent" label="省总分配比例" min-width="180"></el-table-column>
+        <el-table-column prop="provinceMoney" label="省总分配金额" min-width="180"></el-table-column>
+        <el-table-column prop="cityPercent" label="市总分配比例" min-width="180"></el-table-column>
+        <el-table-column prop="cityMoney" label="市总分配金额" min-width="180"></el-table-column>
         <el-table-column prop="serviceChargePercent" label="手续费"></el-table-column>
-        <el-table-column prop="serviceChargeMoney" label="手续费金额" width="180"></el-table-column>
-        <el-table-column prop="areaIndustryPercent" label="区县/产业分配比例" width="180"></el-table-column>
-        <el-table-column prop="areaIndustryMoney" label="区县/产业分配金额" width="180"></el-table-column>
-        <el-table-column prop="compPercent" label="企业分配比例" width="180"></el-table-column>
-        <el-table-column prop="compMoney" label="企业分配金额" width="180"></el-table-column>
+        <el-table-column prop="serviceChargeMoney" label="手续费金额" min-width="180"></el-table-column>
+        <el-table-column prop="areaIndustryPercent" label="区县/产业分配比例" min-width="180"></el-table-column>
+        <el-table-column prop="areaIndustryMoney" label="区县/产业分配金额" min-width="180"></el-table-column>
+        <el-table-column prop="compPercent" label="企业分配比例" min-width="180"></el-table-column>
+        <el-table-column prop="compMoney" label="企业分配金额" min-width="180"></el-table-column>
         <el-table-column prop="distributionType" label="分配状态"></el-table-column>
       </el-table>
       <el-pagination

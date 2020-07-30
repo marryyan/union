@@ -24,15 +24,15 @@
         <el-button class="xlsButton" size="mini" type="warning" @click="addInfo">新增用户</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
-        <el-table-column prop="username" label="账号" width="180"></el-table-column>
+        <el-table-column prop="username" label="账号" min-width="180"></el-table-column>
         <el-table-column prop="realName" label="姓名"></el-table-column>
-        <el-table-column prop="mobile" label="电话" width="180"></el-table-column>
-        <el-table-column prop="officeName" label="所属工会" width="180"></el-table-column>
-        <el-table-column prop="dep" label="所属部门"></el-table-column>
-        <el-table-column prop="dutyNames" label="职位"></el-table-column>
+        <el-table-column prop="mobile" label="电话" min-width="180"></el-table-column>
+        <el-table-column prop="officeName" label="所属工会" min-width="180"></el-table-column>
+        <el-table-column prop="dep" label="所属部门" min-width="180"></el-table-column>
+        <el-table-column prop="dutyNames" label="职位" min-width="180"></el-table-column>
         <el-table-column prop="date" label="角色"></el-table-column>
         <el-table-column prop="status" label="状态"></el-table-column>
-        <el-table-column label="操作" width="400">
+        <el-table-column label="操作" min-width="400">
           <template slot-scope="scope">
             <el-button size="mini" type="text" style="color: #24C789; border: 0"
                        @click="handleEdit(scope.$index, scope.row)">编辑</el-button>

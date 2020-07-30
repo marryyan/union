@@ -64,24 +64,24 @@
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column prop="taxPeriod" label="所属税期"></el-table-column>
         <el-table-column prop="belongsAreaName" label="所属区"></el-table-column>
-        <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" width="250"></el-table-column>
-        <el-table-column prop="taxPayer" label="纳税人名称" width="180"></el-table-column>
-        <el-table-column prop="unionFundCode" label="工会经费编码" width="180"></el-table-column>
-        <el-table-column prop="unionBank" label="工会开户行" width="180"></el-table-column>
-        <el-table-column prop="unionBankAccount" label="工会银行账号" width="180"></el-table-column>
-        <el-table-column prop="unionAccount" label="工会开户名称" width="180"></el-table-column>
-        <el-table-column prop="ticketNumber" label="电子税票号码" width="180"></el-table-column>
+        <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" min-width="250"></el-table-column>
+        <el-table-column prop="taxPayer" label="纳税人名称" min-width="180"></el-table-column>
+        <el-table-column prop="unionFundCode" label="工会经费编码" min-width="180"></el-table-column>
+        <el-table-column prop="unionBank" label="工会开户行" min-width="180"></el-table-column>
+        <el-table-column prop="unionBankAccount" label="工会银行账号" min-width="180"></el-table-column>
+        <el-table-column prop="unionAccount" label="工会开户名称" min-width="180"></el-table-column>
+        <el-table-column prop="ticketNumber" label="电子税票号码" min-width="180"></el-table-column>
         <el-table-column prop="collectionItems" label="征收品目"></el-table-column>
-        <el-table-column prop="collectionItemsCode" label="征收品目代码" width="180"></el-table-column>
-        <el-table-column prop="taxStart" label="税款所属期起" width="180"></el-table-column>
-        <el-table-column prop="taxEnd" label="税款所属期止" width="180"></el-table-column>
+        <el-table-column prop="collectionItemsCode" label="征收品目代码" min-width="180"></el-table-column>
+        <el-table-column prop="taxStart" label="税款所属期起" min-width="180"></el-table-column>
+        <el-table-column prop="taxEnd" label="税款所属期止" min-width="180"></el-table-column>
         <el-table-column prop="taxBasis" label="计税依据"></el-table-column>
         <el-table-column prop="taxRate" label="税率"></el-table-column>
         <el-table-column prop="paidAmount" label="实缴金额"></el-table-column>
         <el-table-column prop="receiveTreasury" label="收款国库"></el-table-column>
-        <el-table-column prop="taxBelongsComp" label="征收税务机关" width="180"></el-table-column>
+        <el-table-column prop="taxBelongsComp" label="征收税务机关" min-width="180"></el-table-column>
         <el-table-column prop="registCode" label="登记序号"></el-table-column>
-        <!-- <el-table-column label="操作" width="200">
+        <!-- <el-table-column label="操作" min-width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="warning"
                        @click="handleSubmit(scope.row)">确认提交</el-button>

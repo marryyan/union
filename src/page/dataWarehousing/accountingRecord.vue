@@ -29,15 +29,15 @@
         <el-table-column prop="shouldPay" label="应缴金额"></el-table-column>
         <el-table-column prop="accountName" label="国库名称"></el-table-column>
         <el-table-column prop="accountNumber" label="国库账号"></el-table-column>
-        <el-table-column prop="receiveTreasuryPay" label="国库收入金额" width="180"></el-table-column>
+        <el-table-column prop="receiveTreasuryPay" label="国库收入金额" min-width="180"></el-table-column>
         <el-table-column prop="accountDifference" label="金额差异"></el-table-column>
         <el-table-column prop="accountCheckingStatusText" label="是否对上"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" min-width="200">
           <template slot-scope="scope">
 <!--            金额差异不为0： 不能入库， 为0时： 是否入库， 点击入库成功后： 已入库          -->
             <div style="color: #EC536B" v-if="scope.row.inStorageStatus == 0">未入库</div>
             <div style="color: #24C789" v-if="scope.row.inStorageStatus == 1">已入库</div>
-            <el-button size="mini" type="text" style="color: #24C789; border: 0" v-if="scope.row.accountCheckingStatus === 1"
+            <el-button size="mini" type="text" style="color: #24C789; border: 0" v-if="scope.row.accountCheckingStatus == 1"
                        @click="handleInstorage(scope.$index, scope.row)">是否入库</el-button>
           </template>
         </el-table-column>

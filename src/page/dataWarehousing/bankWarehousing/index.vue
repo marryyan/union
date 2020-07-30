@@ -43,12 +43,12 @@
         <el-table-column prop="transactionType" label="交易类型"></el-table-column>
         <el-table-column prop="certificateCategory" label="凭证种类"></el-table-column>
         <el-table-column prop="certificateCode" label="凭证代码"></el-table-column>
-        <el-table-column prop="accountName" label="对方名称"></el-table-column>
-        <el-table-column prop="accountNumber" label="对方账号"></el-table-column>
-        <el-table-column prop="summary" label="摘要"></el-table-column>
-        <el-table-column prop="borrowMoney" label="借方发生额" width="180"></el-table-column>
-        <el-table-column prop="loanMoney" label="贷方发生额" width="180"></el-table-column>
-        <el-table-column prop="balance" label="余额"></el-table-column>
+        <el-table-column prop="accountName" label="对方名称" min-width="250"></el-table-column>
+        <el-table-column prop="accountNumber" label="对方账号" min-width="180"></el-table-column>
+        <el-table-column prop="summary" label="摘要" min-width="180"></el-table-column>
+        <el-table-column prop="borrowMoney" label="借方发生额" min-width="180"></el-table-column>
+        <el-table-column prop="loanMoney" label="贷方发生额" min-width="180"></el-table-column>
+        <el-table-column prop="balance" label="余额" min-width="180"></el-table-column>
       </el-table>
       <el-pagination
         style="margin: 15px 0"

@@ -6,17 +6,17 @@
       </div>
       <el-table :data="tableData" stripe style="width: 100%">
         <el-table-column label="序号" prop="sequenceNumber"></el-table-column>
-        <el-table-column prop="code" label="拨付规则编码" width="180"></el-table-column>
-        <el-table-column prop="compFirmlyType" label="企业认定" width="180"></el-table-column>
-        <el-table-column prop="unionType" label="工会类别" width="180"></el-table-column>
-        <el-table-column prop="collectionItemsCode" label="缴费类型" width="180"></el-table-column>
+        <el-table-column prop="code" label="拨付规则编码" min-width="180"></el-table-column>
+        <el-table-column prop="compFirmlyType" label="企业认定" min-width="180"></el-table-column>
+        <el-table-column prop="unionType" label="工会类别" min-width="180"></el-table-column>
+        <el-table-column prop="collectionItemsCode" label="缴费类型" min-width="180"></el-table-column>
         <el-table-column prop="provincePercent" label="省总"></el-table-column>
         <el-table-column prop="cityPercent" label="市总"></el-table-column>
         <el-table-column prop="serviceChargePercent" label="手续费率"></el-table-column>
         <el-table-column prop="areaIndustryPercent" label="区/产总"></el-table-column>
         <el-table-column prop="compPercent" label="企业"></el-table-column>
         <el-table-column prop="isUseText" label="是否启用"></el-table-column>
-        <el-table-column label="操作" width="200">
+        <el-table-column label="操作" min-width="200">
           <template slot-scope="scope">
             <el-button size="mini" type="text" style="color: #24C789; border: 0"
               @click="changeInfo('edit', scope.row)">修改</el-button>
