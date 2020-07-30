@@ -38,7 +38,7 @@
             <div style="color: #EC536B" v-if="scope.row.inStorageStatus == 0">未入库</div>
             <div style="color: #24C789" v-if="scope.row.inStorageStatus == 1">已入库</div>
             <el-button size="mini" type="text" style="color: #24C789; border: 0" v-if="scope.row.accountCheckingStatus == 1"
-                       @click="handleInstorage(scope.$index, scope.row)">是否入库</el-button>
+                       @click="handleInstorage(scope.$index, scope.row)">确认入库</el-button>
           </template>
         </el-table-column>
         <el-table-column prop="content" label="备注"></el-table-column>
@@ -142,7 +142,7 @@
                 this.postStoreStoreversionList()
             },
             handleInstorage(index, row) {
-                dataStorageApis.postStoreInstorage(row).then(res => {
+                dataStorageApis.postStoreInstorage({id: row.id}).then(res => {
                     if (res.status === 200) {
                         this.$message.success('入库成功')
                         this.page.currPage = 1

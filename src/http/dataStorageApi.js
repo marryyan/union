@@ -124,7 +124,7 @@ const dataStorageApi = {
   // 数据入库--入库对账 入库操作
   postStoreInstorage: function postStoreInstorage (data){
     const url = `/union/store/in/instorage/${data.id}`;
-    return postApi(url)
+    return postApi(url, data)
   },
 }
 
