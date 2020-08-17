@@ -26,7 +26,7 @@
         <el-table-column prop="id" label="序号"></el-table-column>
         <el-table-column prop="taxPeriod" label="征收税期"></el-table-column>
         <el-table-column prop="taxBelongsComp" label="税局名称"></el-table-column>
-        <el-table-column prop="shouldPay" label="应缴金额"></el-table-column>
+        <el-table-column prop="shouldPay" label="应缴金额" min-width="150"></el-table-column>
         <el-table-column prop="accountName" label="国库名称"></el-table-column>
         <el-table-column prop="accountNumber" label="国库账号"></el-table-column>
         <el-table-column prop="receiveTreasuryPay" label="国库收入金额" min-width="180"></el-table-column>
