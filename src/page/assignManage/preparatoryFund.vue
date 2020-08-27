@@ -50,15 +50,29 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="分配时间：">
+          <el-date-picker
+            size="mini"
+            v-model="daterange"
+            type="daterange"
+            @change="changeDate"
+            value-format="yyyy-MM-dd"
+            range-separator="至"
+            start-placeholder="开始日期"
+            end-placeholder="结束日期">
+          </el-date-picker>
+        </el-form-item>
         <el-form-item>
           <div class="submit-btn" @click="onSubmit">检索</div>
           <!-- <el-button size="mini" type="primary" @click="onSubmit">检索</el-button> -->
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <el-button class="xlsButton" size="mini" type="warning" @click="exportList">分配(下载打印)</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="exportList">导出</el-button>
+        <el-button class="xlsButton" size="mini" type="warning" @click="choosedistribution">经费分配</el-button>
       </div>
-      <el-table :data="tableData" stripe style="width: 100%">
+      <el-table :data="tableData" stripe style="width: 100%" @selection-change="handleSelectionChange">
+        <el-table-column type="selection" width="55"></el-table-column>
         <el-table-column prop="taxPeriod" label="所属税期" min-width="180"></el-table-column>
         <el-table-column prop="belongsAreaName" label="所属区" min-width="180"></el-table-column>
         <el-table-column prop="compCode" label="社会信用代码（纳税人识别号）" min-width="250"></el-table-column>
@@ -67,9 +81,9 @@
         <el-table-column prop="unionBank" label="工会开户行" min-width="180"></el-table-column>
         <el-table-column prop="unionBankAccount" label="工会银行账号" min-width="180"></el-table-column>
         <el-table-column prop="unionAccount" label="工会开户名称" min-width="180"></el-table-column>
-        <el-table-column prop="taxBasis" label="计税依据"></el-table-column>
+        <el-table-column prop="taxBasis" label="计税依据" min-width="180"></el-table-column>
         <el-table-column prop="taxRate" label="税率"></el-table-column>
-        <el-table-column prop="paidAmount" label="实缴金额"></el-table-column>
+        <el-table-column prop="paidAmount" label="实缴金额" min-width="180"></el-table-column>
         <el-table-column prop="compFirmlyType" label="企业认定"></el-table-column>
         <el-table-column prop="unionType" label="工会类别"></el-table-column>
         <el-table-column prop="collectionItemsCode" label="缴费类型" min-width="180"></el-table-column>
@@ -83,7 +97,8 @@
         <el-table-column prop="areaIndustryMoney" label="区县/产业分配金额" min-width="180"></el-table-column>
         <el-table-column prop="compPercent" label="企业分配比例" min-width="180"></el-table-column>
         <el-table-column prop="compMoney" label="企业分配金额" min-width="180"></el-table-column>
-        <el-table-column prop="distributionType" label="分配状态"></el-table-column>
+        <el-table-column prop="distributionTypeText" label="分配状态"></el-table-column>
+        <el-table-column prop="distributionDate" label="分配时间" min-width="100"></el-table-column>
       </el-table>
       <el-pagination
         style="margin: 15px 0"
@@ -111,7 +126,10 @@
                     distributionType: '',
                     dataType: 2,
                     taxBelongsCompId: '', // 新增
+                    distributionDateStart: '',
+                    distributionDateEnd: ''
                 },
+                daterange: [], // 日期数组
                 page:{
                     currPage: 1, // 当前页
                     pageSize: 30, // 每页条数
@@ -127,7 +145,8 @@
                 collectionItemsCodeOptions: [],
                 distributionTypeOptions: [],
                 compFirmlyTypeOptions: [],
-                selectbynameOption: []
+                selectbynameOption: [],
+                distributionList:[], // 经费分配数组
             }
         },
         mounted() {
@@ -136,9 +155,38 @@
             this.postBasetaxinfoSelectbyname()
         },
         methods: {
+            choosedistribution(){
+              if(this.distributionList.length > 0){
+                let data = {
+                    ids: this.distributionList
+                }
+                distributionManagementApis.postStoreTaxdistributionDistribution(data).then(res => {
+                    if (res.status === 200) {
+                        this.$message.success(res.message)
+                        this.tableData = []
+                        this.page.currPage = 1
+                        this.postStoreTaxdistributionList()
+                    } else {
+                        this.$message.error(res.message)
+                    }
+                })
+              }else{
+                this.$message.error('请先选择需要操作的数据！');
+              }
+            },
+            handleSelectionChange(val){
+              this.distributionList = []
+              val.forEach(item => {
+                this.distributionList.push(item.id)
+              })
+            },
+            changeDate(e) {
+                this.searchForm.distributionDateStart = e[0]
+                this.searchForm.distributionDateEnd = e[1]
+            },
             // 导出
             exportList(){
-                let formString = `taxPeriod=${this.searchForm.taxPeriod}&taxBelongsComp=${this.searchForm.taxBelongsComp}&collectionItemsCode=${this.searchForm.collectionItemsCode}&taxPayer=${this.searchForm.taxPayer}&compCode=${this.searchForm.compCode}&distributionType=${this.searchForm.distributionType}&dataType=${this.searchForm.dataType}&unionType=${this.searchForm.unionType}&taxBelongsCompId=${this.searchForm.taxBelongsCompId}`
+                let formString = `taxPeriod=${this.searchForm.taxPeriod}&taxBelongsComp=${this.searchForm.taxBelongsComp}&collectionItemsCode=${this.searchForm.collectionItemsCode}&taxPayer=${this.searchForm.taxPayer}&compCode=${this.searchForm.compCode}&distributionType=${this.searchForm.distributionType}&dataType=${this.searchForm.dataType}&unionType=${this.searchForm.unionType}&taxBelongsCompId=${this.searchForm.taxBelongsCompId}&distributionDateStart=${this.searchForm.distributionDateStart}&distributionDateEnd=${this.searchForm.distributionDateEnd}`
                 let pageString = `currPage=${this.page.currPage}&pageSize=${this.page.pageSize}`
                 let url = `/union/store/taxdistribution/downexcel?token=${sessionStorage.getItem('user_token')}&${formString}&${pageString}`
                 window.location.href = url
