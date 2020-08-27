@@ -50,6 +50,16 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="企业认定：">
+          <el-select size="mini" v-model="searchForm.compFirmlyType" placeholder="请输入">
+            <el-option
+              v-for="item in compFirmlyTypeOptions"
+              :key="item.k"
+              :label="item.v"
+              :value="item.k">
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="分配时间：">
           <el-date-picker
             size="mini"
@@ -126,7 +136,8 @@
                     dataType: 1,
                     taxBelongsCompId: '', // 新增
                     distributionDateStart: '',
-                    distributionDateEnd: ''
+                    distributionDateEnd: '',
+                    compFirmlyType: "", //企业认定：0 正常缴费企业 ，1：试点企业 2：微型企业 ,3:小型企业  字典key：compFirmlyType
                 },
                 daterange: [], // 日期数组
                 page:{
@@ -185,7 +196,7 @@
             },
             // 导出
             exportList(){
-                let formString = `taxPeriod=${this.searchForm.taxPeriod}&taxBelongsComp=${this.searchForm.taxBelongsComp}&collectionItemsCode=${this.searchForm.collectionItemsCode}&taxPayer=${this.searchForm.taxPayer}&compCode=${this.searchForm.compCode}&distributionType=${this.searchForm.distributionType}&dataType=${this.searchForm.dataType}&unionType=${this.searchForm.unionType}&taxBelongsCompId=${this.searchForm.taxBelongsCompId}&distributionDateStart=${this.searchForm.distributionDateStart}&distributionDateEnd=${this.searchForm.distributionDateEnd}`
+                let formString = `taxPeriod=${this.searchForm.taxPeriod}&taxBelongsComp=${this.searchForm.taxBelongsComp}&collectionItemsCode=${this.searchForm.collectionItemsCode}&taxPayer=${this.searchForm.taxPayer}&compCode=${this.searchForm.compCode}&distributionType=${this.searchForm.distributionType}&dataType=${this.searchForm.dataType}&unionType=${this.searchForm.unionType}&taxBelongsCompId=${this.searchForm.taxBelongsCompId}&compFirmlyType=${this.searchForm.compFirmlyType}&distributionDateStart=${this.searchForm.distributionDateStart}&distributionDateEnd=${this.searchForm.distributionDateEnd}`
                 let pageString = `currPage=${this.page.currPage}&pageSize=${this.page.pageSize}`
                 let url = `/union/store/taxdistribution/downexcel?token=${sessionStorage.getItem('user_token')}&${formString}&${pageString}`
                 window.location.href = url
