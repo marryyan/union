@@ -134,7 +134,7 @@
                 tableData: [],
                 page:{
                     currPage:1, // 当前页
-                    pageSize: 30, // 每页条数
+                    pageSize: 20, // 每页条数
                     totalCount: 1, // 总页数
                 },
                 centerText: '',

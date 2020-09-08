@@ -91,7 +91,7 @@ export default {
       tableData: [],
       page:{
         currPage:1, // 当前页
-        pageSize: 30, // 每页条数
+        pageSize: 20, // 每页条数
         totalPage: 100, // 总页数
       },
       centerText: '是否确定删除该税所机构库信息？',
