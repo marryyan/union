@@ -6,8 +6,8 @@
           <el-date-picker
             size="mini"
             v-model="searchForm.proDate"
-            type="date"
-            value-format="yyyy-MM-dd"
+            type="month"
+            value-format="yyyy-MM"
             placeholder="选择日期">
           </el-date-picker>
         </el-form-item>
@@ -70,7 +70,7 @@
                 tableData: [],
                 page:{
                     currPage: 1, // 当前页
-                    pageSize: 20, // 每页条数
+                    pageSize: 15, // 每页条数
                     totalPage: 100, // 总页数
                 },
                 centerText: '是否确定删除该入库对账信息？',
