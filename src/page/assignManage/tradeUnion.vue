@@ -257,12 +257,6 @@
                 distributionManagementApis.postStoreTaxdistributionList(data).then(res => {
                     if (res.status === 200) {
                         const { list, pageSize, totalPage, currPage } = res.result
-                        // this.page = {
-                        //     ...this.page,
-                        //     totalPage,
-                        //     currPage,
-                        //     pageSize,
-                        // }
                         this.page.totalPage = res.result.totalCount
                         this.tableData = list
                     } else {

@@ -1,36 +1,6 @@
 <template>
   <div class="wrapper">
     <div class="flex-right">
-      <!-- <el-form :inline="true" :model="formInline" class="demo-form-inline">
-        <el-form-item label="对方名称：">
-          <el-input size="mini" v-model="formInline.accountName" placeholder="请输入"></el-input>
-        </el-form-item>
-        <el-form-item label="征收税期：">
-          <el-date-picker
-            size="mini"
-            v-model="formInline.proDate"
-            type="date"
-            value-format="yyyy-MM-dd"
-            placeholder="选择日期">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="税款所属机关：">
-          <el-select v-model="value" placeholder="请选择"  size="mini">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="对方账号：">
-          <el-input size="mini" v-model="formInline.accountNumber" placeholder="请输入"></el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
-        </el-form-item>
-      </el-form> -->
       <div class="operation_btns">
         <el-button class="xlsButton" size="mini" type="warning" @click="exportList">下载模板</el-button>
         <el-button class="xlsButton" size="small" type="warning" @click="dialogVisible = true">xls导入</el-button>

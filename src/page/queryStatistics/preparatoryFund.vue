@@ -27,12 +27,10 @@
             <div class="submit-btn" @click="onSubmit">检索</div>
             <div>（请选择日期后查看数据）</div>
           </div>
-<!--          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>（请选择日期后查看数据）-->
         </el-form-item>
       </el-form>
       <div class="list" v-if="listData.length >0">
         <ul class="list-ul" v-for="(item, index) in listData" :key="index">
-         <!-- <li v-for="(itemSmall, indexSmall) in item" :key="indexSmall">{{itemSmall}}</li> -->
          <li>
            <span v-for="(itemSmall, indexSmall) in item" :key="indexSmall">{{itemSmall}}</span>
          </li>
@@ -166,13 +164,11 @@
   padding-right: 20px;
   box-sizing: border-box;
   .list-ul{
-    /*width: 1500px;*/
     box-sizing: border-box;
     width: fit-content;
     li{
       width: fit-content;
       line-height: 30px;
-      // border-bottom: 1px solid #cccccc;
       white-space: nowrap;
       span{
         width: 100px;

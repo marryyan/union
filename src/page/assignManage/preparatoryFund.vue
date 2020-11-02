@@ -74,7 +74,6 @@
         </el-form-item>
         <el-form-item>
           <div class="submit-btn" @click="onSubmit">检索</div>
-          <!-- <el-button size="mini" type="primary" @click="onSubmit">检索</el-button> -->
         </el-form-item>
       </el-form>
       <div class="operation_btns">
@@ -258,12 +257,6 @@
                 distributionManagementApis.postStoreTaxdistributionList(data).then(res => {
                     if (res.status === 200) {
                         const { list, pageSize, totalPage, currPage } = res.result
-                        // this.page = {
-                        //     ...this.page,
-                        //     totalPage,
-                        //     currPage,
-                        //     pageSize,
-                        // }
                         this.page.totalPage = res.result.totalCount
                         this.tableData = list
                     } else {

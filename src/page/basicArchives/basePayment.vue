@@ -65,7 +65,6 @@
                 :value="item.k">
               </el-option>
             </el-select>
-            <!-- <el-input placeholder="请输入" size="mini" v-model="formInfo.payInfo" style="width:250px"></el-input> -->
           </el-form-item>
           <el-form-item label="缴费比例：">
             <el-select size="mini" v-model="formInfo.payPercentPre" style="width: 120px" placeholder="请选择">

@@ -80,7 +80,6 @@
               :show-file-list="false"
               list-type="picture">
               <div class="submit-btn" style="width:100px">上传建会涵</div>
-              <!-- <el-button size="mini" type="warning">上传建会涵</el-button> -->
             </el-upload>
             <div>
               <img :src="unionLetterSrc" />
@@ -184,7 +183,6 @@
         </el-table> -->
       </el-tab-pane>
       <div class="submit-btn" @click="submitAdd(tabName)" style="width:80px; margin-left:100px">确定</div>
-      <!-- <el-button style="width:80px; margin-left:100px" size="small" type="primary" @click="submitAdd(tabName)">确定</el-button> -->
     </el-tabs>
   </div>
 </template>

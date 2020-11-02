@@ -24,11 +24,9 @@
         </el-form-item>
         <el-form-item>
             <div class="submit-btn" @click="onSubmit">检索</div>
-          <!-- <el-button size="mini" class="submit-btn" @click="onSubmit">检索</el-button> -->
         </el-form-item>
       </el-form>
       <div class="operation_btns">
-        <!-- <el-button class="xlsButton" size="mini" type="warning">xls导入</el-button> -->
         <el-button class="xlsButton" size="mini" type="warning" @click="addInfo">新建</el-button>
       </div>
       <el-table :data="tableData" stripe style="width: 100%">

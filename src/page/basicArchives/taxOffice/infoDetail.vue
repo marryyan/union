@@ -26,7 +26,6 @@
         <div class="detail-li-right">{{detailContent.phone}}</div>
       </div>
       <div class="submit-btn" @click="$router.go(-1)" style="width:80px; margin-left:100px">返回</div>
-      <!-- <el-button style="width:80px; margin-left:100px" size="small" type="primary" @click="$router.go(-1)">返回</el-button> -->
     </div>
   </div>
 </template>

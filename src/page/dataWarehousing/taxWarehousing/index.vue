@@ -1,60 +1,6 @@
 <template>
   <div class="wrapper">
     <div class="flex-right">
-      <!-- <el-form :inline="true" :model="searchForm" class="demo-form-inline">
-        <el-form-item label="所属税期：">
-          <el-date-picker
-            v-model="searchForm.taxPeriod"
-            size="mini"
-            type="month"
-            value-format="yyyy-MM"
-            placeholder="选择日期">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="所属区：">
-          <el-select v-model="searchForm.belongsArea" placeholder="请选择" size="mini">
-            <el-option
-              v-for="item in belongsAreaOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="税款所属 税务机关:">
-          <el-select v-model="searchForm.taxCollectionAuthority" placeholder="请选择" size="mini">
-            <el-option
-              v-for="item in taxCollectionAuthorityOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="收款国库：">
-          <el-select v-model="searchForm.receiveTreasury" placeholder="请选择" size="mini">
-            <el-option
-              v-for="item in receiveTreasuryOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="征收品目：">
-          <el-select v-model="searchForm.collectionItems" placeholder="请选择" size="mini">
-            <el-option
-              v-for="item in collectionItemsOptions"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>
-        </el-form-item>
-      </el-form> -->
       <div class="operation_btns">
         <el-button class="xlsButton" size="mini" type="warning" @click="exportList">下载模板</el-button>
         <el-button class="xlsButton" size="small" type="warning" @click="dialogVisible = true">xls导入</el-button>
@@ -81,14 +27,6 @@
         <el-table-column prop="receiveTreasury" label="收款国库"></el-table-column>
         <el-table-column prop="taxBelongsComp" label="征收税务机关" min-width="180"></el-table-column>
         <el-table-column prop="registCode" label="登记序号"></el-table-column>
-        <!-- <el-table-column label="操作" min-width="200">
-          <template slot-scope="scope">
-            <el-button size="mini" type="warning"
-                       @click="handleSubmit(scope.row)">确认提交</el-button>
-            <el-button size="mini" type="warning"
-                       @click="handleDelete(scope.row)">删除</el-button>
-          </template>
-        </el-table-column> -->
       </el-table>
       <el-pagination
         style="margin: 15px 0"

@@ -21,11 +21,9 @@
       </el-form-item>
       <el-form-item v-if="showAdd">
         <div class="submit-btn" @click="submitAdd('formLabelAlign')" style="width:80px">确认</div>
-        <!-- <el-button style="width:80px" size="small" type="primary" @click="submitAdd('formLabelAlign')">确认</el-button> -->
       </el-form-item>
       <el-form-item v-else>
         <div class="submit-btn" @click="submitEdit('formLabelAlign')" style="width:80px">修改</div>
-        <!-- <el-button style="width:80px" size="small" type="primary" @click="submitEdit('formLabelAlign')">修改</el-button> -->
       </el-form-item>
     </el-form>
   </div>

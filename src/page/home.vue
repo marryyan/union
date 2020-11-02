@@ -89,7 +89,7 @@
         </el-menu>
       </el-aside>
       <el-main style="height:100%;">
-        <div class="page_title"><i  @click="aaa" class="el-icon-arrow-left" style="font-size:18px; font-weight:bold;margin-right:5px;cursor: pointer;" ></i>{{$route.name}}</div>
+        <div class="page_title"><i  @click="goback" class="el-icon-arrow-left" style="font-size:18px; font-weight:bold;margin-right:5px;cursor: pointer;" ></i>{{$route.name}}</div>
         <router-view></router-view>
       </el-main>
     </el-container>
@@ -110,11 +110,8 @@ export default {
         this.getUserTreeMenu()
     },
     methods: {
-      aaa(){
-        // console.log(window.location)
-        // console.log(window.location.hash)
+      goback(){
         if (window.location.hash === '#/organization') {
-          // console.log(1111)
         }else{
           this.$router.go(-1)
         }

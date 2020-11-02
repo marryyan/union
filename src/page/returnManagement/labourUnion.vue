@@ -40,7 +40,6 @@
         </el-form-item>
         <el-form-item>
           <div class="submit-btn" @click="onSubmit">检索</div>
-<!--          <el-button size="mini" type="primary" @click="onSubmit">检索</el-button>-->
         </el-form-item>
       </el-form>
       <el-table :data="tableData" stripe style="width: 100%">
